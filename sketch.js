@@ -9,7 +9,6 @@ function preload() {
 function setup() {
   createCanvas(img.width, img.height);
   canvas.parent('sketch-holder'); // Attach canvas to the div with ID sketch-holder
-  noLoop();
   img.loadPixels();
 
 // Extract pixels and store them as point coordinates
