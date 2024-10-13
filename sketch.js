@@ -3,7 +3,7 @@ let points = [];
 let currentPoint = 0;
 
 function preload() {
-  img = loadImage("images/test01.jpg"); // Replace with the correct path of your image
+  img = loadImage("images/test01 - mid.jpg"); // Replace with the correct path of your image
 }
 
 function setup() {
