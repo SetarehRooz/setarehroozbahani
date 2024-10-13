@@ -26,7 +26,6 @@ function setup() {
       }
     }
   }
-
   // Shuffle the points to randomize the order of drawing
   shuffle(points, true); 
   background(255);
@@ -35,7 +34,7 @@ function setup() {
 function draw() {
   // Render points over time
   if (currentPoint < points.length) {
-    for (let i = 0; i < 50; i++) { 
+    for (let i = 0; i < 30; i++) { 
       if (currentPoint >= points.length) break;
 
       let pt = points[currentPoint];
