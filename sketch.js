@@ -35,7 +35,7 @@ function setup() {
 function draw() {
   // Render points over time
   if (currentPoint < points.length) {
-    for (let i = 0; i < 50; i++) { // Draw 50 points per frame for a smoother gradual effect
+    for (let i = 0; i < 5; i++) { 
       if (currentPoint >= points.length) break;
 
       let pt = points[currentPoint];
