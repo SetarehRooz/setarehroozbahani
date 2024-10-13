@@ -13,42 +13,53 @@
             font-family: 'DejaVu Sans Mono', monospace;
             margin: 0;
             padding: 0;
+            display: flex; /* Use flexbox to center content */
+            flex-direction: column; /* Align items vertically */
+            align-items: center; /* Center horizontally */
+            height: 100vh; /* Full viewport height */
         }
+        
         header {
             display: flex;
             justify-content: space-between;
             padding: 20px;
-            color: #542b38;
+            width: 100%; /* Full width */
+            max-width: 800px; /* Optional max width */
         }
+        
         .name {
-    
             font-size: 1.7em;
             font-weight: bold;
             margin-right: 20px;
             color: #542b38;
         }
+        
         .name a {
             text-decoration: none;
-             color: #542b38;
+            color: #542b38;
         }
 
         .name a:hover {
             color: #FFD700; /* Optional hover effect */
         }
+        
         nav {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+        
         nav a {
             margin: 0 15px;
             text-decoration: none;
             color: #542b38;
             font-size: 1.1em;
         }
+        
         nav a:hover {
             color: #FFD700;
         }
+        
         footer {
             text-align: left;
             padding: 20px;
@@ -57,6 +68,21 @@
             width: 100%;
             bottom: 0;
             font-size: 0.8em;
+        }
+
+        main {
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            flex: 1; /* Allow main to take available space */
+            width: 100%; /* Full width */
+        }
+
+        #sketch-holder {
+            display: flex; /* Center the sketch holder */
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #542b38; /* Optional border for visualization */
         }
     </style>
 </head>
@@ -71,17 +97,16 @@
     </nav>
 </header>
 
-    <!-- Create a container for the p5.js sketch -->
 <main>
     <div id="sketch-holder"></div> <!-- This div will hold the canvas -->
 </main>
-    
+
 <footer>
     &copy; 2024 Setareh Roozbahani
 </footer>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-        <script src="sketch.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<script src="sketch.js"></script>
 
 </body>
 </html>
