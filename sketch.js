@@ -4,6 +4,7 @@ let currentPoint = 0;
 
 function preload() {
   img = loadImage("images/test01 - mid.jpg"); // Replace with the correct path of your image
+  console.log(img.width, img.height);
 }
 
 function setup() {
