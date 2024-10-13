@@ -1,4 +1,4 @@
-page: let img;
+let img;
 let points = [];
 let currentPoint = 0;
 
@@ -8,10 +8,10 @@ function preload() {
 
 function setup() {
   createCanvas(img.width, img.height);
-  canvas.parent('sketch-holder'); // Attach canvas to the div with ID sketch-holder
+  canvas.parent('sketch-holder'); // Attach canvas to the div with ID 'sketch-holder'
   img.loadPixels();
 
-// Extract pixels and store them as point coordinates
+  // Extract pixels and store them as point coordinates
   for (let x = 0; x < img.width; x++) {
     for (let y = 0; y < img.height; y++) {
       let index = (x + y * img.width) * 4;
@@ -26,13 +26,16 @@ function setup() {
       }
     }
   }
+
+  // Shuffle the points to randomize the order of drawing
+  shuffle(points, true); 
   background(255);
 }
 
 function draw() {
   // Render points over time
   if (currentPoint < points.length) {
-    for (let i = 0; i < 10; i++) { 
+    for (let i = 0; i < 50; i++) { // Draw 50 points per frame for a smoother gradual effect
       if (currentPoint >= points.length) break;
 
       let pt = points[currentPoint];
