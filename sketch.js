@@ -1,16 +1,18 @@
-let img;
+page: let img;
 let points = [];
+let currentPoint = 0;
 
 function preload() {
   img = loadImage("images/test01 - mid.jpg"); // Replace with the correct path of your image
 }
 
 function setup() {
-  let canvas = createCanvas(img.width, img.height);
-  canvas.parent('sketch-holder'); // Attach canvas to the div with ID 'sketch-holder'
+  createCanvas(img.width, img.height);
+  canvas.parent('sketch-holder'); // Attach canvas to the div with ID sketch-holder
+  noLoop();
   img.loadPixels();
 
-  // Extract pixels and store them as point coordinates
+// Extract pixels and store them as point coordinates
   for (let x = 0; x < img.width; x++) {
     for (let y = 0; y < img.height; y++) {
       let index = (x + y * img.width) * 4;
@@ -25,14 +27,20 @@ function setup() {
       }
     }
   }
-  
-  background(255); // Set a white background
+  background(255);
+}
 
-  // Draw all points at once
-  for (let i = 0; i < points.length; i++) {
-    let pt = points[i];
-    stroke(pt.color); // Set stroke color to the point's color
-    strokeWeight(1);
-    point(pt.pos.x, pt.pos.y); // Draw the point
+function draw() {
+  // Render points over time
+  if (currentPoint < points.length) {
+    for (let i = 0; i < 100; i++) { // Draw 100 points per frame for speed
+      if (currentPoint >= points.length) break;
+
+      let pt = points[currentPoint];
+      stroke(pt.color); // Set stroke color to the point's color
+      strokeWeight(1);
+      point(pt.pos.x, pt.pos.y); // Draw the point
+      currentPoint++;
+    }
   }
 }
