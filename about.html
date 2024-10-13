@@ -8,40 +8,58 @@
         @import url('https://fonts.googleapis.com/css2?family=DejaVu+Sans+Mono&display=swap');
         
         body {
-            background-color: #542b38;
-            color: #D3D3D3;
+            background-color: #FFFFFF;
+            color: #542b38;
             font-family: 'DejaVu Sans Mono', monospace;
             margin: 0;
-            padding: 50px;
-            text-align: center;
+            padding: 0;
         }
         header {
+            display: flex;
+            justify-content: space-between;
             padding: 20px;
-            background-color: #333;
-            color: white;
-            text-align: center;
+            color: #542b38;
         }
-        .content {
-            padding: 50px;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
+        .name {
+            font-size: 1.7em;
+            font-weight: bold;
+            margin-right: 20px;
+            color: #542b38;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #542b38;
+            font-size: 1.1em;
+        }
+        nav a:hover {
+            color: #FFD700;
         }
         footer {
-            text-align: center;
+            text-align: left;
             padding: 20px;
-            background-color: #333;
-            color: white;
+            color: #542b38;
             position: fixed;
             width: 100%;
             bottom: 0;
+            font-size: 0.8em;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>About Setareh Roozbahani</h1>
+    <div class="name">Setareh Roozbahani</div>
+    <nav>
+        <a href="about.html">About</a>
+        <a href="works.html">Works</a>
+        <a href="contact.html">Contact</a>
+    </nav>
 </header>
 
 <div class="content">
