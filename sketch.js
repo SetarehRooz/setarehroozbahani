@@ -32,7 +32,7 @@ function setup() {
 function draw() {
   // Render points over time
   if (currentPoint < points.length) {
-    for (let i = 0; i < 100; i++) { // Draw 100 points per frame for speed
+    for (let i = 0; i < 50; i++) { 
       if (currentPoint >= points.length) break;
 
       let pt = points[currentPoint];
