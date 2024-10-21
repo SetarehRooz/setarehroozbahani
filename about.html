@@ -8,62 +8,118 @@
         @import url('https://fonts.googleapis.com/css2?family=DejaVu+Sans+Mono&display=swap');
         
         body {
-            background-color: #FFFFFF;
-            color: #542b38;
+            background-color: #000000;
+            color: #784A59;
             font-family: 'DejaVu Sans Mono', monospace;
             margin: 0;
             padding: 0;
         }
+
         header {
             display: flex;
             justify-content: space-between;
             padding: 20px;
-            color: #542b38;
+            color: #784A59;
         }
+
         .name {
             font-size: 1.7em;
             font-weight: bold;
             margin-right: 20px;
-            color: #542b38;
+            color: #784A59;
         }
+
         .name a {
             text-decoration: none;
-             color: #542b38;
+            color: #784A59;
         }
 
         .name a:hover {
             color: #FFD700; /* Optional hover effect */
         }
+
         nav {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         nav a {
             margin: 0 15px;
             text-decoration: none;
-            color: #542b38;
+            color: #784A59;
             font-size: 1.1em;
         }
+
         nav a:hover {
             color: #FFD700;
         }
+
         .content {
-            padding: 20px;
-            padding-right: 800px;
-            max-width: 500px;
-            text-align: justify;
+            padding: 40px 20px; /* More padding for larger screens */
+            max-width: 700px;
+            text-align: left;
             font-size: 1em;
         }
+
         footer {
             text-align: left;
             padding: 20px;
             color: #542b38;
-            position: fixed;
             width: 100%;
             bottom: 0;
             font-size: 0.8em;
         }
+
+        /* Media Queries for Responsive Design */
+
+        /* For tablets and smaller screens */
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+                max-width: 90%; /* Make content take up more width */
+            }
+
+            nav a {
+                margin: 0 10px;
+                font-size: 1em;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 10px;
+            }
+        }
+
+        /* For mobile phones */
+        @media (max-width: 480px) {
+            .content {
+                padding: 10px;
+                max-width: 100%; /* Full-width content on mobile */
+                font-size: 0.9em;
+            }
+
+            .name {
+                font-size: 1.5em;
+            }
+
+            nav a {
+                margin: 0 5px;
+                font-size: 0.9em;
+            }
+
+            header {
+                padding: 10px;
+            }
+
+            footer {
+                font-size: 0.7em;
+                padding: 10px;
+            }
+        }
+
     </style>
 </head>
 <body>
