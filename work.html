@@ -9,7 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=DejaVu+Sans+Mono&display=swap');
         
         body {
-            background-color: #FFFFFF;
+            background-color: #636363;
             color: #542b38;
             font-family: 'DejaVu Sans Mono', monospace;
             margin: 0;
@@ -70,8 +70,8 @@
         .image-container {
             display: flex;
             justify-content: space-between;
-            padding: 50px;
-            margin-bottom: 10px;
+            
+            margin-bottom: 50px;
         }
 
         .left-images {
@@ -79,12 +79,13 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            margin-bottom: 10px;
+            margin-bottom: 50px;
         }
 
         .left-images img {
             width: 100%;
             cursor: pointer;
+            margin-bottom: 50px;
             transition: transform 0.5s ease-in-out;
         }
 
@@ -92,21 +93,6 @@
             transform: scale(1.05);
         }
 
-        /* Main gallery for displaying images in the center */
-        #project-display {
-            width: 50%;
-            height: 100vh;
-            margin: 10px;
-            display: none; /* Initially hidden */
-            overflow-y: scroll; /* For vertical scrolling */
-            background-color: #f0f0f0;
-            padding: 10px;
-        }
-
-        #project-display img {
-            width: 100%;
-            margin-bottom: 10px;
-        }
 
     </style>
 </head>
@@ -129,9 +115,6 @@
         <img src="images/Extended Liminal_00.jpg" alt="Extended Liminal" onclick="showProject('extended')">
     </div>
 
-    <div id="project-display">
-        <!-- The central area for vertical scrollable images will go here -->
-    </div>
 
 </div>
 
