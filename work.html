@@ -22,7 +22,6 @@
             color: #542b38;
         }
         .name {
-    
             font-size: 1.7em;
             font-weight: bold;
             margin-right: 20px;
@@ -30,11 +29,10 @@
         }
         .name a {
             text-decoration: none;
-             color: #542b38;
+            color: #542b38;
         }
-
         .name a:hover {
-            color: #FFD700; /* Optional hover effect */
+            color: #FFD700;
         }
         nav {
             display: flex;
@@ -59,15 +57,25 @@
             bottom: 0;
             font-size: 0.8em;
         }
-        
-  #sketch-holder {
-    width: 25%; /* or you can set a specific width */
-    height: 25%; /* Make sure it adjusts automatically to the content */
-    display: flex; 
-    justify-content: center; /* Centering the canvas horizontally */
-    align-items: center; /* Centering the canvas vertically */
-  }
 
+        /* Style the images and the container */
+        .image-gallery {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px;
+        }
+        .image-gallery img {
+            width: 200px;
+            height: auto;
+            border: 2px solid #542b38;
+            transition: transform 0.3s ease-in-out;
+        }
+        .image-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .image-gallery a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -81,16 +89,19 @@
     </nav>
 </header>
 
-    <!-- Create a container for the p5.js sketch -->
 <main>
-  
+    <!-- Image gallery -->
+    <div class="image-gallery">
+        <!-- First image linking to another page -->
+        <a href="project1.html">
+            <img src="images/Spheres of Influence_02_a Continuum of Influences.jpg" alt="Project 1">
+        </a>
+    </div>
 </main>
     
 <footer>
     &copy; 2024 Setareh Roozbahani
 </footer>
 
-
 </body>
 </html>
-`
