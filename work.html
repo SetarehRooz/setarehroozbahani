@@ -66,27 +66,27 @@
             font-size: 0.8em;
         }
 
-        /* Layout: Left and Right Image Containers */
+        /* Layout: Left Image Container and Display Area */
         .image-container {
             display: flex;
             justify-content: space-between;
             padding: 50px;
         }
 
-        .left-images, .right-images {
+        .left-images {
             width: 25%;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
         }
 
-        .left-images img, .right-images img {
-            width: 100%; /* Makes images bigger */
+        .left-images img {
+            width: 100%;
             cursor: pointer;
             transition: transform 0.5s ease-in-out;
         }
 
-        .left-images img:hover, .right-images img:hover {
+        .left-images img:hover {
             transform: scale(1.05);
         }
 
@@ -106,15 +106,6 @@
             margin-bottom: 10px;
         }
 
-        /* Animation for moving images */
-        .active {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 50%;
-            transform: translateX(-50%);
-        }
-
     </style>
 </head>
 <body>
@@ -131,15 +122,15 @@
 <!-- Image Layout -->
 <div class="image-container">
     <div class="left-images">
-        <img src="images/Spheres of Influence_02_a Continuum of Influences.jpg" alt="Project 1" onclick="showProject(1)">
-        <img src="images/14thSep_Process04.jpg" alt="Project 3" onclick="showProject(3)">
+        <!-- Replace these paths with the actual paths to your images -->
+        <img src="images/Spheres of Influence_00.jpg" alt="Spheres of Influence" onclick="showProject('spheres')">
+        <img src="images/Extended Liminal_00.jpg" alt="Extended Liminal" onclick="showProject('extended')">
     </div>
 
     <div id="project-display">
         <!-- The central area for vertical scrollable images will go here -->
     </div>
 
-   
 </div>
 
 <footer>
@@ -148,19 +139,35 @@
 
 <script>
     // Function to show project gallery in the center
-    function showProject(projectNumber) {
+    function showProject(projectName) {
         var display = document.getElementById("project-display");
         display.style.display = "block"; // Show the center display
 
         // Remove existing images
         display.innerHTML = "";
 
-        // Load specific images based on project clicked
-        for (var i = 1; i <= 5; i++) {
-            var img = document.createElement("img");
-            img.src = "images/project" + projectNumber + "/img" + i + ".jpg";
-            display.appendChild(img);
+        // Depending on projectName, load specific images
+        var imagePaths = [];
+        if (projectName === 'spheres') {
+            imagePaths = [
+                'images/Spheres_of_Influence_01.jpg',
+                'images/Spheres_of_Influence_02.jpg',
+            
+            ];
+        } else if (projectName === 'extended') {
+            imagePaths = [
+                'images/Extended Liminal_01.jpg',
+                'images/Extended Liminal_02.jpg',
+                
+            ];
         }
+
+        // Dynamically create and append images to the display
+        imagePaths.forEach(function(path) {
+            var img = document.createElement("img");
+            img.src = path;
+            display.appendChild(img);
+        });
     }
 </script>
 
