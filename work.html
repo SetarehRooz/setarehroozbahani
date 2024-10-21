@@ -83,19 +83,18 @@
         .left-images img {
             width: 100%;
             cursor: pointer;
-            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            transition: transform 0.5s ease-in-out;
         }
 
         .left-images img:hover {
             transform: scale(1.05);
-            opacity: 0.8;
         }
 
         /* Main gallery for displaying images in the center */
         #project-display {
             width: 50%;
             height: 100vh;
-            margin: auto;
+            margin: 10px;
             display: none; /* Initially hidden */
             overflow-y: scroll; /* For vertical scrolling */
             background-color: #f0f0f0;
@@ -104,18 +103,7 @@
 
         #project-display img {
             width: 100%;
-            margin-bottom: 10px; /* Add margin between images */
-        }
-
-        /* Full-page overlay to detect click outside the project gallery */
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Transparent overlay */
-            display: none; /* Hidden by default */
+            margin-bottom: 50px;
         }
 
     </style>
@@ -135,65 +123,20 @@
 <div class="image-container">
     <div class="left-images">
         <!-- Replace these paths with the actual paths to your images -->
-        <img src="images/Spheres_of_Influence_00.jpg" alt="Spheres of Influence" onclick="showProject('spheres')">
-        <img src="images/Extended_Liminal_00.jpg" alt="Extended Liminal" onclick="showProject('extended')">
+        <img src="images/Spheres of Influence_00.jpg" alt="Spheres of Influence" onclick="showProject('spheres')">
+        <img src="images/Extended Liminal_00.jpg" alt="Extended Liminal" onclick="showProject('extended')">
     </div>
 
     <div id="project-display">
         <!-- The central area for vertical scrollable images will go here -->
     </div>
-</div>
 
-<!-- Full-page overlay for closing the gallery by clicking outside -->
-<div id="overlay" onclick="closeProject()"></div>
+</div>
 
 <footer>
     &copy; 2024 Setareh Roozbahani
 </footer>
 
-<script>
-    // Function to show project gallery in the center
-    function showProject(projectName) {
-        var display = document.getElementById("project-display");
-        var overlay = document.getElementById("overlay");
-
-        display.style.display = "block"; // Show the center display
-        overlay.style.display = "block"; // Show the overlay
-
-        // Remove existing images
-        display.innerHTML = "";
-
-        // Depending on projectName, load specific images
-        var imagePaths = [];
-        if (projectName === 'spheres') {
-            imagePaths = [
-                'images/Spheres_of_Influence_01.jpg',
-                'images/Spheres_of_Influence_02.jpg'
-            ];
-        } else if (projectName === 'extended') {
-            imagePaths = [
-                'images/Extended_Liminal_01.jpg',
-                'images/Extended_Liminal_02.jpg'
-            ];
-        }
-
-        // Dynamically create and append images to the display
-        imagePaths.forEach(function(path) {
-            var img = document.createElement("img");
-            img.src = path;
-            display.appendChild(img);
-        });
-    }
-
-    // Function to close the project display and overlay
-    function closeProject() {
-        var display = document.getElementById("project-display");
-        var overlay = document.getElementById("overlay");
-
-        display.style.display = "none";
-        overlay.style.display = "none";
-    }
-</script>
 
 </body>
 </html>
