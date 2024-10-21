@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setareh Roozbahani - Projects</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DejaVu+Sans+Mono&display=swap');
+        
+        body {
+            background-color: #FFFFFF;
+            color: #542b38;
+            font-family: 'DejaVu Sans Mono', monospace;
+            margin: 0;
+            padding: 0;
+        }
 
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            color: #542b38;
+        }
+
+        .name {
+            font-size: 1.7em;
+            font-weight: bold;
+            margin-right: 20px;
+            color: #542b38;
+        }
+
+        .name a {
+            text-decoration: none;
+            color: #542b38;
+        }
+
+        .name a:hover {
+            color: #FFD700;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #542b38;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            color: #FFD700;
+        }
+
+        footer {
+            text-align: left;
+            padding: 20px;
+            color: #542b38;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 0.8em;
+        }
+
+        /* Layout: Left Image Container and Display Area */
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 50px;
+        }
+
+        .left-images {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+
+        .left-images img {
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .left-images img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Main gallery for displaying images in the center */
+        #project-display {
+            width: 50%;
+            height: 100vh;
+            margin: 10px;
+            display: none; /* Initially hidden */
+            overflow-y: scroll; /* For vertical scrolling */
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+
+        #project-display img {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="name"><a href="work.html">Setareh Roozbahani</a></div>
+    <nav>
+        <a href="work.html">Work</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<!-- Image Layout -->
+<div class="image-container">
+    <div class="left-images">
+        <!-- Replace these paths with the actual paths to your images -->
+        <img src="images/Spheres of Influence_00.jpg" alt="Spheres of Influence" onclick="showProject('spheres')">
+        <img src="images/Extended Liminal_00.jpg" alt="Extended Liminal" onclick="showProject('extended')">
+    </div>
+
+    <div id="project-display">
+        <!-- The central area for vertical scrollable images will go here -->
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2024 Setareh Roozbahani
+</footer>
+
+
+</body>
+</html>
