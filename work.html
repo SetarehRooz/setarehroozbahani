@@ -15,39 +15,47 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             display: flex;
             justify-content: space-between;
             padding: 20px;
             color: #542b38;
         }
+
         .name {
             font-size: 1.7em;
             font-weight: bold;
             margin-right: 20px;
             color: #542b38;
         }
+
         .name a {
             text-decoration: none;
             color: #542b38;
         }
+
         .name a:hover {
             color: #FFD700;
         }
+
         nav {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         nav a {
             margin: 0 15px;
             text-decoration: none;
             color: #542b38;
             font-size: 1.1em;
         }
+
         nav a:hover {
             color: #FFD700;
         }
+
         footer {
             text-align: left;
             padding: 20px;
@@ -58,24 +66,55 @@
             font-size: 0.8em;
         }
 
-        /* Style the images and the container */
-        .image-gallery {
+        /* Layout: Left and Right Image Containers */
+        .image-container {
             display: flex;
+            justify-content: space-between;
+            padding: 50px;
+        }
+
+        .left-images, .right-images {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
             justify-content: space-around;
-            margin: 40px;
         }
-        .image-gallery img {
-            width: 200px;
-            height: auto;
-            border: 2px solid #542b38;
-            transition: transform 0.3s ease-in-out;
+
+        .left-images img, .right-images img {
+            width: 100%; /* Makes images bigger */
+            cursor: pointer;
+            transition: transform 0.5s ease-in-out;
         }
-        .image-gallery img:hover {
+
+        .left-images img:hover, .right-images img:hover {
             transform: scale(1.05);
         }
-        .image-gallery a {
-            text-decoration: none;
+
+        /* Main gallery for displaying images in the center */
+        #project-display {
+            width: 50%;
+            height: 100vh;
+            margin: auto;
+            display: none; /* Initially hidden */
+            overflow-y: scroll; /* For vertical scrolling */
+            background-color: #f0f0f0;
+            padding: 10px;
         }
+
+        #project-display img {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /* Animation for moving images */
+        .active {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            transform: translateX(-50%);
+        }
+
     </style>
 </head>
 <body>
@@ -89,19 +128,41 @@
     </nav>
 </header>
 
-<main>
-    <!-- Image gallery -->
-    <div class="image-gallery">
-        <!-- First image linking to another page -->
-        <a href="project1.html">
-            <img src="images/Spheres of Influence_02_a Continuum of Influences.jpg" alt="Project 1">
-        </a>
+<!-- Image Layout -->
+<div class="image-container">
+    <div class="left-images">
+        <img src="images/Spheres of Influence_02_a Continuum of Influences.jpg" alt="Project 1" onclick="showProject(1)">
+        <img src="images/14thSep_Process04.jpg" alt="Project 3" onclick="showProject(3)">
     </div>
-</main>
-    
+
+    <div id="project-display">
+        <!-- The central area for vertical scrollable images will go here -->
+    </div>
+
+   
+</div>
+
 <footer>
     &copy; 2024 Setareh Roozbahani
 </footer>
+
+<script>
+    // Function to show project gallery in the center
+    function showProject(projectNumber) {
+        var display = document.getElementById("project-display");
+        display.style.display = "block"; // Show the center display
+
+        // Remove existing images
+        display.innerHTML = "";
+
+        // Load specific images based on project clicked
+        for (var i = 1; i <= 5; i++) {
+            var img = document.createElement("img");
+            img.src = "images/project" + projectNumber + "/img" + i + ".jpg";
+            display.appendChild(img);
+        }
+    }
+</script>
 
 </body>
 </html>
