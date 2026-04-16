@@ -25,6 +25,9 @@
 </div>
 <div id="node-label"></div>
 
+<!-- mobile hint — only visible on small screens, auto-fades -->
+<div id="mobile-hint">DRAG · PINCH · TAP NODES</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 
@@ -377,6 +380,12 @@ const clock = new THREE.Clock();
 
   renderer.render(scene, camera);
 })();
+
+// fade out mobile hint after 4 seconds
+const mobileHint = document.getElementById('mobile-hint');
+if (mobileHint) {
+  setTimeout(() => { mobileHint.style.opacity = '0'; }, 4000);
+}
 
 </script>
 </body>
