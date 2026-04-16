@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Setareh Roozbahani - Wireframe</title>
+  <title>Setareh Roozbahani - Wireframe Home</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="loading">LOADING<span id="load-sub">fetching mesh.json...</span></div>
+<div id="loading">LOADING MESH<span id="load-sub">fetching mesh.json...</span></div>
 <div id="info">LEFT DRAG — orbit &nbsp;·&nbsp; SCROLL — zoom &nbsp;·&nbsp; RIGHT DRAG — pan</div>
 
 <div id="controls">
@@ -18,14 +18,12 @@
   <button class="toggle active" id="btn-colors">VERTEX COLORS</button>
 </div>
 
-<div id="name-top">Setareh Roozbahani</div>
 <div id="stats"></div>
-
+<div id="name-top">Setareh Roozbahani</div>
 <div id="name-bottom">
   <span id="sig-name">Setareh Roozbahani</span>
   <span id="sig-year">2026</span>
 </div>
-
 <div id="node-label"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -50,14 +48,11 @@ d2.position.set(-2, -1, -1); scene.add(d2);
 // ── Camera ────────────────────────────────────────────────────────────────────
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 2000);
 
-// ── Spherical coords — current (rendered) and target (where we're heading) ───
-// Damping: current values lag behind target values each frame → smooth feel
-let sph    = { theta: 0, phi: 1.55, radius: 100 };
-let sphTgt = { theta: 0, phi: 1.55, radius: 100 };
-const DAMP = 0.1; // 0 = no movement, 1 = instant, ~0.08–0.12 = smooth
-
-let target    = new THREE.Vector3();
-let targetTgt = new THREE.Vector3();
+// ── Orbit controls ────────────────────────────────────────────────────────────
+let isDragging = false, isRight = false;
+let prevMouse = { x: 0, y: 0 };
+let sph = { theta: 0, phi: 1.55, radius: 100 };
+let target = new THREE.Vector3();
 
 function updateCamera() {
   const sp = Math.sin(sph.phi);
@@ -69,19 +64,7 @@ function updateCamera() {
   camera.lookAt(target);
 }
 
-// Lerp target → current each frame
-function dampCamera() {
-  sph.theta  += (sphTgt.theta  - sph.theta)  * DAMP;
-  sph.phi    += (sphTgt.phi    - sph.phi)    * DAMP;
-  sph.radius += (sphTgt.radius - sph.radius) * DAMP;
-  target.lerp(targetTgt, DAMP);
-  updateCamera();
-}
-
 // ── Mouse ─────────────────────────────────────────────────────────────────────
-let isDragging = false, isRight = false;
-let prevMouse = { x: 0, y: 0 };
-
 renderer.domElement.addEventListener('mousedown', e => {
   isDragging = true;
   isRight = e.button === 2;
@@ -89,7 +72,6 @@ renderer.domElement.addEventListener('mousedown', e => {
 });
 renderer.domElement.addEventListener('contextmenu', e => e.preventDefault());
 window.addEventListener('mouseup', () => { isDragging = false; });
-
 window.addEventListener('mousemove', e => {
   if (!isDragging) return;
   const dx = e.clientX - prevMouse.x;
@@ -99,16 +81,17 @@ window.addEventListener('mousemove', e => {
     const s = sph.radius * 0.0012;
     const right = new THREE.Vector3(), up = new THREE.Vector3();
     camera.matrix.extractBasis(right, up, new THREE.Vector3());
-    targetTgt.addScaledVector(right, -dx * s);
-    targetTgt.addScaledVector(up,     dy * s);
+    target.addScaledVector(right, -dx * s);
+    target.addScaledVector(up,    dy * s);
   } else {
-    sphTgt.theta -= dx * 0.005;
-    sphTgt.phi = Math.max(0.05, Math.min(Math.PI - 0.05, sphTgt.phi - dy * 0.005));
+    sph.theta -= dx * 0.005;
+    sph.phi = Math.max(0.05, Math.min(Math.PI - 0.05, sph.phi - dy * 0.005));
   }
+  updateCamera();
 });
-
 renderer.domElement.addEventListener('wheel', e => {
-  sphTgt.radius = Math.max(2, Math.min(800, sphTgt.radius * (1 + e.deltaY * 0.001)));
+  sph.radius = Math.max(2, Math.min(800, sph.radius * (1 + e.deltaY * 0.001)));
+  updateCamera();
 }, { passive: true });
 
 // ── Touch ─────────────────────────────────────────────────────────────────────
@@ -126,15 +109,17 @@ renderer.domElement.addEventListener('touchmove', e => {
   if (e.touches.length === 1 && t1) {
     const dx = e.touches[0].clientX - t1.x;
     const dy = e.touches[0].clientY - t1.y;
-    sphTgt.theta -= dx * 0.005;
-    sphTgt.phi = Math.max(0.05, Math.min(Math.PI - 0.05, sphTgt.phi - dy * 0.005));
+    sph.theta -= dx * 0.005;
+    sph.phi = Math.max(0.05, Math.min(Math.PI - 0.05, sph.phi - dy * 0.005));
     t1 = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    updateCamera();
   } else if (e.touches.length === 2) {
     const ax = e.touches[0].clientX, ay = e.touches[0].clientY;
     const bx = e.touches[1].clientX, by = e.touches[1].clientY;
     const dist = Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
     if (prevDist !== null) {
-      sphTgt.radius = Math.max(2, Math.min(800, sphTgt.radius * (prevDist / dist)));
+      sph.radius = Math.max(2, Math.min(800, sph.radius * (prevDist / dist)));
+      updateCamera();
     }
     prevDist = dist;
     t1 = { x: ax, y: ay };
@@ -149,78 +134,74 @@ renderer.domElement.addEventListener('touchend', e => {
   if (e.touches.length >= 2) t2 = { x: e.touches[1].clientX, y: e.touches[1].clientY };
 }, { passive: false });
 
-// ── Nav nodes ─────────────────────────────────────────────────────────────────
+// ── Nav nodes definition ──────────────────────────────────────────────────────
+// Positions are in Houdini world space — placed on the mesh surface
+// Adjust these XYZ values to move nodes to different spots on your model
 const NAV_NODES = [
-  { label: 'PROJECTS', href: 'projects.html', pos: new THREE.Vector3(-5,  20,  2) },
-  { label: 'RESEARCH', href: 'research.html', pos: new THREE.Vector3( 8,  18, -4) },
-  { label: 'ABOUT',    href: 'about.html',    pos: new THREE.Vector3(-12, 10, -2) },
+  { label: 'PROJECTS', href: 'projects.html', pos: new THREE.Vector3(-5,  20,  2)  },
+  { label: 'RESEARCH', href: 'research.html', pos: new THREE.Vector3( 8,  18, -4)  },
+  { label: 'ABOUT',    href: 'about.html',    pos: new THREE.Vector3(-12, 10, -2)  },
 ];
 
-const nodeObjects = [];
-const raycaster   = new THREE.Raycaster();
-const mouse2D     = new THREE.Vector2();
-const nodeLabel   = document.getElementById('node-label');
-let hoveredNode   = null;
+// Will hold Three.js objects for each node
+const nodeObjects = []; // { sphere, ring, data }
+const raycaster = new THREE.Raycaster();
+const mouse2D = new THREE.Vector2();
+const nodeLabel = document.getElementById('node-label');
+let hoveredNode = null;
 
 function buildNavNodes() {
   NAV_NODES.forEach((n, i) => {
     const group = new THREE.Group();
     group.position.copy(n.pos);
 
-    // Core dot
-    const dot = new THREE.Mesh(
-      new THREE.SphereGeometry(0.45, 16, 16),
-      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.85 })
-    );
+    // Core dot — larger than point cloud so it's clearly clickable
+    const dotGeo = new THREE.SphereGeometry(0.35, 12, 12);
+    const dotMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 });
+    const dot = new THREE.Mesh(dotGeo, dotMat);
     group.add(dot);
 
-    // Pulsing ring
-    const ring = new THREE.Mesh(
-      new THREE.RingGeometry(0.65, 0.88, 32),
-      new THREE.MeshBasicMaterial({ color: 0xc87882, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
-    );
+    // Outer pulsing ring (flat disc facing camera — updated in animate loop)
+    const ringGeo = new THREE.RingGeometry(0.55, 0.75, 32);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0xc87882,
+      transparent: true,
+      opacity: 0.6,
+      side: THREE.DoubleSide,
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
     group.add(ring);
 
     scene.add(group);
-    nodeObjects.push({ group, dot, ring, data: n });
+    nodeObjects.push({ group, dot, ring, data: n, index: i });
   });
 }
 
-// Convert 3D world pos → 2D screen px
-function worldToScreen(pos3d) {
+// Project node position to 2D screen coords
+function toScreen(pos3d) {
   const v = pos3d.clone().project(camera);
   return {
-    x: ( v.x * 0.5 + 0.5) * window.innerWidth,
+    x: (v.x * 0.5 + 0.5) * window.innerWidth,
     y: (-v.y * 0.5 + 0.5) * window.innerHeight,
   };
 }
 
-// Update tooltip position above its node each frame
-function updateNodeLabel() {
-  if (!hoveredNode) return;
-  const screen = worldToScreen(hoveredNode.group.position);
-  nodeLabel.style.left = screen.x + 'px';
-  nodeLabel.style.top  = (screen.y - 18) + 'px'; // slightly above dot
-}
-
-// ── Hover (mouse) ─────────────────────────────────────────────────────────────
+// ── Hover detection (mouse) ───────────────────────────────────────────────────
 renderer.domElement.addEventListener('mousemove', e => {
-  if (isDragging) {
-    nodeLabel.style.opacity = '0';
-    hoveredNode = null;
-    return;
-  }
+  if (isDragging) { nodeLabel.style.opacity = '0'; return; }
   mouse2D.x =  (e.clientX / window.innerWidth)  * 2 - 1;
   mouse2D.y = -(e.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse2D, camera);
-  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.dot));
+  const dots = nodeObjects.map(n => n.dot);
+  const hits = raycaster.intersectObjects(dots);
   if (hits.length > 0) {
-    const idx = nodeObjects.findIndex(n => n.dot === hits[0].object);
+    const idx = dots.indexOf(hits[0].object);
     hoveredNode = nodeObjects[idx];
     document.body.style.cursor = 'pointer';
-    nodeLabel.textContent = hoveredNode.data.label;
     nodeLabel.style.opacity = '1';
-    updateNodeLabel();
+    nodeLabel.style.left = (e.clientX + 16) + 'px';
+    nodeLabel.style.top  = (e.clientY - 10) + 'px';
+    nodeLabel.textContent = '→ ' + hoveredNode.data.label;
   } else {
     hoveredNode = null;
     document.body.style.cursor = 'default';
@@ -228,33 +209,37 @@ renderer.domElement.addEventListener('mousemove', e => {
   }
 });
 
-// ── Click (desktop) ───────────────────────────────────────────────────────────
+// ── Click on node ─────────────────────────────────────────────────────────────
 renderer.domElement.addEventListener('click', e => {
   mouse2D.x =  (e.clientX / window.innerWidth)  * 2 - 1;
   mouse2D.y = -(e.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse2D, camera);
-  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.dot));
+  const dots = nodeObjects.map(n => n.dot);
+  const hits = raycaster.intersectObjects(dots);
   if (hits.length > 0) {
-    const idx = nodeObjects.findIndex(n => n.dot === hits[0].object);
-    window.location.href = nodeObjects[idx].data.href;
+    const idx = dots.indexOf(hits[0].object);
+    const href = nodeObjects[idx].data.href;
+    // In production replace with: window.location.href = href
+    alert('Navigate to: ' + href);
   }
 });
 
-// ── Tap (mobile) ──────────────────────────────────────────────────────────────
+// ── Tap on node (mobile) ──────────────────────────────────────────────────────
 renderer.domElement.addEventListener('touchend', e => {
   if (e.changedTouches.length !== 1) return;
   const touch = e.changedTouches[0];
   mouse2D.x =  (touch.clientX / window.innerWidth)  * 2 - 1;
   mouse2D.y = -(touch.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse2D, camera);
-  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.dot));
+  const dots = nodeObjects.map(n => n.dot);
+  const hits = raycaster.intersectObjects(dots);
   if (hits.length > 0) {
-    const idx = nodeObjects.findIndex(n => n.dot === hits[0].object);
-    window.location.href = nodeObjects[idx].data.href;
+    const idx = dots.indexOf(hits[0].object);
+    alert('Navigate to: ' + nodeObjects[idx].data.href);
   }
 }, { passive: true });
 
-// ── Scene toggles ─────────────────────────────────────────────────────────────
+// ── Scene objects ─────────────────────────────────────────────────────────────
 let wireMesh = null, surfaceMesh = null, pointCloud = null;
 const state = { wire: true, surface: false, points: true, colors: true };
 
@@ -328,10 +313,11 @@ fetch('mesh.json')
     surfaceMesh.visible = false;
     scene.add(surfaceMesh);
 
-    // Wireframe
+    // Wireframe with vertex colors
     document.getElementById('load-sub').textContent = 'building wireframe...';
     const edgeGeo = new THREE.EdgesGeometry(geo, 10);
     const edgePos = edgeGeo.attributes.position;
+
     const colorMap = new Map();
     for (let j = 0; j < ptCount; j++) {
       const key = positions[j*3].toFixed(3)+','+positions[j*3+1].toFixed(3)+','+positions[j*3+2].toFixed(3);
@@ -351,7 +337,7 @@ fetch('mesh.json')
     }));
     scene.add(wireMesh);
 
-    // Points
+    // Point cloud
     const ptGeo = new THREE.BufferGeometry();
     ptGeo.setAttribute('position', new THREE.BufferAttribute(positions.slice(), 3));
     ptGeo.setAttribute('color',    new THREE.BufferAttribute(colorArr.slice(),  3));
@@ -362,11 +348,10 @@ fetch('mesh.json')
 
     // Camera
     target.set(data.center[0], data.center[1], data.center[2]);
-    targetTgt.copy(target);
-    sph.radius    = data.spread * 0.8;
-    sphTgt.radius = sph.radius;
+    sph.radius = data.spread * 0.8;
     updateCamera();
 
+    // Nav nodes — built after mesh so they sit on top
     buildNavNodes();
 
     document.getElementById('stats').textContent =
@@ -392,21 +377,18 @@ const clock = new THREE.Clock();
   requestAnimationFrame(animate);
   const t = clock.getElapsedTime();
 
-  // Smooth damped camera
-  dampCamera();
-
-  // Rings face camera + pulse
+  // Rings always face the camera + pulse scale
   nodeObjects.forEach((n, i) => {
     n.ring.lookAt(camera.position);
-    n.ring.scale.setScalar(1 + Math.sin(t * 2 + i * 1.2) * 0.12);
-    const hov = hoveredNode === n;
-    n.dot.material.opacity  = hov ? 1.0  : 0.75;
-    n.dot.scale.setScalar(hov ? 1.4 : 1.0);
-    n.ring.material.opacity = hov ? 0.95 : 0.5;
-  });
+    const pulse = 1 + Math.sin(t * 2 + i * 1.2) * 0.12;
+    n.ring.scale.setScalar(pulse);
 
-  // Keep tooltip glued above its node
-  if (hoveredNode) updateNodeLabel();
+    // Brighten dot on hover
+    const isHovered = (hoveredNode === n);
+    n.dot.material.opacity = isHovered ? 1.0 : 0.75;
+    n.dot.scale.setScalar(isHovered ? 1.3 : 1.0);
+    n.ring.material.opacity = isHovered ? 0.9 : 0.5;
+  });
 
   renderer.render(scene, camera);
 })();
