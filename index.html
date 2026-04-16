@@ -137,10 +137,41 @@ renderer.domElement.addEventListener('touchend', e => {
 // Positions are in Houdini world space — placed on the mesh surface
 // Adjust these XYZ values to move nodes to different spots on your model
 const NAV_NODES = [
-  { label: 'PROJECTS', href: "projects.html", pos: new THREE.Vector3(-5,  25,  10)  },
+  { label: 'PROJECTS', href: "projects.html", pos: new THREE.Vector3(-5,  27,  13)  },
   { label: 'RESEARCH', href: "research.html", pos: new THREE.Vector3( 8,  18, -4)  },
   { label: 'ABOUT',    href: "about.html",    pos: new THREE.Vector3(-20, 20, -10)  },
 ];
+
+// ── Coordinate picker (remove before going live) ──────────────────────────
+const pickLabel = document.createElement('div');
+pickLabel.style.cssText = `
+  position:absolute; bottom:6rem; left:50%; transform:translateX(-50%);
+  background:rgba(10,6,8,0.9); border:0.5px solid rgba(200,120,130,0.5);
+  color:rgba(200,120,130,1); font-family:monospace; font-size:11px;
+  letter-spacing:0.15em; padding:6px 16px; pointer-events:none;
+  opacity:0; transition:opacity 0.2s; z-index:50; white-space:nowrap;
+`;
+document.body.appendChild(pickLabel);
+
+const pickRaycaster = new THREE.Raycaster();
+const pickMouse = new THREE.Vector2();
+
+renderer.domElement.addEventListener('click', e => {
+  // only pick if mesh is loaded and we didn't just drag
+  if (!surfaceMesh) return;
+  pickMouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+  pickMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  pickRaycaster.setFromCamera(pickMouse, camera);
+  const hits = pickRaycaster.intersectObject(surfaceMesh);
+  if (hits.length > 0) {
+    const p = hits[0].point;
+    const str = `${p.x.toFixed(2)}, ${p.y.toFixed(2)}, ${p.z.toFixed(2)}`;
+    pickLabel.textContent = 'PICKED: ' + str;
+    pickLabel.style.opacity = '1';
+    console.log('new THREE.Vector3(' + str + ')');
+    setTimeout(() => pickLabel.style.opacity = '0', 3000);
+  }
+});
 
 // Will hold Three.js objects for each node
 const nodeObjects = []; // { sphere, ring, data }
