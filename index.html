@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div id="loading">LOADING MESH<span id="load-sub">fetching mesh.json...</span></div>
+<div id="loading">LOADING MESH<span id="load-sub">fetching home.json...</span></div>
 <div id="info">LEFT DRAG — orbit &nbsp;·&nbsp; SCROLL — zoom &nbsp;·&nbsp; RIGHT DRAG — pan</div>
 
 <div id="controls">
@@ -133,71 +133,105 @@ renderer.domElement.addEventListener('touchend', e => {
   if (e.touches.length >= 2) t2 = { x: e.touches[1].clientX, y: e.touches[1].clientY };
 }, { passive: false });
 
-// ── Nav nodes ─────────────────────────────────────────────────────────────────
+// ── Nav nodes definition ──────────────────────────────────────────────────────
+// Positions are in Houdini world space — placed on the mesh surface
+// Adjust these XYZ values to move nodes to different spots on your model
 const NAV_NODES = [
-  { label: 'PROJECTS', href: 'projects.html', pos: new THREE.Vector3(-3.10,  26.84, -7.43) },
-  { label: 'RESEARCH', href: 'research.html', pos: new THREE.Vector3(-1.13,  29.49, -7.71) },
-  { label: 'ABOUT',    href: 'about.html',    pos: new THREE.Vector3(-25.10, 32.60, -10.74) },
+  { label: 'PROJECTS', href: "projects.html", pos: new THREE.Vector3(-3.10, 26.84, -7.43)  },
+  { label: 'RESEARCH', href: "research.html", pos: new THREE.Vector3(-1.13, 29.49, -7.71)  },
+  { label: 'ABOUT',    href: "about.html",    pos: new THREE.Vector3(-25.10, 32.60, -10.74)  },
 ];
 
-const nodeObjects = [];
-const raycaster   = new THREE.Raycaster();
-const mouse2D     = new THREE.Vector2();
-const nodeLabel   = document.getElementById('node-label');
-let hoveredNode   = null;
+// ── Coordinate picker (remove before going live) ──────────────────────────
+const pickLabel = document.createElement('div');
+pickLabel.style.cssText = `
+  position:absolute; bottom:6rem; left:50%; transform:translateX(-50%);
+  background:rgba(10,6,8,0.9); border:0.5px solid rgba(200,120,130,0.5);
+  color:rgba(200,120,130,1); font-family:monospace; font-size:11px;
+  letter-spacing:0.15em; padding:6px 16px; pointer-events:none;
+  opacity:0; transition:opacity 0.2s; z-index:50; white-space:nowrap;
+`;
+document.body.appendChild(pickLabel);
+
+const pickRaycaster = new THREE.Raycaster();
+const pickMouse = new THREE.Vector2();
+
+renderer.domElement.addEventListener('click', e => {
+  // only pick if mesh is loaded and we didn't just drag
+  if (!surfaceMesh) return;
+  pickMouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+  pickMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  pickRaycaster.setFromCamera(pickMouse, camera);
+  const hits = pickRaycaster.intersectObject(surfaceMesh);
+  if (hits.length > 0) {
+    const p = hits[0].point;
+    const str = `${p.x.toFixed(2)}, ${p.y.toFixed(2)}, ${p.z.toFixed(2)}`;
+    pickLabel.textContent = 'PICKED: ' + str;
+    pickLabel.style.opacity = '1';
+    console.log('new THREE.Vector3(' + str + ')');
+    setTimeout(() => pickLabel.style.opacity = '0', 3000);
+  }
+});
+
+// Will hold Three.js objects for each node
+const nodeObjects = []; // { sphere, ring, data }
+const raycaster = new THREE.Raycaster();
+const mouse2D = new THREE.Vector2();
+const nodeLabel = document.getElementById('node-label');
+let hoveredNode = null;
 
 function buildNavNodes() {
   NAV_NODES.forEach((n, i) => {
     const group = new THREE.Group();
     group.position.copy(n.pos);
 
-    const dot = new THREE.Mesh(
-      new THREE.SphereGeometry(0.45, 16, 16),
-      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.85 })
-    );
+    // Core dot — larger than point cloud so it's clearly clickable
+    const dotGeo = new THREE.SphereGeometry(0.35, 12, 12);
+    const dotMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 });
+    const dot = new THREE.Mesh(dotGeo, dotMat);
     group.add(dot);
 
-    const ring = new THREE.Mesh(
-      new THREE.RingGeometry(0.65, 0.88, 32),
-      new THREE.MeshBasicMaterial({ color: 0xc87882, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
-    );
+    // Outer pulsing ring (flat disc facing camera — updated in animate loop)
+    const ringGeo = new THREE.RingGeometry(0.55, 0.75, 32);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0xc87882,
+      transparent: true,
+      opacity: 0.6,
+      side: THREE.DoubleSide,
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
     group.add(ring);
 
     scene.add(group);
-    nodeObjects.push({ group, dot, ring, data: n });
+    nodeObjects.push({ group, dot, ring, data: n, index: i });
   });
 }
 
-// Convert 3D world pos → 2D screen px
-function worldToScreen(pos3d) {
+// Project node position to 2D screen coords
+function toScreen(pos3d) {
   const v = pos3d.clone().project(camera);
   return {
-    x: ( v.x * 0.5 + 0.5) * window.innerWidth,
+    x: (v.x * 0.5 + 0.5) * window.innerWidth,
     y: (-v.y * 0.5 + 0.5) * window.innerHeight,
   };
 }
 
-function updateNodeLabel() {
-  if (!hoveredNode) return;
-  const screen = worldToScreen(hoveredNode.group.position);
-  nodeLabel.style.left = screen.x + 'px';
-  nodeLabel.style.top  = (screen.y - 18) + 'px';
-}
-
-// ── Hover (mouse) ─────────────────────────────────────────────────────────────
+// ── Hover detection (mouse) ───────────────────────────────────────────────────
 renderer.domElement.addEventListener('mousemove', e => {
-  if (isDragging) { nodeLabel.style.opacity = '0'; hoveredNode = null; return; }
+  if (isDragging) { nodeLabel.style.opacity = '0'; return; }
   mouse2D.x =  (e.clientX / window.innerWidth)  * 2 - 1;
   mouse2D.y = -(e.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse2D, camera);
-  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.dot));
+  const dots = nodeObjects.map(n => n.dot);
+  const hits = raycaster.intersectObjects(dots);
   if (hits.length > 0) {
-    const idx = nodeObjects.findIndex(n => n.dot === hits[0].object);
+    const idx = dots.indexOf(hits[0].object);
     hoveredNode = nodeObjects[idx];
     document.body.style.cursor = 'pointer';
-    nodeLabel.textContent = hoveredNode.data.label;
     nodeLabel.style.opacity = '1';
-    updateNodeLabel();
+    nodeLabel.style.left = (e.clientX + 16) + 'px';
+    nodeLabel.style.top  = (e.clientY - 10) + 'px';
+    nodeLabel.textContent = '→ ' + hoveredNode.data.label;
   } else {
     hoveredNode = null;
     document.body.style.cursor = 'default';
@@ -205,34 +239,37 @@ renderer.domElement.addEventListener('mousemove', e => {
   }
 });
 
-// ── Click (desktop) — navigate directly, no alert ─────────────────────────────
+// ── Click on node ─────────────────────────────────────────────────────────────
 renderer.domElement.addEventListener('click', e => {
-  if (isDragging) return;
   mouse2D.x =  (e.clientX / window.innerWidth)  * 2 - 1;
   mouse2D.y = -(e.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse2D, camera);
-  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.dot));
+  const dots = nodeObjects.map(n => n.dot);
+  const hits = raycaster.intersectObjects(dots);
   if (hits.length > 0) {
-    const idx = nodeObjects.findIndex(n => n.dot === hits[0].object);
-    window.location.href = nodeObjects[idx].data.href;
+    const idx = dots.indexOf(hits[0].object);
+    const href = nodeObjects[idx].data.href;
+    // In production replace with: window.location.href = href
+    alert('Navigate to: ' + href);
   }
 });
 
-// ── Tap (mobile) — navigate directly, no alert ────────────────────────────────
+// ── Tap on node (mobile) ──────────────────────────────────────────────────────
 renderer.domElement.addEventListener('touchend', e => {
   if (e.changedTouches.length !== 1) return;
   const touch = e.changedTouches[0];
   mouse2D.x =  (touch.clientX / window.innerWidth)  * 2 - 1;
   mouse2D.y = -(touch.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse2D, camera);
-  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.dot));
+  const dots = nodeObjects.map(n => n.dot);
+  const hits = raycaster.intersectObjects(dots);
   if (hits.length > 0) {
-    const idx = nodeObjects.findIndex(n => n.dot === hits[0].object);
-    window.location.href = nodeObjects[idx].data.href;
+    const idx = dots.indexOf(hits[0].object);
+    alert('Navigate to: ' + nodeObjects[idx].data.href);
   }
 }, { passive: true });
 
-// ── Scene toggles ─────────────────────────────────────────────────────────────
+// ── Scene objects ─────────────────────────────────────────────────────────────
 let wireMesh = null, surfaceMesh = null, pointCloud = null;
 const state = { wire: true, surface: false, points: true, colors: true };
 
@@ -298,6 +335,7 @@ fetch('mesh.json')
     geo.setIndex(new THREE.BufferAttribute(indices, 1));
     geo.computeVertexNormals();
 
+    // Surface
     surfaceMesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
       vertexColors: true, transparent: true, opacity: 0.72,
       side: THREE.DoubleSide, depthWrite: false,
@@ -305,9 +343,11 @@ fetch('mesh.json')
     surfaceMesh.visible = false;
     scene.add(surfaceMesh);
 
+    // Wireframe with vertex colors
     document.getElementById('load-sub').textContent = 'building wireframe...';
     const edgeGeo = new THREE.EdgesGeometry(geo, 10);
     const edgePos = edgeGeo.attributes.position;
+
     const colorMap = new Map();
     for (let j = 0; j < ptCount; j++) {
       const key = positions[j*3].toFixed(3)+','+positions[j*3+1].toFixed(3)+','+positions[j*3+2].toFixed(3);
@@ -327,6 +367,7 @@ fetch('mesh.json')
     }));
     scene.add(wireMesh);
 
+    // Point cloud
     const ptGeo = new THREE.BufferGeometry();
     ptGeo.setAttribute('position', new THREE.BufferAttribute(positions.slice(), 3));
     ptGeo.setAttribute('color',    new THREE.BufferAttribute(colorArr.slice(),  3));
@@ -335,10 +376,12 @@ fetch('mesh.json')
     }));
     scene.add(pointCloud);
 
+    // Camera
     target.set(data.center[0], data.center[1], data.center[2]);
     sph.radius = data.spread * 0.8;
     updateCamera();
 
+    // Nav nodes — built after mesh so they sit on top
     buildNavNodes();
 
     document.getElementById('stats').textContent =
@@ -364,16 +407,18 @@ const clock = new THREE.Clock();
   requestAnimationFrame(animate);
   const t = clock.getElapsedTime();
 
+  // Rings always face the camera + pulse scale
   nodeObjects.forEach((n, i) => {
     n.ring.lookAt(camera.position);
-    n.ring.scale.setScalar(1 + Math.sin(t * 2 + i * 1.2) * 0.12);
-    const hov = hoveredNode === n;
-    n.dot.material.opacity  = hov ? 1.0  : 0.75;
-    n.dot.scale.setScalar(hov ? 1.4 : 1.0);
-    n.ring.material.opacity = hov ? 0.95 : 0.5;
-  });
+    const pulse = 1 + Math.sin(t * 2 + i * 1.2) * 0.12;
+    n.ring.scale.setScalar(pulse);
 
-  if (hoveredNode) updateNodeLabel();
+    // Brighten dot on hover
+    const isHovered = (hoveredNode === n);
+    n.dot.material.opacity = isHovered ? 1.0 : 0.75;
+    n.dot.scale.setScalar(isHovered ? 1.3 : 1.0);
+    n.ring.material.opacity = isHovered ? 0.9 : 0.5;
+  });
 
   renderer.render(scene, camera);
 })();
