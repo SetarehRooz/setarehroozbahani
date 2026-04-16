@@ -11,16 +11,25 @@
 <div id="loading">LOADING MESH<span id="load-sub">fetching mesh.json...</span></div>
 <div id="info">LEFT DRAG — orbit &nbsp;·&nbsp; SCROLL — zoom &nbsp;·&nbsp; RIGHT DRAG — pan</div>
 
+<!-- desktop controls -->
 <div id="controls">
   <button class="toggle active" id="btn-wire">WIREFRAME</button>
   <button class="toggle"        id="btn-surface">SURFACE</button>
   <button class="toggle active" id="btn-points">POINTS</button>
   <button class="toggle active" id="btn-colors">VERTEX COLORS</button>
-  <button class="toggle"        id="btn-menu">MENU</button>
+  <div id="menu-wrapper">
+    <button class="toggle" id="btn-menu">MENU</button>
+    <div id="menu-dropdown">
+      <a href="projects.html">PROJECTS</a>
+      <a href="research.html">RESEARCH</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+  </div>
 </div>
 
-<!-- menu dropdown -->
-<div id="menu-dropdown">
+<!-- mobile menu button top-right + its dropdown -->
+<button id="btn-menu-mobile">MENU</button>
+<div id="menu-dropdown-mobile">
   <a href="projects.html">PROJECTS</a>
   <a href="research.html">RESEARCH</a>
   <a href="about.html">ABOUT</a>
@@ -32,26 +41,10 @@
   <span id="sig-name">&copy; 2026 Setareh Roozbahani</span>
 </div>
 <div id="node-label"></div>
-
-<!-- mobile hint — only visible on small screens, auto-fades -->
 <div id="mobile-hint">DRAG · PINCH · TAP NODES</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-
-  // ── Menu toggle ───────────────────────────────────────────────────────────────
-const menuDropdown = document.getElementById('menu-dropdown');
-document.getElementById('btn-menu').addEventListener('click', function() {
-  const open = menuDropdown.classList.toggle('open');
-  this.classList.toggle('active', open);
-});
-// close menu if clicking outside
-document.addEventListener('click', e => {
-  if (!e.target.closest('#btn-menu') && !e.target.closest('#menu-dropdown')) {
-    menuDropdown.classList.remove('open');
-    document.getElementById('btn-menu').classList.remove('active');
-  }
-});
 
 // ── Renderer ──────────────────────────────────────────────────────────────────
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -382,6 +375,42 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+// ── Menu toggle ───────────────────────────────────────────────────────────────
+const menuDropdown       = document.getElementById('menu-dropdown');
+const menuDropdownMobile = document.getElementById('menu-dropdown-mobile');
+const btnMenu            = document.getElementById('btn-menu');
+const btnMenuMobile      = document.getElementById('btn-menu-mobile');
+
+function closeMenus() {
+  menuDropdown.classList.remove('open');
+  menuDropdownMobile.classList.remove('open');
+  btnMenu.classList.remove('active');
+  btnMenuMobile.classList.remove('active');
+}
+
+btnMenu.addEventListener('click', e => {
+  e.stopPropagation();
+  const open = menuDropdown.classList.toggle('open');
+  btnMenu.classList.toggle('active', open);
+});
+
+btnMenuMobile.addEventListener('click', e => {
+  e.stopPropagation();
+  const open = menuDropdownMobile.classList.toggle('open');
+  btnMenuMobile.classList.toggle('active', open);
+});
+
+// close when clicking outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('#menu-wrapper') && !e.target.closest('#btn-menu-mobile') && !e.target.closest('#menu-dropdown-mobile')) {
+    closeMenus();
+  }
+});
+
+// fade out mobile hint after 4s
+const mobileHint = document.getElementById('mobile-hint');
+if (mobileHint) setTimeout(() => { mobileHint.style.opacity = '0'; }, 4000);
+
 // ── Render loop ───────────────────────────────────────────────────────────────
 const clock = new THREE.Clock();
 
@@ -402,12 +431,6 @@ const clock = new THREE.Clock();
 
   renderer.render(scene, camera);
 })();
-
-// fade out mobile hint after 4 seconds
-const mobileHint = document.getElementById('mobile-hint');
-if (mobileHint) {
-  setTimeout(() => { mobileHint.style.opacity = '0'; }, 6000);
-}
 
 </script>
 </body>
