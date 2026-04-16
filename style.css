@@ -27,6 +27,7 @@ canvas {
   letter-spacing: 0.25em;
   text-align: center;
   line-height: 2;
+  z-index: 100;
 }
 #loading span {
   display: block;
@@ -44,36 +45,40 @@ canvas {
   letter-spacing: 0.15em;
   line-height: 2;
   pointer-events: none;
+  z-index: 10;
 }
 
-/* ── Stats ───────────────────────────────────────────────────────────────── */
+/* ── Stats — sits below name ─────────────────────────────────────────────── */
 #stats {
   position: absolute;
-  top: 3.2rem; left: 1.5rem;
+  top: 3rem; left: 1.5rem;
   color: rgba(255,255,255,0.15);
   font-size: 10px;
   letter-spacing: 0.12em;
   line-height: 1.8;
   pointer-events: none;
+  z-index: 10;
 }
 
 /* ── Name top-left ───────────────────────────────────────────────────────── */
 #name-top {
   position: absolute;
   top: 1.5rem; left: 1.5rem;
-  color: rgba(255,255,255,0.75);
-  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   pointer-events: none;
+  z-index: 10;
 }
 
-/* ── Name + date bottom-right ────────────────────────────────────────────── */
+/* ── Signature bottom-right ──────────────────────────────────────────────── */
 #name-bottom {
   position: absolute;
   bottom: 1.5rem; right: 1.5rem;
   text-align: right;
   pointer-events: none;
+  z-index: 10;
 }
 #sig-name {
   display: block;
@@ -87,10 +92,10 @@ canvas {
   color: rgba(255,255,255,0.2);
   font-size: 10px;
   letter-spacing: 0.2em;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
-/* ── Controls ────────────────────────────────────────────────────────────── */
+/* ── Controls (top right) ────────────────────────────────────────────────── */
 #controls {
   position: absolute;
   top: 1.5rem; right: 1.5rem;
@@ -98,6 +103,7 @@ canvas {
   flex-direction: column;
   gap: 8px;
   align-items: flex-end;
+  z-index: 10;
 }
 
 .toggle {
@@ -122,21 +128,23 @@ canvas {
   color: rgba(200,120,130,0.9);
 }
 
-/* ── Node tooltip ────────────────────────────────────────────────────────── */
+/* ── Node tooltip — floats in 3D above dot ───────────────────────────────── */
 #node-label {
   position: absolute;
-  background: rgba(10,6,8,0.85);
-  border: 0.5px solid rgba(200,120,130,0.4);
-  color: rgba(200,120,130,0.9);
+  background: rgba(10,6,8,0.9);
+  border: 0.5px solid rgba(200,120,130,0.5);
+  color: rgba(200,120,130,1.0);
   font-family: monospace;
   font-size: 10px;
-  letter-spacing: 0.18em;
-  padding: 5px 12px;
+  letter-spacing: 0.2em;
+  padding: 5px 14px;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.15s;
+  transition: opacity 0.2s;
   white-space: nowrap;
   text-transform: uppercase;
+  transform: translate(-50%, -180%);
+  z-index: 20;
 }
 
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
@@ -144,7 +152,7 @@ canvas {
 
   #controls {
     top: auto;
-    bottom: 5rem;
+    bottom: 5.5rem;
     right: 0; left: 0;
     flex-direction: row;
     flex-wrap: wrap;
@@ -168,7 +176,7 @@ canvas {
 
   #stats {
     font-size: 9px;
-    top: 3rem; left: 1rem;
+    top: 2.8rem; left: 1rem;
   }
 
   #name-top {
@@ -177,7 +185,7 @@ canvas {
   }
 
   #name-bottom {
-    bottom: 3.5rem; right: 1rem;
+    bottom: 3.8rem; right: 1rem;
   }
   #sig-name { font-size: 10px; }
   #sig-year { font-size: 9px; }
