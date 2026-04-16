@@ -1,0 +1,286 @@
+/* ── Reset ───────────────────────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: #0a0608;
+  min-height: 100vh;
+  font-family: monospace;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── Name top-left ───────────────────────────────────────────────────────── */
+#name-top {
+  position: fixed;
+  top: 1.5rem; left: 1.5rem;
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Controls top-right ──────────────────────────────────────────────────── */
+#controls {
+  position: fixed;
+  top: 1.5rem; right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  z-index: 10;
+}
+
+.toggle {
+  display: block;
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.4);
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  min-height: 36px;
+  min-width: 44px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.8;
+}
+.toggle:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+.toggle.active {
+  border-color: rgba(89,44,56,0.8);
+  color: rgba(200,120,130,0.9);
+}
+
+/* ── Menu wrapper + dropdown ─────────────────────────────────────────────── */
+#menu-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#btn-menu {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.4);
+}
+#btn-menu:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+#btn-menu.active {
+  border-color: rgba(89,44,56,0.8);
+  color: rgba(200,120,130,0.9);
+}
+
+#menu-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 30;
+  min-width: 100%;
+}
+#menu-dropdown.open {
+  opacity: 1;
+  pointer-events: all;
+}
+#menu-dropdown a {
+  display: block;
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  border-top: none;
+  color: rgba(255,255,255,0.4);
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  padding: 8px 14px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  text-align: right;
+}
+#menu-dropdown a:first-child {
+  border-top: 0.5px solid rgba(89,44,56,0.8);
+}
+#menu-dropdown a:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── About content — centered ────────────────────────────────────────────── */
+#about-content {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 5rem;
+}
+
+#about-inner {
+  max-width: 580px;
+  width: 100%;
+}
+
+#about-inner h1 {
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(200,120,130,0.9);
+  font-weight: 400;
+  margin-bottom: 2rem;
+  border-bottom: 0.5px solid rgba(89,44,56,0.6);
+  padding-bottom: 0.75rem;
+}
+
+#about-inner p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
+}
+#about-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Footer bottom-right ─────────────────────────────────────────────────── */
+#name-bottom {
+  position: fixed;
+  bottom: 1.5rem; right: 1.5rem;
+  text-align: right;
+  pointer-events: none;
+  z-index: 10;
+}
+#sig-name {
+  display: block;
+  color: rgba(255,255,255,0.25);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+}
+
+/* ── Mobile-only hidden on desktop ───────────────────────────────────────── */
+#btn-menu-mobile   { display: none; }
+#menu-dropdown-mobile { display: none; }
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+
+  #controls {
+    top: auto;
+    bottom: 5.5rem;
+    right: 0; left: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 1rem;
+    align-items: center;
+  }
+
+  .toggle {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    min-height: 40px;
+    flex: 1 1 auto;
+    max-width: 48%;
+    text-align: center;
+  }
+
+  #menu-wrapper { display: none; }
+
+  #btn-menu-mobile {
+    display: block;
+    position: fixed;
+    top: 1rem; right: 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.4);
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    padding: 2px 10px;
+    cursor: pointer;
+    z-index: 30;
+    transition: all 0.15s;
+  }
+  #btn-menu-mobile.active {
+    border-color: rgba(89,44,56,0.8);
+    color: rgba(200,120,130,0.9);
+  }
+
+  #menu-dropdown-mobile {
+    display: none;
+    position: fixed;
+    bottom: 9.8rem;
+    left: 0; right: 0;
+    flex-direction: column;
+    align-items: center;
+    z-index: 30;
+  }
+  #menu-dropdown-mobile.open { display: flex; }
+  #menu-dropdown-mobile a {
+    display: block;
+    width: 60%;
+    text-align: center;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.15);
+    border-top: none;
+    color: rgba(255,255,255,0.4);
+    font-family: monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 10px 14px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  #menu-dropdown-mobile a:first-child {
+    border-top: 0.5px solid rgba(89,44,56,0.8);
+  }
+  #menu-dropdown-mobile a:hover {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.8);
+  }
+
+  #name-top {
+    font-size: 11px;
+    top: 1rem; left: 1rem;
+  }
+
+  #name-bottom {
+    bottom: 3.8rem; right: 1rem;
+  }
+
+  #about-content {
+    padding: 5rem 1.5rem 9rem;
+    align-items: flex-start;
+  }
+
+  #about-inner h1 { font-size: 10px; }
+  #about-inner p  { font-size: 12px; }
+}
+
+/* ── Tablet ──────────────────────────────────────────────────────────────── */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .toggle {
+    font-size: 10px;
+    padding: 8px 14px;
+    min-height: 40px;
+  }
+}

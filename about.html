@@ -1,140 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setareh Roozbahani - ABout</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <style>
-
-        
-        /* Basic Styles */
-        body {
-            background-color: #0a0608;
-            color: #592c38;
-            font-family: monospace;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            padding: 30px;
-            color: #592c38;
-        }
-
-        .name {
-            font-size: 1.7em;
-            font-weight: bold;
-            margin-right: 20px;
-            color: #592c38;
-        }
-
-        .name a {
-            text-decoration: none;
-            color: #592c38;
-        }
-
-        .name a:hover {
-            color: #FFD700;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #6d3443;
-            font-size: 1.1em;
-        }
-
-        nav a:hover {
-            color: #FFD700;
-        }
-         .content {
-            padding: 20px;
-            padding-right: 800px;
-            max-width: 500px;
-            text-align: justify;
-            font-size: 1.1em;
-         }
-
-        footer {
-            text-align: left;
-            padding: 20px;
-            color: #592c38;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            font-size: 0.8em;
-        }
-
-       
-
-        /* Media Queries for Responsive Design */
-
-        /* For tablets and smaller screens */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 15px;
-            }
-
-            nav a {
-                margin: 0 8px;
-                font-size: 1em;
-            }
-            
-            .content {
-                padding: 20px;
-                max-width: 90%; /* Make content take up more width */
-            }
-        }
-
-        /* For mobile phones */
-        @media (max-width: 480px) {
-            header {
-                padding: 10px;
-            }
-
-            .name {
-                font-size: 1.4em;
-            }
-
-            nav a {
-                margin: 0 5px;
-                font-size: 0.9em;
-            }
-
-           .content {
-                padding: 10px;
-                max-width: 100%; /* Full-width content on mobile */
-                font-size: 0.9em;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setareh Roozbahani — About</title>
+  <link rel="stylesheet" href="about.css">
 </head>
 <body>
 
-<header>
-    <div class="name"><a href="index.html">Setareh Roozbahani</a></div>
-    <nav>
-        <a href="work.html">Work</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-    </nav>
-</header>
+<div id="name-top">Setareh Roozbahani</div>
 
-<div class="content">
-    <p>Multidisciplinary architect bridging architecture with digital and design technologies. During my master’s studies, I developed a strong interest in computational design thinking and digital tools such as 3D scanning, photogrammetry, and data-driven integration in physical space, particularly as methods for understanding and informing spatial decision-making.
+<div id="controls">
+  <a class="toggle" href="CV.pdf" target="_blank">CV</a>
+  <a class="toggle" href="https://www.linkedin.com/in/setarehroozbahani/" target="_blank">LINKEDIN</a>
+  <a class="toggle" href="https://www.instagram.com/setrooz/" target="_blank">INSTAGRAM</a>
+  <a class="toggle" href="mailto:sf.roozbahani@gmail.com">CONTACT</a>
+  <div id="menu-wrapper">
+    <button class="toggle" id="btn-menu">MENU</button>
+    <div id="menu-dropdown">
+      <a href="index.html">HOME</a>
+      <a href="projects.html">PROJECTS</a>
+      <a href="research.html">RESEARCH</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+  </div>
+</div>
+
+<!-- mobile menu button -->
+<button id="btn-menu-mobile">MENU</button>
+<div id="menu-dropdown-mobile">
+  <a href="index.html">HOME</a>
+  <a href="projects.html">PROJECTS</a>
+  <a href="research.html">RESEARCH</a>
+  <a href="about.html">ABOUT</a>
+</div>
+
+<main id="about-content">
+  <div id="about-inner">
+
+    <h1>About</h1>
+
+     <p>Multidisciplinary architect bridging architecture with digital and design technologies. During my master’s studies, I developed a strong interest in computational design thinking and digital tools such as 3D scanning, photogrammetry, and data-driven integration in physical space, particularly as methods for understanding and informing spatial decision-making.
 
 <p>With more than five years of professional experience in architectural practice, I gained valuable insight into construction techniques and detailing, while investigating how digital workflows can connect practice with emerging research fields, including artificial intelligence.</p>
 
@@ -144,11 +50,46 @@
 
 <p>I am particularly motivated to pursue research (PhD) within research-driven practice that connects spatial design, data, and machine intelligence.</p>
 
-    
 
-<footer>
-    &copy; 2026 Setareh Roozbahani
-</footer>
+  </div>
+</main>
 
+<div id="name-bottom">
+  <span id="sig-name">&copy; 2026 Setareh Roozbahani</span>
+</div>
+
+<script>
+const menuDropdown       = document.getElementById('menu-dropdown');
+const menuDropdownMobile = document.getElementById('menu-dropdown-mobile');
+const btnMenu            = document.getElementById('btn-menu');
+const btnMenuMobile      = document.getElementById('btn-menu-mobile');
+
+function closeMenus() {
+  menuDropdown.classList.remove('open');
+  menuDropdownMobile.classList.remove('open');
+  btnMenu.classList.remove('active');
+  btnMenuMobile.classList.remove('active');
+}
+
+btnMenu.addEventListener('click', e => {
+  e.stopPropagation();
+  const open = menuDropdown.classList.toggle('open');
+  btnMenu.classList.toggle('active', open);
+});
+
+btnMenuMobile.addEventListener('click', e => {
+  e.stopPropagation();
+  const open = menuDropdownMobile.classList.toggle('open');
+  btnMenuMobile.classList.toggle('active', open);
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#menu-wrapper') &&
+      !e.target.closest('#btn-menu-mobile') &&
+      !e.target.closest('#menu-dropdown-mobile')) {
+    closeMenus();
+  }
+});
+</script>
 </body>
 </html>
