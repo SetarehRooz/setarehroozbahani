@@ -334,6 +334,15 @@ canvas { display: block; }
     bottom: 3.8rem; right: 1rem;
   }
   #sig-name { font-size: 10px; }
+
+  /* node tooltip always visible on mobile — no hover needed */
+  #node-label {
+    opacity: 1 !important;
+    transform: translate(-50%, -200%);
+    font-size: 9px;
+    padding: 3px 10px;
+  }
+  
 }
 
 /* ── Tablet ──────────────────────────────────────────────────────────────── */
