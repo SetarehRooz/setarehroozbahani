@@ -67,16 +67,16 @@ scene.background = new THREE.Color(0x060606);
 scene.fog = new THREE.FogExp2(0x060606, 0.006);
 
 scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-const d1 = new THREE.DirectionalLight(0x88aacc, 0.8);
+const d1 = new THREE.DirectionalLight(0x592C38, 0.8);
 d1.position.set(1, 2, 1); scene.add(d1);
-const d2 = new THREE.DirectionalLight(0xcc8844, 0.4);
+const d2 = new THREE.DirectionalLight(0x3a1a20, 0.4);
 d2.position.set(-2, -1, -1); scene.add(d2);
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 2000);
 
 let isDragging = false, isRight = false;
 let prevMouse = { x: 0, y: 0 };
-let sph = { theta: 0.3, phi: 1.2, radius: 100 };
+let sph = { theta: 0.3, phi: 1.4, radius: 100 };
 let target = new THREE.Vector3();
 
 function updateCamera() {
@@ -187,7 +187,7 @@ fetch('mesh.json')
     // Wireframe edges
     wireMesh = new THREE.LineSegments(
       new THREE.EdgesGeometry(geo, 10),
-      new THREE.LineBasicMaterial({ color: 0x4a9edd, transparent: true, opacity: 0.55 })
+      new THREE.LineBasicMaterial({ color: 0x592C38, transparent: true, opacity: 0.55 })
     );
     scene.add(wireMesh);
 
@@ -201,7 +201,7 @@ fetch('mesh.json')
     scene.add(pointCloud);
 
     target.set(data.center[0], data.center[1], data.center[2]);
-    sph.radius = data.spread * 1.3;
+    sph.radius = data.spread * 0.5;
     updateCamera();
 
     document.getElementById('stats').textContent =
