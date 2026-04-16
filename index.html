@@ -192,8 +192,14 @@ function buildNavNodes() {
     );
     group.add(ring);
 
+    // Mobile persistent label — always visible, tracks node in 3D
+    const mobileLabel = document.createElement('div');
+    mobileLabel.className = 'mobile-node-label';
+    mobileLabel.textContent = n.label;
+    document.body.appendChild(mobileLabel);
+
     scene.add(group);
-    nodeObjects.push({ group, dot, hitSphere, ring, data: n });
+    nodeObjects.push({ group, dot, hitSphere, ring, data: n, mobileLabel });
   });
 }
 
@@ -441,6 +447,14 @@ const clock = new THREE.Clock();
   });
 
   if (hoveredNode) updateNodeLabel();
+
+  // Update mobile node label positions every frame
+  nodeObjects.forEach(n => {
+    if (!n.mobileLabel) return;
+    const screen = worldToScreen(n.group.position);
+    n.mobileLabel.style.left = screen.x + 'px';
+    n.mobileLabel.style.top  = (screen.y - 18) + 'px';
+  });
 
   renderer.render(scene, camera);
 })();

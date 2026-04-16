@@ -203,6 +203,11 @@ canvas { display: block; }
   z-index: 20;
 }
 
+/* ── Mobile node labels — hidden on desktop ─────────────────────────────── */
+.mobile-node-label {
+  display: none;
+}
+
 /* ── Mobile-only elements hidden on desktop ─────────────────────────────── */
 #btn-menu-mobile {
   display: none;
@@ -335,14 +340,29 @@ canvas { display: block; }
   }
   #sig-name { font-size: 10px; }
 
-  /* node tooltip always visible on mobile — no hover needed */
+  /* hide the regular hover tooltip on mobile — we use persistent labels instead */
   #node-label {
-    opacity: 1 !important;
-    transform: translate(-50%, -200%);
-    font-size: 9px;
-    padding: 3px 10px;
+    display: none !important;
   }
-  
+
+  /* persistent node labels — always visible, track 3D position */
+  .mobile-node-label {
+    display: block;
+    position: absolute;
+    background: rgba(10,6,8,0.9);
+    border: 0.5px solid rgba(200,120,130,0.5);
+    color: rgba(200,120,130,1.0);
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 3px 10px;
+    pointer-events: none;
+    white-space: nowrap;
+    text-transform: uppercase;
+    transform: translate(-50%, -200%);
+    z-index: 20;
+  }
+
 }
 
 /* ── Tablet ──────────────────────────────────────────────────────────────── */
