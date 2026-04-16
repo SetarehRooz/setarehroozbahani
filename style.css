@@ -121,17 +121,17 @@ canvas { display: block; }
 
 /* ── Menu button — special blue/gray style ───────────────────────────────── */
 #btn-menu {
-  background: rgba(30,42,58,0.85);
-  border: 0.5px solid rgba(80,140,220,0.35);
-  color: rgba(100,160,230,0.85);
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.4);
 }
 #btn-menu:hover {
-  background: rgba(45,65,90,0.9);
-  color: rgba(140,200,255,1.0);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.4);
 }
 #btn-menu.active {
   border-color: rgba(80,140,220,0.7);
-  color: rgba(140,200,255,1.0);
+  color: rgba(255,255,255,0.4);
 }
 
 /* ── Menu dropdown (desktop) — opens directly below MENU button ──────────── */
@@ -164,10 +164,10 @@ canvas { display: block; }
 
 #menu-dropdown a {
   display: block;
-  background: rgba(30,42,58,0.92);
-  border: 0.5px solid rgba(80,140,220,0.25);
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.15);
   border-top: none;
-  color: rgba(100,160,230,0.9);
+  color: rgba(255,255,255,0.4);
   font-family: monospace;
   font-size: 10px;
   letter-spacing: 0.15em;
