@@ -76,7 +76,7 @@ const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerH
 
 let isDragging = false, isRight = false;
 let prevMouse = { x: 0, y: 0 };
-let sph = { theta: 0.3 + Math.PI, phi: 1.2, radius: 100 };
+let sph = { theta: 0.3 + Math.PI - 0.4, phi: 1.45, radius: 100 };
 let target = new THREE.Vector3();
 
 function updateCamera() {
@@ -201,7 +201,7 @@ fetch('mesh.json')
     scene.add(pointCloud);
 
     target.set(data.center[0], data.center[1], data.center[2]);
-    sph.radius = data.spread * 0.5;
+    sph.radius = data.spread * 0.8;
     updateCamera();
 
     document.getElementById('stats').textContent =
