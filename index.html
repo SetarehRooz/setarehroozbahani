@@ -82,10 +82,12 @@ function updateCamera() {
 }
 
 // ── Mouse ─────────────────────────────────────────────────────────────────────
+let mouseDownPos = { x: 0, y: 0 };
 renderer.domElement.addEventListener('mousedown', e => {
   isDragging = true;
   isRight = e.button === 2;
   prevMouse = { x: e.clientX, y: e.clientY };
+  mouseDownPos = { x: e.clientX, y: e.clientY };
 });
 renderer.domElement.addEventListener('contextmenu', e => e.preventDefault());
 window.addEventListener('mouseup', () => { isDragging = false; });
@@ -169,12 +171,21 @@ function buildNavNodes() {
     const group = new THREE.Group();
     group.position.copy(n.pos);
 
+    // Visible dot
     const dot = new THREE.Mesh(
       new THREE.SphereGeometry(0.45, 16, 16),
       new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.85 })
     );
     group.add(dot);
 
+    // Invisible larger hit sphere — makes clicking much easier
+    const hitSphere = new THREE.Mesh(
+      new THREE.SphereGeometry(2.5, 8, 8),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+    );
+    group.add(hitSphere);
+
+    // Pulsing ring
     const ring = new THREE.Mesh(
       new THREE.RingGeometry(0.65, 0.88, 32),
       new THREE.MeshBasicMaterial({ color: 0xc87882, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
@@ -182,7 +193,7 @@ function buildNavNodes() {
     group.add(ring);
 
     scene.add(group);
-    nodeObjects.push({ group, dot, ring, data: n });
+    nodeObjects.push({ group, dot, hitSphere, ring, data: n });
   });
 }
 
@@ -208,9 +219,9 @@ renderer.domElement.addEventListener('mousemove', e => {
   mouse2D.x =  (e.clientX / window.innerWidth)  * 2 - 1;
   mouse2D.y = -(e.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse2D, camera);
-  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.dot));
+  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.hitSphere));
   if (hits.length > 0) {
-    const idx = nodeObjects.findIndex(n => n.dot === hits[0].object);
+    const idx = nodeObjects.findIndex(n => n.hitSphere === hits[0].object);
     hoveredNode = nodeObjects[idx];
     document.body.style.cursor = 'pointer';
     nodeLabel.textContent = hoveredNode.data.label;
@@ -225,13 +236,15 @@ renderer.domElement.addEventListener('mousemove', e => {
 
 // ── Click (desktop) — navigate directly, no alert ─────────────────────────────
 renderer.domElement.addEventListener('click', e => {
-  if (isDragging) return;
+  // ignore if mouse moved more than 4px — that was a drag not a click
+  const moved = Math.abs(e.clientX - mouseDownPos.x) + Math.abs(e.clientY - mouseDownPos.y);
+  if (moved > 4) return;
   mouse2D.x =  (e.clientX / window.innerWidth)  * 2 - 1;
   mouse2D.y = -(e.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse2D, camera);
-  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.dot));
+  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.hitSphere));
   if (hits.length > 0) {
-    const idx = nodeObjects.findIndex(n => n.dot === hits[0].object);
+    const idx = nodeObjects.findIndex(n => n.hitSphere === hits[0].object);
     window.location.href = nodeObjects[idx].data.href;
   }
 });
@@ -243,9 +256,9 @@ renderer.domElement.addEventListener('touchend', e => {
   mouse2D.x =  (touch.clientX / window.innerWidth)  * 2 - 1;
   mouse2D.y = -(touch.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse2D, camera);
-  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.dot));
+  const hits = raycaster.intersectObjects(nodeObjects.map(n => n.hitSphere));
   if (hits.length > 0) {
-    const idx = nodeObjects.findIndex(n => n.dot === hits[0].object);
+    const idx = nodeObjects.findIndex(n => n.hitSphere === hits[0].object);
     window.location.href = nodeObjects[idx].data.href;
   }
 }, { passive: true });

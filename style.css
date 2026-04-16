@@ -204,6 +204,14 @@ canvas { display: block; }
   z-index: 20;
 }
 
+/* ── Mobile-only elements hidden on desktop ─────────────────────────────── */
+#btn-menu-mobile {
+  display: none;
+}
+#menu-dropdown-mobile {
+  display: none;
+}
+
 /* ── Mobile hint ─────────────────────────────────────────────────────────── */
 #mobile-hint {
   display: none;
