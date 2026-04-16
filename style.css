@@ -20,8 +20,7 @@ canvas {
 /* ── Loading ─────────────────────────────────────────────────────────────── */
 #loading {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   color: rgba(255,255,255,0.45);
   font-size: 11px;
@@ -29,7 +28,6 @@ canvas {
   text-align: center;
   line-height: 2;
 }
-
 #loading span {
   display: block;
   font-size: 10px;
@@ -40,9 +38,8 @@ canvas {
 /* ── Info bar ────────────────────────────────────────────────────────────── */
 #info {
   position: absolute;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  color: rgba(255,255,255,0.2);
+  bottom: 1.5rem; left: 1.5rem;
+  color: rgba(255,255,255,0.18);
   font-size: 10px;
   letter-spacing: 0.15em;
   line-height: 2;
@@ -52,20 +49,51 @@ canvas {
 /* ── Stats ───────────────────────────────────────────────────────────────── */
 #stats {
   position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
-  color: rgba(255,255,255,0.2);
+  top: 3.2rem; left: 1.5rem;
+  color: rgba(255,255,255,0.15);
   font-size: 10px;
   letter-spacing: 0.12em;
   line-height: 1.8;
   pointer-events: none;
 }
 
+/* ── Name top-left ───────────────────────────────────────────────────────── */
+#name-top {
+  position: absolute;
+  top: 1.5rem; left: 1.5rem;
+  color: rgba(255,255,255,0.75);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* ── Name + date bottom-right ────────────────────────────────────────────── */
+#name-bottom {
+  position: absolute;
+  bottom: 1.5rem; right: 1.5rem;
+  text-align: right;
+  pointer-events: none;
+}
+#sig-name {
+  display: block;
+  color: rgba(255,255,255,0.55);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+#sig-year {
+  display: block;
+  color: rgba(255,255,255,0.2);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  margin-top: 2px;
+}
+
 /* ── Controls ────────────────────────────────────────────────────────────── */
 #controls {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  top: 1.5rem; right: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -82,30 +110,42 @@ canvas {
   padding: 6px 14px;
   cursor: pointer;
   transition: all 0.15s;
-  /* minimum touch target size */
   min-height: 36px;
   min-width: 44px;
 }
-
 .toggle:hover {
   background: rgba(255,255,255,0.08);
   color: rgba(255,255,255,0.8);
 }
-
 .toggle.active {
   border-color: rgba(89,44,56,0.8);
   color: rgba(200,120,130,0.9);
 }
 
+/* ── Node tooltip ────────────────────────────────────────────────────────── */
+#node-label {
+  position: absolute;
+  background: rgba(10,6,8,0.85);
+  border: 0.5px solid rgba(200,120,130,0.4);
+  color: rgba(200,120,130,0.9);
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  padding: 5px 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
 
-  /* controls move to bottom, laid out as a row */
   #controls {
     top: auto;
-    bottom: 3.5rem;
-    right: 0;
-    left: 0;
+    bottom: 5rem;
+    right: 0; left: 0;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
@@ -124,29 +164,30 @@ canvas {
     text-align: center;
   }
 
-  /* info hint hidden on mobile — too cluttered */
-  #info {
-    display: none;
-  }
+  #info { display: none; }
 
-  /* stats smaller, stays top-left */
   #stats {
     font-size: 9px;
-    top: 1rem;
-    left: 1rem;
+    top: 3rem; left: 1rem;
   }
+
+  #name-top {
+    font-size: 11px;
+    top: 1rem; left: 1rem;
+  }
+
+  #name-bottom {
+    bottom: 3.5rem; right: 1rem;
+  }
+  #sig-name { font-size: 10px; }
+  #sig-year { font-size: 9px; }
 }
 
 /* ── Tablet ──────────────────────────────────────────────────────────────── */
 @media (min-width: 601px) and (max-width: 1024px) {
-
   .toggle {
     font-size: 10px;
     padding: 8px 14px;
     min-height: 40px;
-  }
-
-  #controls {
-    gap: 8px;
   }
 }
