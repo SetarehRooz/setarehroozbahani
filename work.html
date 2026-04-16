@@ -87,99 +87,55 @@ renderer.domElement.addEventListener('wheel', e => {
 }, { passive: true });
 
 // ── Touch ─────────────────────────────────────────────────────────────────────
-// tracks active touches so we can handle 1-finger orbit + 2-finger pinch/pan
-let touches = {};
-let prevPinchDist = null;
-let prevPinchMid  = null;
-
-function touchDist(a, b) {
-  const dx = a.clientX - b.clientX;
-  const dy = a.clientY - b.clientY;
-  return Math.sqrt(dx * dx + dy * dy);
-}
-
-function touchMid(a, b) {
-  return { x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2 };
-}
+// Simple and clean: track only what we need per frame
+let t1 = null, t2 = null; // previous positions of up to 2 touches
+let prevDist = null;       // previous pinch distance
 
 renderer.domElement.addEventListener('touchstart', e => {
   e.preventDefault();
-  for (const t of e.changedTouches) {
-    touches[t.identifier] = { clientX: t.clientX, clientY: t.clientY };
-  }
-  const ids = Object.keys(touches);
-  if (ids.length === 2) {
-    const a = touches[ids[0]], b = touches[ids[1]];
-    prevPinchDist = touchDist(a, b);
-    prevPinchMid  = touchMid(a, b);
-  }
+  // reset on any finger change
+  t1 = null; t2 = null; prevDist = null;
+  if (e.touches.length >= 1) t1 = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  if (e.touches.length >= 2) t2 = { x: e.touches[1].clientX, y: e.touches[1].clientY };
 }, { passive: false });
 
 renderer.domElement.addEventListener('touchmove', e => {
   e.preventDefault();
-  for (const t of e.changedTouches) {
-    touches[t.identifier] = { clientX: t.clientX, clientY: t.clientY };
-  }
 
-  const ids = Object.keys(touches);
-
-  if (ids.length === 1) {
-    // ── Single finger: orbit ─────────────────────────────────────────────
-    const t = e.changedTouches[0];
-    const prev = touches[t.identifier + '_prev'] ||
-                 { clientX: t.clientX, clientY: t.clientY };
-    const dx = t.clientX - (prev.clientX || t.clientX);
-    const dy = t.clientY - (prev.clientY || t.clientY);
+  if (e.touches.length === 1 && t1) {
+    // ── 1 finger: orbit ───────────────────────────────────────────────────
+    const dx = e.touches[0].clientX - t1.x;
+    const dy = e.touches[0].clientY - t1.y;
     sph.theta -= dx * 0.005;
     sph.phi = Math.max(0.05, Math.min(Math.PI - 0.05, sph.phi - dy * 0.005));
+    t1 = { x: e.touches[0].clientX, y: e.touches[0].clientY };
     updateCamera();
 
-  } else if (ids.length === 2) {
-    // ── Two fingers: pinch to zoom + pan ─────────────────────────────────
-    const a = touches[ids[0]], b = touches[ids[1]];
-    const dist = touchDist(a, b);
-    const mid  = touchMid(a, b);
+  } else if (e.touches.length === 2) {
+    // ── 2 fingers: pinch to zoom ──────────────────────────────────────────
+    const ax = e.touches[0].clientX, ay = e.touches[0].clientY;
+    const bx = e.touches[1].clientX, by = e.touches[1].clientY;
+    const dist = Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
 
-    if (prevPinchDist !== null) {
-      // zoom
-      const scale = prevPinchDist / dist;
+    if (prevDist !== null) {
+      const scale = prevDist / dist;
       sph.radius = Math.max(2, Math.min(800, sph.radius * scale));
-
-      // pan — move target by midpoint delta
-      if (prevPinchMid !== null) {
-        const panSpeed = sph.radius * 0.0012;
-        const dmx = mid.x - prevPinchMid.x;
-        const dmy = mid.y - prevPinchMid.y;
-        const right = new THREE.Vector3(), up = new THREE.Vector3();
-        camera.matrix.extractBasis(right, up, new THREE.Vector3());
-        target.addScaledVector(right, -dmx * panSpeed);
-        target.addScaledVector(up,     dmy * panSpeed);
-      }
+      updateCamera();
     }
 
-    prevPinchDist = dist;
-    prevPinchMid  = mid;
-    updateCamera();
-  }
-
-  // store previous positions per touch
-  for (const t of e.changedTouches) {
-    touches[t.identifier + '_prev'] = { clientX: t.clientX, clientY: t.clientY };
+    prevDist = dist;
+    t1 = { x: ax, y: ay };
+    t2 = { x: bx, y: by };
   }
 
 }, { passive: false });
 
 renderer.domElement.addEventListener('touchend', e => {
   e.preventDefault();
-  for (const t of e.changedTouches) {
-    delete touches[t.identifier];
-    delete touches[t.identifier + '_prev'];
-  }
-  const ids = Object.keys(touches).filter(k => !k.includes('_prev'));
-  if (ids.length < 2) {
-    prevPinchDist = null;
-    prevPinchMid  = null;
-  }
+  // reset everything when fingers lift so next gesture starts clean
+  t1 = null; t2 = null; prevDist = null;
+  if (e.touches.length >= 1) t1 = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  if (e.touches.length >= 2) t2 = { x: e.touches[1].clientX, y: e.touches[1].clientY };
 }, { passive: false });
 
 // ── Scene objects ─────────────────────────────────────────────────────────────
