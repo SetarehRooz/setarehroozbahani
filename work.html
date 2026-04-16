@@ -50,7 +50,7 @@
   <button class="toggle active" id="btn-wire">WIREFRAME</button>
   <button class="toggle active" id="btn-surface">SURFACE</button>
   <button class="toggle active" id="btn-points">POINTS</button>
-  <button class="toggle"        id="btn-colors">VERTEX COLORS</button>
+  <button class="toggle active" id="btn-colors">VERTEX COLORS</button>
 </div>
 <div id="stats"></div>
 
@@ -76,7 +76,7 @@ const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerH
 
 let isDragging = false, isRight = false;
 let prevMouse = { x: 0, y: 0 };
-let sph = { theta: 0.3, phi: 1.4, radius: 100 };
+let sph = { theta: 0.3, Math.PI, phi: 1.2, radius: 100 };
 let target = new THREE.Vector3();
 
 function updateCamera() {
@@ -117,7 +117,7 @@ renderer.domElement.addEventListener('wheel', e => {
 }, { passive: true });
 
 let wireMesh = null, surfaceMesh = null, pointCloud = null;
-const state = { wire: true, surface: true, points: true, colors: false };
+const state = { wire: true, surface: true, points: true, colors: true };
 
 function applyState() {
   if (wireMesh)    wireMesh.visible    = state.wire;
