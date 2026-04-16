@@ -23,6 +23,8 @@ body {
   text-transform: uppercase;
   pointer-events: none;
   z-index: 10;
+  text-decoration: none;
+  pointer-events: all;  /* change this from none */
 }
 
 /* ── Controls top-right ──────────────────────────────────────────────────── */
