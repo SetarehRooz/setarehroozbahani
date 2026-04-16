@@ -1,0 +1,152 @@
+/* ── Reset ───────────────────────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: #0a0608;
+  overflow: hidden;
+  font-family: monospace;
+  touch-action: none;
+}
+
+canvas {
+  display: block;
+}
+
+/* ── Loading ─────────────────────────────────────────────────────────────── */
+#loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255,255,255,0.45);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-align: center;
+  line-height: 2;
+}
+
+#loading span {
+  display: block;
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  margin-top: 0.5rem;
+}
+
+/* ── Info bar ────────────────────────────────────────────────────────────── */
+#info {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  color: rgba(255,255,255,0.2);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  line-height: 2;
+  pointer-events: none;
+}
+
+/* ── Stats ───────────────────────────────────────────────────────────────── */
+#stats {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  color: rgba(255,255,255,0.2);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  line-height: 1.8;
+  pointer-events: none;
+}
+
+/* ── Controls ────────────────────────────────────────────────────────────── */
+#controls {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.toggle {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.4);
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  /* minimum touch target size */
+  min-height: 36px;
+  min-width: 44px;
+}
+
+.toggle:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+.toggle.active {
+  border-color: rgba(89,44,56,0.8);
+  color: rgba(200,120,130,0.9);
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+
+  /* controls move to bottom, laid out as a row */
+  #controls {
+    top: auto;
+    bottom: 3.5rem;
+    right: 0;
+    left: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 1rem;
+    align-items: center;
+  }
+
+  .toggle {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    min-height: 40px;
+    flex: 1 1 auto;
+    max-width: 48%;
+    text-align: center;
+  }
+
+  /* info hint hidden on mobile — too cluttered */
+  #info {
+    display: none;
+  }
+
+  /* stats smaller, stays top-left */
+  #stats {
+    font-size: 9px;
+    top: 1rem;
+    left: 1rem;
+  }
+}
+
+/* ── Tablet ──────────────────────────────────────────────────────────────── */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+  .toggle {
+    font-size: 10px;
+    padding: 8px 14px;
+    min-height: 40px;
+  }
+
+  #controls {
+    gap: 8px;
+  }
+}
