@@ -85,7 +85,6 @@ canvas {
   color: rgba(255,255,255,0.55);
   font-size: 11px;
   letter-spacing: 0.25em;
-  text-transform: uppercase;
 }
 #sig-year {
   display: block;
@@ -187,8 +186,8 @@ canvas {
   #name-bottom {
     bottom: 3.8rem; right: 1rem;
   }
-  #sig-name { font-size: 10px; }
-  #sig-year { font-size: 9px; }
+  #sig-name { font-size: 8px; }
+  #sig-year { font-size: 8px; }
 }
 
 /* ── Tablet ──────────────────────────────────────────────────────────────── */
