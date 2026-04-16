@@ -16,6 +16,14 @@
   <button class="toggle"        id="btn-surface">SURFACE</button>
   <button class="toggle active" id="btn-points">POINTS</button>
   <button class="toggle active" id="btn-colors">VERTEX COLORS</button>
+  <button class="toggle"        id="btn-menu">MENU</button>
+</div>
+
+<!-- menu dropdown -->
+<div id="menu-dropdown">
+  <a href="projects.html">PROJECTS</a>
+  <a href="research.html">RESEARCH</a>
+  <a href="about.html">ABOUT</a>
 </div>
 
 <div id="stats"></div>
@@ -30,6 +38,20 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+
+  // ── Menu toggle ───────────────────────────────────────────────────────────────
+const menuDropdown = document.getElementById('menu-dropdown');
+document.getElementById('btn-menu').addEventListener('click', function() {
+  const open = menuDropdown.classList.toggle('open');
+  this.classList.toggle('active', open);
+});
+// close menu if clicking outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('#btn-menu') && !e.target.closest('#menu-dropdown')) {
+    menuDropdown.classList.remove('open');
+    document.getElementById('btn-menu').classList.remove('active');
+  }
+});
 
 // ── Renderer ──────────────────────────────────────────────────────────────────
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -384,7 +406,7 @@ const clock = new THREE.Clock();
 // fade out mobile hint after 4 seconds
 const mobileHint = document.getElementById('mobile-hint');
 if (mobileHint) {
-  setTimeout(() => { mobileHint.style.opacity = '0'; }, 4000);
+  setTimeout(() => { mobileHint.style.opacity = '0'; }, 6000);
 }
 
 </script>
