@@ -66,8 +66,9 @@ canvas { display: block; }
   font-size: 13px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  pointer-events: none;
   z-index: 10;
+  text-decoration: none;
+  pointer-events: all;  /* change this from none */
 }
 
 /* ── Signature bottom-right ──────────────────────────────────────────────── */
