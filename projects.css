@@ -159,7 +159,7 @@ body {
 .cell-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.80;
+  opacity: 0.70;
   transition: opacity 0.4s, filter 0.4s;
   background-size: cover;
   background-position: center;
@@ -284,7 +284,7 @@ body {
   /* always visible on mobile — no hover needed */
   #grid:hover .cell { opacity: 1; }
   .cell-bg {
-    opacity: 0.95;
+    opacity: 0.85;
     filter: saturate(0.85) brightness(0.85);
   }
   .cell-title {
