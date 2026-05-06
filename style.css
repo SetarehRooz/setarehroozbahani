@@ -49,7 +49,7 @@ canvas { display: block; }
 /* ── Stats ───────────────────────────────────────────────────────────────── */
 #stats {
   position: absolute;
-  top: 3rem; left: 1.5rem;
+  bottom: 3.8rem; left: 1.5rem;
   color: rgba(255,255,255,0.15);
   font-size: 10px;
   letter-spacing: 0.12em;
@@ -69,6 +69,13 @@ canvas { display: block; }
   z-index: 10;
   text-decoration: none;
   pointer-events: all;  /* change this from none */
+}
+#name-sub {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.3);
+  margin-left: 0.8em;
+  vertical-align: middle;
 }
 
 /* ── Signature bottom-right ──────────────────────────────────────────────── */
