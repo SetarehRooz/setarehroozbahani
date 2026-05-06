@@ -162,14 +162,14 @@ body {
 .cell-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.15;
+  opacity: 0.45;
   transition: opacity 0.4s;
   background-size: cover;
   background-position: center;
-  filter: saturate(0.3) brightness(0.6);
+  filter: saturate(0.6) brightness(0.5);
 }
 .cell:hover .cell-bg {
-  opacity: 0.75;
+  opacity: 0.85;
   filter: saturate(0.7) brightness(0.55);
 }
 
@@ -287,7 +287,7 @@ body {
   /* always visible on mobile — no hover needed */
   #grid:hover .cell { opacity: 1; }
   .cell-bg {
-    opacity: 0.25;
+    opacity: 0.40;
     filter: saturate(0.35) brightness(0.55);
   }
   .cell-title {
@@ -301,7 +301,7 @@ body {
 
   /* tap to reveal on mobile */
   .cell.active .cell-bg {
-    opacity: 0.7;
+    opacity: 0.80;
     filter: saturate(0.7) brightness(0.5);
   }
   .cell.active .cell-num { color: rgba(200,120,130,1); }
