@@ -115,10 +115,18 @@ document.querySelectorAll('.glitch').forEach(g => {
   g.innerHTML = html;
 });
 
-// ── Click to navigate ─────────────────────────────────────────────────────
+// ── Click to navigate (desktop) / tap to reveal then navigate (mobile) ────
 document.querySelectorAll('.cell').forEach(el => {
   el.addEventListener('click', () => {
-    window.location.href = el.dataset.href;
+    if ('ontouchstart' in window) {
+      if (el.classList.contains('active')) {
+        window.location.href = el.dataset.href;
+      } else {
+        el.classList.add('active');
+      }
+    } else {
+      window.location.href = el.dataset.href;
+    }
   });
 });
 
@@ -143,10 +151,11 @@ btnMenuMobile.addEventListener('click', e => {
   btnMenuMobile.classList.toggle('active', menuDropdownMobile.classList.toggle('open'));
 });
 document.addEventListener('click', e => {
-  if (!e.target.closest('#menu-wrapper') &&
-      !e.target.closest('#btn-menu-mobile') &&
-      !e.target.closest('#menu-dropdown-mobile')) closeMenus();
-});
+    if (!e.target.closest('#menu-wrapper') &&
+        !e.target.closest('#btn-menu-mobile') &&
+        !e.target.closest('#menu-dropdown-mobile')) closeMenus();
+  });
+  
 </script>
 </body>
 </html>

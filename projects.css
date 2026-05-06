@@ -278,10 +278,52 @@ body {
     flex: none;
   }
 
-  .cell { padding: 12px 10px; }
-  .cell-title { color: rgba(255,255,255,0.7); font-size: 10px; }
-  .cell-cat   { color: rgba(255,255,255,0.25); font-size: 8px; }
+  .cell {
+    padding: 12px 10px;
+    height: 160px;
+    aspect-ratio: unset;
+  }
+
+  /* always visible on mobile — no hover needed */
   #grid:hover .cell { opacity: 1; }
+  .cell-bg {
+    opacity: 0.25;
+    filter: saturate(0.35) brightness(0.55);
+  }
+  .cell-title {
+    color: rgba(255,255,255,0.7);
+    font-size: 10px;
+  }
+  .cell-cat {
+    color: rgba(255,255,255,0.28);
+    font-size: 9px;
+  }
+
+  /* tap to reveal on mobile */
+  .cell.active .cell-bg {
+    opacity: 0.7;
+    filter: saturate(0.7) brightness(0.5);
+  }
+  .cell.active .cell-num { color: rgba(200,120,130,1); }
+  .cell.active .cell-cat { color: rgba(255,255,255,0.45); }
+  .cell.active::before {
+    background: rgba(200,120,130,0.9);
+    transform: scale(1.8);
+  }
+
+  /* arrow — visible on tap */
+  .cell::after {
+    content: '→';
+    position: absolute;
+    right: 12px; bottom: 12px;
+    font-size: 11px;
+    color: rgba(200,120,130,0);
+    z-index: 2;
+    transition: color 0.2s;
+  }
+  .cell.active::after {
+    color: rgba(200,120,130,0.8);
+  }
 
   #menu-wrapper { display: none; }
 
