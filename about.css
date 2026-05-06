@@ -256,7 +256,6 @@ body {
     text-align: center;
     background: rgba(255,255,255,0.04);
     border: 0.5px solid rgba(255,255,255,0.15);
-    border-top: none;
     color: rgba(255,255,255,0.4);
     font-family: monospace;
     font-size: 10px;
