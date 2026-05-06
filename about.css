@@ -26,6 +26,13 @@ body {
   pointer-events: all;  /* change this from none */
 }
 
+#name-top-small {
+    font-size: 11px;
+    top: 1rem; left: 32px;
+    text-decoration: none;
+  pointer-events: all;  /* change this from none */
+  }
+
 /* ── Controls top-right ──────────────────────────────────────────────────── */
 #controls {
   position: fixed;
@@ -270,6 +277,7 @@ body {
     text-decoration: none;
   pointer-events: all;  /* change this from none */
   }
+  
 
   #name-bottom {
     bottom: 0.5rem; right: 1rem;
