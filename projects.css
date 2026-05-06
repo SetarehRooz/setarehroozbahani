@@ -162,15 +162,15 @@ body {
 .cell-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.45;
+  opacity: 0.55;
   transition: opacity 0.4s;
   background-size: cover;
   background-position: center;
   filter: saturate(0.6) brightness(0.5);
 }
 .cell:hover .cell-bg {
-  opacity: 0.85;
-  filter: saturate(0.7) brightness(0.55);
+  opacity: 0.95;
+  filter: saturate(0.85) brightness(0.55);
 }
 
 /* glitch overlay */
@@ -287,8 +287,8 @@ body {
   /* always visible on mobile — no hover needed */
   #grid:hover .cell { opacity: 1; }
   .cell-bg {
-    opacity: 0.40;
-    filter: saturate(0.35) brightness(0.55);
+    opacity: 0.85;
+    filter: saturate(0.85) brightness(0.55);
   }
   .cell-title {
     color: rgba(255,255,255,0.7);
@@ -301,8 +301,8 @@ body {
 
   /* tap to reveal on mobile */
   .cell.active .cell-bg {
-    opacity: 0.80;
-    filter: saturate(0.7) brightness(0.5);
+    opacity: 0.95;
+    filter: saturate(0.95) brightness(0.55);
   }
   .cell.active .cell-num { color: rgba(200,120,130,1); }
   .cell.active .cell-cat { color: rgba(255,255,255,0.45); }
