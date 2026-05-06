@@ -355,8 +355,8 @@ canvas { display: block; }
   letter-spacing: 0.2em;
   color: rgba(255,255,255,0.3);
   margin-left: 0;
+   text-transform: none;
   margin-top: 4px;
-  text-transform: none;
 }
 
   #name-bottom {
