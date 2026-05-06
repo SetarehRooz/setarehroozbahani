@@ -126,7 +126,7 @@ body {
 #field-title {
   font-size: 9px;
   letter-spacing: 0.35em;
-  color: rgba(200,120,130,0.4);
+  color: rgba(200,120,130,0.8);
   text-align: center;
   margin-bottom: 1rem;
   pointer-events: none;
@@ -289,11 +289,11 @@ body {
   }
   .cell-title {
     color: rgba(255,255,255,0.7);
-    font-size: 8px;
+    font-size: 6px;
   }
   .cell-cat {
     color: rgba(255,255,255,0.28);
-    font-size: 7px;
+    font-size: 5px;
   }
 
   /* tap to reveal on mobile */
