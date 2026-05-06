@@ -159,15 +159,15 @@ body {
 .cell-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.55;
+  opacity: 0.70;
   transition: opacity 0.4s, filter 0.4s;
   background-size: cover;
   background-position: center;
-  filter: saturate(0.6) brightness(0.5);
+  filter: saturate(0.7) brightness(0.7);
 }
 .cell:hover .cell-bg {
   opacity: 0.95;
-  filter: saturate(0.85) brightness(0.55);
+  filter: saturate(0.95) brightness(0.95);
 }
 
 /* glitch overlay — reduced opacity so pink tint is very faint */
@@ -285,7 +285,7 @@ body {
   #grid:hover .cell { opacity: 1; }
   .cell-bg {
     opacity: 0.95;
-    filter: saturate(0.85) brightness(0.55);
+    filter: saturate(0.85) brightness(0.85);
   }
   .cell-title {
     color: rgba(255,255,255,0.7);
