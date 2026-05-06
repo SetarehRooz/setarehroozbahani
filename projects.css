@@ -136,7 +136,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  background: rgba(89,44,56,0.05);
+  background: rgba(89,44,56,0.2);
   flex: 1;
   min-height: 0;
 }
@@ -156,14 +156,14 @@ body {
 .cell:hover { background: #0a0608; }
 
 /* dim siblings on hover */
-#grid:hover .cell { opacity: 0.4; }
+#grid:hover .cell { opacity: 0.20; }
 #grid:hover .cell:hover { opacity: 1; }
 
 .cell-bg {
   position: absolute;
   inset: 0;
   opacity: 0.55;
-  transition: opacity 0.4s;
+  transition: opacity 0.4s, filter 0.4s;
   background-size: cover;
   background-position: center;
   filter: saturate(0.6) brightness(0.5);
@@ -173,7 +173,7 @@ body {
   filter: saturate(0.85) brightness(0.55);
 }
 
-/* glitch overlay */
+/* glitch overlay — reduced opacity so pink tint is very faint */
 .glitch {
   position: absolute;
   inset: 0;
@@ -182,19 +182,19 @@ body {
   pointer-events: none;
   z-index: 1;
 }
-.cell:hover .glitch { opacity: 1; }
+.cell:hover .glitch { opacity: 0.4; }
 
 .noise-line {
   position: absolute;
   left: 0; right: 0;
   height: 1px;
-  background: rgba(200,120,130,0.18);
+  background: rgba(200,120,130,0.06);
 }
 
 .scan {
   position: absolute;
   inset: 0;
-  background: linear-gradient(transparent 40%, rgba(200,120,130,0.04) 50%, transparent 60%);
+  background: linear-gradient(transparent 40%, rgba(200,120,130,0.02) 50%, transparent 60%);
   animation: scan 3s linear infinite;
 }
 @keyframes scan {
@@ -262,7 +262,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   MOBILE ≤ 600px
+   MOBILE <= 600px
 ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 600px) {
 
