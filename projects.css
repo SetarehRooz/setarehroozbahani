@@ -159,11 +159,11 @@ body {
 .cell-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.70;
+  opacity: 0.80;
   transition: opacity 0.4s, filter 0.4s;
   background-size: cover;
   background-position: center;
-  filter: saturate(0.7) brightness(0.7);
+  filter: saturate(0.8) brightness(0.8);
 }
 .cell:hover .cell-bg {
   opacity: 0.95;
