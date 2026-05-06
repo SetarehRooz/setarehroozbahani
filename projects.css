@@ -159,14 +159,19 @@ body {
 #grid:hover .cell { opacity: 0.4; }
 #grid:hover .cell:hover { opacity: 1; }
 
-/* colored tint bg — revealed on hover */
 .cell-bg {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transition: opacity 0.3s;
+  opacity: 0.15;
+  transition: opacity 0.4s;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(0.3) brightness(0.6);
 }
-.cell:hover .cell-bg { opacity: 1; }
+.cell:hover .cell-bg {
+  opacity: 0.75;
+  filter: saturate(0.7) brightness(0.55);
+}
 
 /* glitch overlay */
 .glitch {
