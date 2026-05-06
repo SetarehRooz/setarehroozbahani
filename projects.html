@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setareh Roozbahani — Projects</title>
+  <link rel="stylesheet" href="projects.css">
+</head>
+<body>
+
+<a id="name-top" href="index.html">Setareh Roozbahani
+  <span id="name-sub">Architect &amp; Researcher</span>
+</a>
+
+<div id="controls">
+  <a class="toggle" href="cv.pdf" target="_blank">CV</a>
+  <a class="toggle" href="https://www.linkedin.com/in/setarehroozbahani/" target="_blank">LINKEDIN</a>
+  <a class="toggle" href="https://www.instagram.com/setsukro/" target="_blank">INSTAGRAM</a>
+  <a class="toggle" href="mailto:sf.roozbahani@gmail.com">CONTACT</a>
+  <div id="menu-wrapper">
+    <button class="toggle" id="btn-menu">MENU</button>
+    <div id="menu-dropdown">
+      <a href="index.html">HOME</a>
+      <a href="research.html">RESEARCH</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+  </div>
+</div>
+
+<button id="btn-menu-mobile">MENU</button>
+<div id="menu-dropdown-mobile">
+  <a href="index.html">HOME</a>
+  <a href="research.html">RESEARCH</a>
+  <a href="about.html">ABOUT</a>
+</div>
+
+<main id="project-field">
+  <div id="field-title">— PROJECTS —</div>
+  <div id="grid">
+
+    <article class="cell" data-href="project-1.html">
+      <div class="cell-bg" style="background:rgba(89,44,56,0.45)"></div>
+      <div class="glitch"></div>
+      <div class="cell-num">01</div>
+      <div class="cell-title">The Spheres of Influence</div>
+      <div class="cell-cat">Master Studio · 2022</div>
+    </article>
+
+    <article class="cell" data-href="project-2.html">
+      <div class="cell-bg" style="background:rgba(50,30,60,0.45)"></div>
+      <div class="glitch"></div>
+      <div class="cell-num">02</div>
+      <div class="cell-title">Learning from Lungomare Guglielmo Marconi</div>
+      <div class="cell-cat">Master Thesis · 2022-2023</div>
+    </article>
+
+    <article class="cell" data-href="project-3.html">
+      <div class="cell-bg" style="background:rgba(30,50,60,0.45)"></div>
+      <div class="glitch"></div>
+      <div class="cell-num">03</div>
+      <div class="cell-title">CIEO Project 01</div>
+      <div class="cell-cat">Architectural Practice · 2023-2026</div>
+    </article>
+
+    <article class="cell" data-href="project-4.html">
+      <div class="cell-bg" style="background:rgba(40,60,40,0.45)"></div>
+      <div class="glitch"></div>
+      <div class="cell-num">04</div>
+      <div class="cell-title">CIEO Project 02</div>
+      <div class="cell-cat">Architectural Practice · 2023-2026</div>
+    </article>
+
+    <article class="cell" data-href="project-5.html">
+      <div class="cell-bg" style="background:rgba(80,40,30,0.45)"></div>
+      <div class="glitch"></div>
+      <div class="cell-num">05</div>
+      <div class="cell-title">CIEO Project 03</div>
+      <div class="cell-cat">Architectural Practice · 2023-2026</div>
+    </article>
+
+    <article class="cell" data-href="project-6.html">
+      <div class="cell-bg" style="background:rgba(30,40,70,0.45)"></div>
+      <div class="glitch"></div>
+      <div class="cell-num">06</div>
+      <div class="cell-title">PENVAN 01</div>
+      <div class="cell-cat">Architectural Photography · 2023</div>
+    </article>
+
+    <article class="cell" data-href="project-7.html">
+      <div class="cell-bg" style="background:rgba(60,30,50,0.45)"></div>
+      <div class="glitch"></div>
+      <div class="cell-num">07</div>
+      <div class="cell-title">Extended Liminal</div>
+      <div class="cell-cat">Summer School · 2022</div>
+    </article>
+
+    <div class="cell-empty">+</div>
+
+  </div>
+</main>
+
+<div id="name-bottom">
+  <span id="sig-name">&copy; 2026 Setareh Roozbahani</span>
+</div>
+
+<script>
+// ── Glitch noise lines — generated per cell ───────────────────────────────
+document.querySelectorAll('.glitch').forEach(g => {
+  let html = '';
+  for (let i = 0; i < 7; i++) {
+    const y = Math.random() * 100;
+    const w = 20 + Math.random() * 55;
+    const x = Math.random() * 40;
+    const o = 0.2 + Math.random() * 0.4;
+    html += `<div class="noise-line" style="top:${y}%;left:${x}%;width:${w}%;opacity:${o}"></div>`;
+  }
+  html += '<div class="scan"></div>';
+  g.innerHTML = html;
+});
+
+// ── Click to navigate ─────────────────────────────────────────────────────
+document.querySelectorAll('.cell').forEach(el => {
+  el.addEventListener('click', () => {
+    window.location.href = el.dataset.href;
+  });
+});
+
+// ── Menu ──────────────────────────────────────────────────────────────────
+const menuDropdown       = document.getElementById('menu-dropdown');
+const menuDropdownMobile = document.getElementById('menu-dropdown-mobile');
+const btnMenu            = document.getElementById('btn-menu');
+const btnMenuMobile      = document.getElementById('btn-menu-mobile');
+
+function closeMenus() {
+  menuDropdown.classList.remove('open');
+  menuDropdownMobile.classList.remove('open');
+  btnMenu.classList.remove('active');
+  btnMenuMobile.classList.remove('active');
+}
+btnMenu.addEventListener('click', e => {
+  e.stopPropagation();
+  btnMenu.classList.toggle('active', menuDropdown.classList.toggle('open'));
+});
+btnMenuMobile.addEventListener('click', e => {
+  e.stopPropagation();
+  btnMenuMobile.classList.toggle('active', menuDropdownMobile.classList.toggle('open'));
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('#menu-wrapper') &&
+      !e.target.closest('#btn-menu-mobile') &&
+      !e.target.closest('#menu-dropdown-mobile')) closeMenus();
+});
+</script>
+</body>
+</html>
