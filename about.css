@@ -8,86 +8,27 @@
 
 body {
   background: #0a0608;
-  overflow: hidden;
+  min-height: 100vh;
   font-family: monospace;
-  touch-action: none;
-}
-
-canvas { display: block; }
-
-/* ── Loading ─────────────────────────────────────────────────────────────── */
-#loading {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgba(255,255,255,0.45);
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-align: center;
-  line-height: 2;
-  z-index: 100;
-}
-#loading span {
-  display: block;
-  font-size: 10px;
-  color: rgba(255,255,255,0.2);
-  margin-top: 0.5rem;
-}
-
-/* ── Info bar ────────────────────────────────────────────────────────────── */
-#info {
-  position: absolute;
-  bottom: 1.5rem; left: 1.5rem;
-  color: rgba(255,255,255,0.18);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  line-height: 2;
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* ── Stats ───────────────────────────────────────────────────────────────── */
-#stats {
-  position: absolute;
-  top: 3rem; left: 1.5rem;
-  color: rgba(255,255,255,0.15);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  line-height: 1.8;
-  pointer-events: none;
-  z-index: 10;
+  color: rgba(255,255,255,0.7);
 }
 
 /* ── Name top-left ───────────────────────────────────────────────────────── */
 #name-top {
-  position: absolute;
+  position: fixed;
   top: 1.5rem; left: 1.5rem;
   color: rgba(255,255,255,0.8);
   font-size: 13px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  pointer-events: none;
   z-index: 10;
+  text-decoration: none;
+  pointer-events: all;  /* change this from none */
 }
 
-/* ── Signature bottom-right ──────────────────────────────────────────────── */
-#name-bottom {
-  position: absolute;
-  bottom: 1.5rem; right: 1.5rem;
-  text-align: right;
-  pointer-events: none;
-  z-index: 10;
-}
-#sig-name {
-  display: block;
-  color: rgba(255,255,255,0.55);
-  font-size: 11px;
-  letter-spacing: 0.25em;
-}
-
-/* ── Controls (top right, desktop) ──────────────────────────────────────── */
+/* ── Controls top-right ──────────────────────────────────────────────────── */
 #controls {
-  position: absolute;
+  position: fixed;
   top: 1.5rem; right: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -97,6 +38,7 @@ canvas { display: block; }
 }
 
 .toggle {
+  display: block;
   background: rgba(255,255,255,0.04);
   border: 0.5px solid rgba(255,255,255,0.15);
   color: rgba(255,255,255,0.4);
@@ -108,6 +50,9 @@ canvas { display: block; }
   transition: all 0.15s;
   min-height: 36px;
   min-width: 44px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.8;
 }
 .toggle:hover {
   background: rgba(255,255,255,0.08);
@@ -118,23 +63,7 @@ canvas { display: block; }
   color: rgba(200,120,130,0.9);
 }
 
-/* ── Menu button — special blue/gray style ───────────────────────────────── */
-#btn-menu {
-  background: rgba(255,255,255,0.08);
-  border: 0.5px solid rgba(89,44,56,0.8);
-  color: rgba(255,255,255,0.8);
-}
-#btn-menu:hover {
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.8);
-}
-#btn-menu.active {
-  border-color: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.8);
-}
-
-/* ── Menu dropdown (desktop) — opens directly below MENU button ──────────── */
-/* Wrapper ties the button and dropdown together so dropdown aligns to button */
+/* ── Menu wrapper + dropdown ─────────────────────────────────────────────── */
 #menu-wrapper {
   position: relative;
   display: flex;
@@ -142,25 +71,36 @@ canvas { display: block; }
   align-items: flex-end;
 }
 
+#btn-menu {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.4);
+}
+#btn-menu:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+#btn-menu.active {
+  border-color: rgba(89,44,56,0.8);
+  color: rgba(200,120,130,0.9);
+}
+
 #menu-dropdown {
   position: absolute;
-  top: calc(100% + 6px); /* just below the MENU button */
+  top: calc(100% + 6px);
   right: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s;
   z-index: 30;
-  min-width: 100%; /* at least as wide as MENU button */
+  min-width: 100%;
 }
-
 #menu-dropdown.open {
   opacity: 1;
   pointer-events: all;
 }
-
 #menu-dropdown a {
   display: block;
   background: rgba(255,255,255,0.04);
@@ -184,92 +124,93 @@ canvas { display: block; }
   color: rgba(255,255,255,0.8);
 }
 
-/* ── Node tooltip ────────────────────────────────────────────────────────── */
-#node-label {
-  position: absolute;
-  background: rgba(10,6,8,0.9);
-  border: 0.5px solid rgba(200,120,130,0.5);
-  color: rgba(200,120,130,1.0);
-  font-family: monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  padding: 5px 14px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
-  white-space: nowrap;
+/* ── About content — centered ────────────────────────────────────────────── */
+#about-content {
+  min-height: 100vh;
+  display: flex;
+  text-align: justify;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 5rem;
+}
+
+#about-inner {
+  max-width: 580px;
+  width: 100%;
+}
+
+#about-inner h1 {
+  font-size: 11px;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  transform: translate(-50%, -180%);
-  z-index: 20;
+  color: rgba(200,120,130,0.9);
+  font-weight: 400;
+  margin-bottom: 2rem;
+  border-bottom: 0.5px solid rgba(89,44,56,0.6);
+  padding-bottom: 0.75rem;
 }
 
-/* ── Mobile-only elements hidden on desktop ─────────────────────────────── */
-#btn-menu-mobile {
-  display: none;
+#about-inner p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
 }
-#menu-dropdown-mobile {
-  display: none;
+#about-inner p:last-child {
+  margin-bottom: 0;
 }
 
-/* ── Mobile hint ─────────────────────────────────────────────────────────── */
-#mobile-hint {
-  display: none;
-  position: absolute;
-  bottom: 10rem;
-  left: 0; right: 0;
-  text-align: center;
-  color: rgba(255,255,255,0.3);
-  font-family: monospace;
-  font-size: 9px;
-  letter-spacing: 0.2em;
+/* ── Footer bottom-right ─────────────────────────────────────────────────── */
+#name-bottom {
+  position: fixed;
+  bottom: 1.5rem; right: 1.5rem;
+  text-align: right;
   pointer-events: none;
   z-index: 10;
-  transition: opacity 1.5s;
 }
+#sig-name {
+  display: block;
+  color: rgba(255,255,255,0.25);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+}
+
+/* ── Mobile-only hidden on desktop ───────────────────────────────────────── */
+#btn-menu-mobile   { display: none; }
+#menu-dropdown-mobile { display: none; }
 
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
 
-  /* hide the menu button from the controls row on mobile */
-  #menu-wrapper {
-    display: none;
-  }
-
-  /* controls row at bottom — 4 toggles only */
-  #controls {
+ #controls {
     position: fixed;
     top: auto;
-    bottom: 0;
+    bottom: 3rem;
     right: 0; left: 0;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 0;
-    padding: 0;
-    align-items: stretch;
-    border-top: 0.5px solid rgba(89,44,56,0.4);
+    gap: 6px;
+    padding: 0 1rem;
+    align-items: center;
   }
 
   .toggle {
     font-size: 9px;
-    letter-spacing: 0.06em;
-    padding: 10px 4px;
-    min-height: 44px;
-    flex: 1 1 0;
-    max-width: none;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    min-height: 40px;
+    flex: 1 1 auto;
+    max-width: 48%;
     text-align: center;
-    border-radius: 0;
-    border: none;
-    border-right: 0.5px solid rgba(255,255,255,0.08);
-  }
-  .toggle:last-child {
-    border-right: none;
   }
 
-  /* mobile menu button — top right, same line as name */
+  #menu-wrapper { display: none; }
+
   #btn-menu-mobile {
     display: block;
-    position: absolute;
+    position: fixed;
     top: 1rem; right: 1rem;
     background: rgba(255,255,255,0.04);
     border: 0.5px solid rgba(255,255,255,0.15);
@@ -280,7 +221,6 @@ canvas { display: block; }
     padding: 2px 10px;
     cursor: pointer;
     z-index: 30;
-    min-height: 0;
     transition: all 0.15s;
   }
   #btn-menu-mobile.active {
@@ -288,28 +228,27 @@ canvas { display: block; }
     color: rgba(200,120,130,0.9);
   }
 
-  /* mobile dropdown — stacks centered above toggle row */
-  #menu-dropdown-mobile {
+ #menu-dropdown-mobile {
     display: none;
-    position: absolute;
-    bottom: 9.8rem;
-    left: 0; right: 0;
+    position: fixed;
+    top: 3.2rem;
+    right: 1rem;
+    left: auto;
     flex-direction: column;
-    align-items: center;
-    gap: 0;
+    align-items: flex-end;
     z-index: 30;
+    min-width: 120px;
   }
-  #menu-dropdown-mobile.open {
-    display: flex;
-  }
+
+  #menu-dropdown-mobile.open { display: flex; }
   #menu-dropdown-mobile a {
     display: block;
     width: 60%;
     text-align: center;
     background: rgba(255,255,255,0.04);
-    border: 0.5px solid rgba(200,120,130,0.5);
+    border: 0.5px solid rgba(255,255,255,0.15);
     border-top: none;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.4);
     font-family: monospace;
     font-size: 10px;
     letter-spacing: 0.15em;
@@ -325,32 +264,25 @@ canvas { display: block; }
     color: rgba(255,255,255,0.8);
   }
 
-  #info { display: none; }
-  #mobile-hint { display: block; }
-
-  #stats {
-    font-size: 9px;
-    top: 2.8rem; left: 1rem;
-  }
-
   #name-top {
     font-size: 11px;
     top: 1rem; left: 1rem;
+    text-decoration: none;
+  pointer-events: all;  /* change this from none */
   }
 
   #name-bottom {
-    bottom: 3rem; right: 1rem;
+    bottom: 0.5rem; right: 1rem;
   }
-  #sig-name { font-size: 10px; }
 
-  /* node tooltip always visible on mobile — no hover needed */
-  #node-label {
-    opacity: 1 !important;
-    transform: translate(-50%, -200%);
-    font-size: 9px;
-    padding: 3px 10px;
+  #about-content {
+    padding: 5rem 1.5rem 9rem;
+    text-align: justify;
+    align-items: flex-start;
   }
-  
+
+  #about-inner h1 { font-size: 10px; }
+  #about-inner p  { font-size: 12px; }
 }
 
 /* ── Tablet ──────────────────────────────────────────────────────────────── */
