@@ -9,13 +9,8 @@ const PROJECTS = [
   { num:'07', title:'Extended Liminal',                  cat:'Summer School · 2022',              href:'project-7.html', imgSrc:'images/Extended Liminal_00.jpg',      color:[60,30,48]  },
 ];
 
-// ── Skip canvas on very small screens (< 480px) — use grid fallback ──────────
-const useGrid = window.innerWidth < 480;
-if (useGrid) {
-  initMobileGrid();
-} else {
-  initCanvas();
-}
+// Always use canvas on all screen sizes
+initCanvas();
 initMenu();
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -51,10 +46,9 @@ function initCanvas() {
   function pr(s) { const x = Math.sin(s + 1) * 10000; return x - Math.floor(x); }
 
   function cardSize(idx) {
-    const base = Math.min(W * 0.19, 140);
-    const v = [1.0, 1.18, 0.88, 1.1, 0.93, 1.22, 0.85];
-    const s = base * v[idx % v.length];
-    return { w: Math.round(s), h: Math.round(s * 1.5) };
+    // uniform size — bigger on all screens
+    const base = Math.min(Math.max(W * 0.22, 150), 200);
+    return { w: Math.round(base), h: Math.round(base * 1.45) };
   }
 
   function buildWF(seed, cw, ch) {
@@ -91,7 +85,7 @@ function initCanvas() {
     const x = pr(idx * 41) * (W - CW * 0.4) - CW * 0.1;
     const y = pr(idx * 67) * (PLAYFIELD_H - CH * 0.4) - CH * 0.1;
 
-    const speed = 1.8 + pr(idx * 23) * 2.8;
+    const speed = 3.5 + pr(idx * 23) * 3.5;
     const angle = pr(idx * 89) * Math.PI * 2;
 
     return {
@@ -158,13 +152,13 @@ function initCanvas() {
     if (wA > 0.015) {
       dc.lineWidth = 0.5;
       wf.forEach(l => {
-        dc.strokeStyle = `rgba(${Math.min(255, r + 90) | 0},${Math.min(255, g + 70) | 0},${Math.min(255, b + 80) | 0},${wA * 0.52})`;
+        dc.strokeStyle = `rgba(${Math.min(255, r + 120) | 0},${Math.min(255, g + 100) | 0},${Math.min(255, b + 110) | 0},${wA * 0.75})`;
         dc.beginPath(); dc.moveTo(l.ax, l.ay); dc.lineTo(l.bx, l.by); dc.stroke();
       });
       for (let i = 0; i < 24; i++) {
         dc.beginPath();
         dc.arc(pr(seed + i + 3000) * CW, pr(seed + i + 4000) * CH, 0.9, 0, Math.PI * 2);
-        dc.fillStyle = `rgba(200,120,130,${wA * 0.38})`;
+        dc.fillStyle = `rgba(220,140,150,${wA * 0.65})`;
         dc.fill();
       }
     }
@@ -192,13 +186,13 @@ function initCanvas() {
     dc.fill();
 
     // number
-    dc.font = '8px monospace';
-    dc.fillStyle = `rgba(200,120,130,${0.6 + revealAmt * 0.35})`;
-    dc.fillText(p.num, 7, CH - 28);
+    dc.font = '10px monospace';
+    dc.fillStyle = `rgba(220,140,150,${0.85 + revealAmt * 0.15})`;
+    dc.fillText(p.num, 9, CH - 32);
 
     // title
-    dc.font = '9px monospace';
-    dc.fillStyle = `rgba(255,255,255,${0.12 + revealAmt * 0.78})`;
+    dc.font = '11px monospace';
+    dc.fillStyle = `rgba(255,255,255,${0.75 + revealAmt * 0.25})`;
     const words = p.title.split(' ');
     let ln = '', lns = [];
     words.forEach(w => {
@@ -206,12 +200,12 @@ function initCanvas() {
       if (dc.measureText(t).width > CW - 14 && ln) { lns.push(ln); ln = w; } else ln = t;
     });
     if (ln) lns.push(ln);
-    lns.slice(0, 2).forEach((l, i) => dc.fillText(l.toUpperCase(), 7, CH - 16 + i * 11));
+    lns.slice(0, 2).forEach((l, i) => dc.fillText(l.toUpperCase(), 9, CH - 20 + i * 13));
 
     // cat
-    dc.font = '7px monospace';
-    dc.fillStyle = `rgba(255,255,255,${0.1 + revealAmt * 0.28})`;
-    dc.fillText(p.cat, 7, CH - 4);
+    dc.font = '9px monospace';
+    dc.fillStyle = `rgba(255,255,255,${0.45 + revealAmt * 0.25})`;
+    dc.fillText(p.cat, 9, CH - 5);
 
     dc.restore();
   }
@@ -334,7 +328,7 @@ function initCanvas() {
     requestAnimationFrame(loop);
     t2 += 0.007;
 
-    ctx.fillStyle = 'rgba(10,6,8,0.22)';
+    ctx.fillStyle = 'rgba(10,6,8,0.3)';
     ctx.fillRect(0, 0, W, H);
 
     cards.forEach((c, i) => {
@@ -355,8 +349,8 @@ function initCanvas() {
           }
         }
         // ambient drift
-        c.vx += Math.cos(t2 * 0.8 + i * 1.1) * 0.018;
-        c.vy += Math.sin(t2 * 1.2 + i * 0.75) * 0.018;
+        c.vx += Math.cos(t2 * 0.8 + i * 1.1) * 0.045;
+        c.vy += Math.sin(t2 * 1.2 + i * 0.75) * 0.045;
 
         // soft bounds — allow slight overshoot
         const pad = 35;
@@ -365,10 +359,10 @@ function initCanvas() {
         c.x = Math.max(-pad, Math.min(W - c.CW + pad, c.x + c.vx));
         c.y = Math.max(-pad, Math.min(PLAYFIELD_H - c.CH + pad, c.y + c.vy));
 
-        c.vx *= 0.955; c.vy *= 0.955;
+        c.vx *= 0.975; c.vy *= 0.975;
         c.vr *= 0.92;
         c.rot += c.vr;
-        c.rot = Math.max(-38, Math.min(38, c.rot));
+        c.rot = Math.max(-45, Math.min(45, c.rot));
       } else if (c.hovered) {
         // slow + straighten on hover
         c.vx *= 0.45; c.vy *= 0.45; c.vr *= 0.45;

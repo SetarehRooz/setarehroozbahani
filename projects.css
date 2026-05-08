@@ -87,7 +87,7 @@ body {
 /* ── Mobile hidden on desktop ────────────────────────────────────────────── */
 #btn-menu-mobile      { display: none; }
 #menu-dropdown-mobile { display: none; }
-#project-grid         { display: none; }
+#project-grid         { display: none !important; }
 
 /* ══════════════════════════════════════════════════════════════════════════
    PROJECT FIELD — canvas + overlay + nav strip
@@ -228,59 +228,47 @@ body {
 .nav-item:hover .nav-num  { color: rgba(200,120,130,1.0); }
 .nav-item:hover .nav-title { color: rgba(255,255,255,0.55); }
 
-/* ══════════════════════════════════════════════════════════════════════════
-   MOBILE grid fallback <= 480px
-═══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 480px) {
+/* ── Mobile — canvas on all sizes, adjust nav + name ─────────────────────── */
+@media (max-width: 600px) {
+  #name-top  { font-size: 11px; top: 1rem; left: 1rem; }
+  #name-bottom { bottom: 0.5rem; right: 1rem; }
+  #sig-name  { font-size: 9px; }
 
-  body { overflow-y: auto; }
-  #project-field { display: none; }
-  #project-grid  { display: block; padding: 5rem 0 7rem; }
-  #menu-wrapper  { display: none; }
-  #name-bottom   { position: fixed; bottom: 0.5rem; right: 1rem; }
-  #sig-name      { font-size: 9px; }
-  #name-top      { font-size: 11px; top: 1rem; left: 1rem; }
+  /* mobile menu button */
+  #menu-wrapper { display: none; }
+  #btn-menu-mobile {
+    display: block; position: fixed;
+    top: 1rem; right: 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.4);
+    font-family: monospace; font-size: 10px;
+    letter-spacing: 0.2em; padding: 2px 10px;
+    cursor: pointer; z-index: 50; transition: all 0.15s;
+  }
+  #btn-menu-mobile.active { border-color: rgba(89,44,56,0.8); color: rgba(200,120,130,0.9); }
+  #menu-dropdown-mobile {
+    display: none; position: fixed;
+    top: 3.2rem; right: 1rem; left: auto;
+    flex-direction: column; align-items: flex-end;
+    z-index: 50; min-width: 120px;
+  }
+  #menu-dropdown-mobile.open { display: flex; }
+  #menu-dropdown-mobile a {
+    display: block; width: 100%; text-align: right;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.15); border-top: none;
+    color: rgba(255,255,255,0.4); font-family: monospace;
+    font-size: 10px; letter-spacing: 0.15em;
+    padding: 8px 14px; text-decoration: none;
+    transition: background 0.15s; white-space: nowrap;
+  }
+  #menu-dropdown-mobile a:first-child { border-top: 0.5px solid rgba(89,44,56,0.8); }
 
-  #grid-title {
-    font-size: 9px; letter-spacing: 0.35em;
-    color: rgba(200,120,130,0.5);
-    text-align: center; margin-bottom: 1rem;
-  }
-  #grid {
-    display: grid; grid-template-columns: repeat(2,1fr);
-    gap: 1px; background: rgba(89,44,56,0.2);
-  }
-  .cell {
-    background: #0a0608; position: relative; overflow: hidden;
-    cursor: pointer; height: 160px;
-    display: flex; flex-direction: column; justify-content: flex-end; padding: 10px;
-  }
-  .cell-bg {
-    position: absolute; inset: 0; opacity: 0.75;
-    background-size: cover; background-position: center;
-    filter: saturate(0.75) brightness(0.7);
-    transition: opacity 0.3s, filter 0.3s;
-  }
-  .cell-num  { font-size:9px; letter-spacing:0.2em; color:rgba(200,120,130,0.7); position:relative; z-index:2; }
-  .cell-title{ font-size:9px; letter-spacing:0.08em; color:rgba(255,255,255,0.75); text-transform:uppercase; margin-top:3px; position:relative; z-index:2; line-height:1.3; }
-  .cell-cat  { font-size:8px; letter-spacing:0.1em; color:rgba(255,255,255,0.3); margin-top:2px; position:relative; z-index:2; }
-  .cell::before { content:''; position:absolute; left:8px; top:8px; width:4px; height:4px; border-radius:50%; background:rgba(200,120,130,0.4); z-index:2; transition:background 0.15s,transform 0.2s; }
-  .cell.active .cell-bg { opacity:1; filter:saturate(1) brightness(0.9); }
-  .cell.active .cell-num { color:rgba(200,120,130,1); }
-  .cell.active::before   { background:rgba(200,120,130,0.9); transform:scale(1.8); }
-  .cell::after { content:'→'; position:absolute; right:10px; bottom:10px; font-size:11px; color:rgba(200,120,130,0); z-index:2; transition:color 0.2s; }
-  .cell.active::after { color:rgba(200,120,130,0.8); }
-  .cell-empty { background:#0a0608; height:160px; display:flex; align-items:center; justify-content:center; font-size:16px; color:rgba(89,44,56,0.25); }
-
-  #controls { position:fixed; top:auto; bottom:3rem; right:0; left:0; flex-direction:row; flex-wrap:wrap; justify-content:center; gap:6px; padding:0 1rem; align-items:center; }
-  .toggle   { font-size:9px; letter-spacing:0.08em; padding:8px 12px; min-height:40px; flex:1 1 auto; max-width:48%; text-align:center; }
-
-  #btn-menu-mobile { display:block; position:fixed; top:1rem; right:1rem; background:rgba(255,255,255,0.04); border:0.5px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.4); font-family:monospace; font-size:10px; letter-spacing:0.2em; padding:2px 10px; cursor:pointer; z-index:30; transition:all 0.15s; }
-  #btn-menu-mobile.active { border-color:rgba(89,44,56,0.8); color:rgba(200,120,130,0.9); }
-  #menu-dropdown-mobile { display:none; position:fixed; top:3.2rem; right:1rem; left:auto; flex-direction:column; align-items:flex-end; z-index:30; min-width:120px; }
-  #menu-dropdown-mobile.open { display:flex; }
-  #menu-dropdown-mobile a { display:block; width:100%; text-align:right; background:rgba(255,255,255,0.04); border:0.5px solid rgba(255,255,255,0.15); border-top:none; color:rgba(255,255,255,0.4); font-family:monospace; font-size:10px; letter-spacing:0.15em; padding:8px 14px; text-decoration:none; transition:background 0.15s; white-space:nowrap; }
-  #menu-dropdown-mobile a:first-child { border-top:0.5px solid rgba(89,44,56,0.8); }
+  /* nav strip bigger on mobile for easier tapping */
+  .nav-num   { font-size: 10px; }
+  .nav-title { font-size: 8px; }
+  .nav-item  { padding: 9px 3px 12px; }
 }
 
 /* ── Tablet ──────────────────────────────────────────────────────────────── */
