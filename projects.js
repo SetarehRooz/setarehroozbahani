@@ -46,9 +46,10 @@ function initCanvas() {
   function pr(s) { const x = Math.sin(s + 1) * 10000; return x - Math.floor(x); }
 
   function cardSize(idx) {
-    // uniform size — bigger on all screens
-    const base = Math.min(Math.max(W * 0.22, 150), 200);
-    return { w: Math.round(base), h: Math.round(base * 1.45) };
+    const base = Math.min(W * 0.19, 140);
+    const v = [1.0, 1.18, 0.88, 1.1, 0.93, 1.22, 0.85];
+    const s = base * v[idx % v.length];
+    return { w: Math.round(s), h: Math.round(s * 1.5) };
   }
 
   function buildWF(seed, cw, ch) {
@@ -186,12 +187,12 @@ function initCanvas() {
     dc.fill();
 
     // number
-    dc.font = '10px monospace';
+    dc.font = '8px monospace';
     dc.fillStyle = `rgba(220,140,150,${0.85 + revealAmt * 0.15})`;
-    dc.fillText(p.num, 9, CH - 32);
+    dc.fillText(p.num, 7, CH - 28);
 
     // title
-    dc.font = '11px monospace';
+    dc.font = '9px monospace';
     dc.fillStyle = `rgba(255,255,255,${0.75 + revealAmt * 0.25})`;
     const words = p.title.split(' ');
     let ln = '', lns = [];
@@ -200,12 +201,12 @@ function initCanvas() {
       if (dc.measureText(t).width > CW - 14 && ln) { lns.push(ln); ln = w; } else ln = t;
     });
     if (ln) lns.push(ln);
-    lns.slice(0, 2).forEach((l, i) => dc.fillText(l.toUpperCase(), 9, CH - 20 + i * 13));
+    lns.slice(0, 2).forEach((l, i) => dc.fillText(l.toUpperCase(), 7, CH - 16 + i * 11));
 
     // cat
-    dc.font = '9px monospace';
+    dc.font = '7px monospace';
     dc.fillStyle = `rgba(255,255,255,${0.45 + revealAmt * 0.25})`;
-    dc.fillText(p.cat, 9, CH - 5);
+    dc.fillText(p.cat, 7, CH - 4);
 
     dc.restore();
   }
@@ -279,10 +280,42 @@ function initCanvas() {
   // ── Mouse interaction ──────────────────────────────────────────────────────
   let mX = W / 2, mY = H / 2, mActive = false;
 
+  // ── Drag state ─────────────────────────────────────────────────────────────
+  let dragCard = null;       // card being dragged
+  let dragOffX = 0, dragOffY = 0;  // offset from card origin to cursor
+  let dragStartX = 0, dragStartY = 0; // to detect click vs drag
+  let isDragging = false;
+
+  canvas.addEventListener('mousedown', e => {
+    if (overlay.classList.contains('visible')) return;
+    dragStartX = e.clientX; dragStartY = e.clientY;
+    // find topmost hit card (iterate reversed so top-drawn card wins)
+    for (let i = cards.length - 1; i >= 0; i--) {
+      const c = cards[i];
+      if (hitTest(c, e.clientX, e.clientY)) {
+        dragCard = c;
+        dragOffX = e.clientX - c.x;
+        dragOffY = e.clientY - c.y;
+        c.hovered = true;
+        c.targetReveal = 1;
+        c.vx = 0; c.vy = 0; c.vr = 0;
+        break;
+      }
+    }
+  });
+
   canvas.addEventListener('mousemove', e => {
     mX = e.clientX; mY = e.clientY; mActive = true;
     curEl.style.left = mX + 'px'; curEl.style.top = mY + 'px';
     ring.style.left  = mX + 'px'; ring.style.top  = mY + 'px';
+
+    if (dragCard) {
+      isDragging = true;
+      dragCard.x = e.clientX - dragOffX;
+      dragCard.y = e.clientY - dragOffY;
+      dragCard.vx = 0; dragCard.vy = 0;
+      return;
+    }
 
     let anyH = false;
     cards.forEach(c => {
@@ -294,32 +327,91 @@ function initCanvas() {
     ring.classList.toggle('hovered', anyH);
   });
 
+  canvas.addEventListener('mouseup', e => {
+    if (dragCard) {
+      // give card momentum from drag velocity
+      dragCard.vx = (e.clientX - dragStartX) * 0.08;
+      dragCard.vy = (e.clientY - dragStartY) * 0.08;
+      // if barely moved → treat as click → show overlay
+      const moved = Math.abs(e.clientX - dragStartX) + Math.abs(e.clientY - dragStartY);
+      if (moved < 6 && !overlay.classList.contains('visible')) {
+        showOverlay(dragCard);
+      } else {
+        dragCard.hovered = false;
+        dragCard.targetReveal = 0;
+      }
+      dragCard = null;
+      isDragging = false;
+    }
+  });
+
   canvas.addEventListener('mouseleave', () => {
     mActive = false;
+    if (dragCard) {
+      dragCard.vx = 0; dragCard.vy = 0;
+      dragCard.hovered = false; dragCard.targetReveal = 0;
+      dragCard = null; isDragging = false;
+    }
     cards.forEach(c => { if (!c.selected) { c.hovered = false; c.targetReveal = 0; } });
     ring.classList.remove('hovered');
   });
 
-  canvas.addEventListener('click', e => {
-    if (overlay.classList.contains('visible')) return;
-    cards.forEach(c => {
-      if (hitTest(c, e.clientX, e.clientY)) showOverlay(c);
-    });
-  });
+  // ── Touch interaction (drag + tap to open) ────────────────────────────────
+  let touchDragCard = null;
+  let touchDragOffX = 0, touchDragOffY = 0;
+  let touchStartX = 0, touchStartY = 0;
+  let touchMoved = false;
 
-  // ── Touch interaction ──────────────────────────────────────────────────────
   canvas.addEventListener('touchstart', e => {
     e.preventDefault();
     if (overlay.classList.contains('visible')) return;
-    const t = e.touches[0];
     const rc = canvas.getBoundingClientRect();
-    const tx = t.clientX - rc.left, ty = t.clientY - rc.top;
-    cards.forEach(c => {
+    const tx = e.touches[0].clientX - rc.left;
+    const ty = e.touches[0].clientY - rc.top;
+    touchStartX = tx; touchStartY = ty; touchMoved = false;
+    for (let i = cards.length - 1; i >= 0; i--) {
+      const c = cards[i];
       if (hitTest(c, tx, ty)) {
-        if (c.hovered) { showOverlay(c); }
-        else { cards.forEach(o => { o.hovered = false; o.targetReveal = 0; }); c.hovered = true; c.targetReveal = 1; }
+        touchDragCard = c;
+        touchDragOffX = tx - c.x;
+        touchDragOffY = ty - c.y;
+        c.hovered = true; c.targetReveal = 1;
+        c.vx = 0; c.vy = 0; c.vr = 0;
+        break;
       }
-    });
+    }
+  }, { passive: false });
+
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!touchDragCard) return;
+    const rc = canvas.getBoundingClientRect();
+    const tx = e.touches[0].clientX - rc.left;
+    const ty = e.touches[0].clientY - rc.top;
+    const moved = Math.abs(tx - touchStartX) + Math.abs(ty - touchStartY);
+    if (moved > 6) touchMoved = true;
+    touchDragCard.x = tx - touchDragOffX;
+    touchDragCard.y = ty - touchDragOffY;
+    touchDragCard.vx = 0; touchDragCard.vy = 0;
+  }, { passive: false });
+
+  canvas.addEventListener('touchend', e => {
+    e.preventDefault();
+    if (!touchDragCard) return;
+    if (!touchMoved) {
+      // tap — show overlay
+      showOverlay(touchDragCard);
+    } else {
+      // fling with velocity
+      const rc = canvas.getBoundingClientRect();
+      const tx = e.changedTouches[0].clientX - rc.left;
+      const ty = e.changedTouches[0].clientY - rc.top;
+      touchDragCard.vx = (tx - touchStartX) * 0.09;
+      touchDragCard.vy = (ty - touchStartY) * 0.09;
+      touchDragCard.hovered = false;
+      touchDragCard.targetReveal = 0;
+    }
+    touchDragCard = null;
   }, { passive: false });
 
   // ── Physics loop ───────────────────────────────────────────────────────────
@@ -334,7 +426,9 @@ function initCanvas() {
     cards.forEach((c, i) => {
       c.revealAmt += (c.targetReveal - c.revealAmt) * 0.07;
 
-      if (!c.hovered && !c.selected) {
+      if (c === dragCard || c === touchDragCard) {
+        // being dragged — skip all physics
+      } else if (!c.hovered && !c.selected) {
         // mouse repulsion
         if (mActive) {
           const cx = c.x + c.CW / 2, cy = c.y + c.CH / 2;

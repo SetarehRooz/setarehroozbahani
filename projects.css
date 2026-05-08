@@ -100,7 +100,7 @@ body {
 
 #field-title {
   position: absolute;
-  top: 1.5rem; left: 50%; transform: translateX(-50%);
+  top: 4.5rem; left: 50%; transform: translateX(-50%);
   font-size: 9px; letter-spacing: 0.35em;
   color: rgba(200,120,130,0.4);
   pointer-events: none; z-index: 5; white-space: nowrap;
@@ -203,14 +203,15 @@ body {
 /* ── Nav strip ───────────────────────────────────────────────────────────── */
 #nav-strip {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
+  bottom: 2.8rem; left: 0; right: 0;
   display: flex;
   border-top: 0.5px solid rgba(89,44,56,0.35);
+  border-bottom: 0.5px solid rgba(89,44,56,0.2);
   background: rgba(10,6,8,0.88);
   z-index: 20;
 }
 .nav-item {
-  flex: 1; padding: 7px 3px 10px;
+  flex: 1; padding: 8px 3px 10px;
   text-align: center; text-decoration: none;
   border-right: 0.5px solid rgba(89,44,56,0.2);
   cursor: pointer; transition: background 0.12s;
