@@ -85,7 +85,7 @@ body {
 
 #field-title {
   position: absolute; top: 4.5rem; left: 50%; transform: translateX(-50%);
-  font-size: 10px; letter-spacing: 0.35em; color: rgba(200,120,130,0.9);
+  font-size: 10px; letter-spacing: 0.35em; color: rgba(200,120,130,0.75);
   pointer-events: none; z-index: 5; white-space: nowrap;
 }
 
@@ -228,6 +228,15 @@ body {
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
   #name-top    { font-size: 11px; top: 1rem; left: 1rem; }
+    #name-sub {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.3);
+  margin-left: 0;
+   text-transform: none;
+  margin-top: 4px;
+}
   #name-bottom { bottom: 0.5rem; right: 1rem; }
   #sig-name    { font-size: 9px; }
 
