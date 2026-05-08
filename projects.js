@@ -1,10 +1,10 @@
 const PROJECTS = [
   { num:'01', title:'The Spheres of Influence',           cat:'Master Studio · 2022',              href:'project-1.html', imgSrc:'images/Spheres of Influence_00.jpg', color:[89,44,56]  },
   { num:'02', title:'Learning from Lungomare G. M', cat:'Master Thesis · 2022–2023',          href:'project-2.html', imgSrc:'images/LLGM.jpeg',                   color:[42,30,60]  },
-  { num:'03', title:'CIEO Project 01',                    cat:'Architectural Practice · 2023–2026', href:'project-3.html', imgSrc:'images/CAS01.png',                   color:[26,46,60]  },
-  { num:'04', title:'CIEO Project 02',                    cat:'Architectural Practice · 2023–2026', href:'project-4.html', imgSrc:'images/cieo02.png',                  color:[26,60,40]  },
-  { num:'05', title:'CIEO Project 03',                    cat:'Architectural Practice · 2023–2026', href:'project-5.html', imgSrc:'images/cieo03.png',                  color:[60,26,14]  },
-  { num:'06', title:'PENVAN 01',                          cat:'Architectural Photography · 2023',   href:'project-6.html', imgSrc:'',                                   color:[30,40,70]  },
+  { num:'03', title:'CIEO CO',                    cat:'Architectural Practice · 2023–2026', href:'project-3.html', imgSrc:'images/CAS01.png',                   color:[26,46,60]  },
+  { num:'04', title:'CIEO ZP',                    cat:'Architectural Practice · 2023–2026', href:'project-4.html', imgSrc:'images/cieo02.png',                  color:[26,60,40]  },
+  { num:'05', title:'CIEO KT',                    cat:'Architectural Practice · 2023–2026', href:'project-5.html', imgSrc:'images/cieo03.png',                  color:[60,26,14]  },
+  { num:'06', title:'PENVAN',                          cat:'Architectural Photography · 2023',   href:'project-6.html', imgSrc:'',                                   color:[30,40,70]  },
   { num:'07', title:'Extended Liminal',                   cat:'Summer School · 2022',               href:'project-7.html', imgSrc:'images/Extended Liminal_00.jpg',      color:[60,30,48]  },
 ];
 
