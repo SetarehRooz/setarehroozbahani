@@ -30,14 +30,13 @@
   <a href="about.html">ABOUT</a>
 </div>
 
-<!-- canvas field — used on both desktop and mobile -->
 <div id="project-field">
   <div id="field-title">PROJECTS — work in progress</div>
   <canvas id="project-canvas"></canvas>
   <div id="cur"></div>
   <div id="cur-ring"></div>
 
-  <!-- selected card overlay — shown when a card is clicked -->
+  <!-- overlay when card is tapped/clicked -->
   <div id="card-overlay">
     <div id="overlay-card">
       <canvas id="overlay-canvas"></canvas>
@@ -51,59 +50,18 @@
     <div id="overlay-close">✕ CLOSE</div>
   </div>
 
-  <!-- static nav strip -->
+  <!-- grid view overlay -->
+  <div id="grid-view">
+    <div id="grid-view-inner"></div>
+    <button id="grid-close-btn">✕ BACK TO CHAOS</button>
+  </div>
+
+  <!-- show all button -->
+  <button id="show-all-btn">SHOW ALL PROJECTS</button>
+
+  <!-- nav strip -->
   <div id="nav-strip"></div>
 </div>
-
-<!-- mobile fallback grid (hidden on desktop, shown on very small screens as backup) -->
-<main id="project-grid">
-  <div id="grid-title">PROJECTS — work in progress</div>
-  <div id="grid">
-    <article class="cell" data-href="project-1.html">
-      <div class="cell-bg" style="background-image:url('images/Spheres of Influence_00.jpg')"></div>
-      <div class="cell-num">01</div>
-      <div class="cell-title">The Spheres of Influence</div>
-      <div class="cell-cat">Master Studio · 2022</div>
-    </article>
-    <article class="cell" data-href="project-2.html">
-      <div class="cell-bg" style="background-image:url('images/LLGM.jpeg')"></div>
-      <div class="cell-num">02</div>
-      <div class="cell-title">Learning from Lungomare G. Marconi</div>
-      <div class="cell-cat">Master Thesis · 2022–2023</div>
-    </article>
-    <article class="cell" data-href="project-3.html">
-      <div class="cell-bg" style="background-image:url('images/CAS01.png')"></div>
-      <div class="cell-num">03</div>
-      <div class="cell-title">CIEO Project 01</div>
-      <div class="cell-cat">Architectural Practice · 2023–2026</div>
-    </article>
-    <article class="cell" data-href="project-4.html">
-      <div class="cell-bg" style="background-image:url('images/cieo02.png')"></div>
-      <div class="cell-num">04</div>
-      <div class="cell-title">CIEO Project 02</div>
-      <div class="cell-cat">Architectural Practice · 2023–2026</div>
-    </article>
-    <article class="cell" data-href="project-5.html">
-      <div class="cell-bg" style="background-image:url('images/cieo03.png')"></div>
-      <div class="cell-num">05</div>
-      <div class="cell-title">CIEO Project 03</div>
-      <div class="cell-cat">Architectural Practice · 2023–2026</div>
-    </article>
-    <article class="cell" data-href="project-6.html">
-      <div class="cell-bg" style="background:rgba(30,40,70,0.6)"></div>
-      <div class="cell-num">06</div>
-      <div class="cell-title">PENVAN 01</div>
-      <div class="cell-cat">Architectural Photography · 2023</div>
-    </article>
-    <article class="cell" data-href="project-7.html">
-      <div class="cell-bg" style="background-image:url('images/Extended Liminal_00.jpg')"></div>
-      <div class="cell-num">07</div>
-      <div class="cell-title">Extended Liminal</div>
-      <div class="cell-cat">Summer School · 2022</div>
-    </article>
-    <div class="cell-empty">+</div>
-  </div>
-</main>
 
 <div id="name-bottom">
   <span id="sig-name">&copy; 2026 Setareh Roozbahani</span>
