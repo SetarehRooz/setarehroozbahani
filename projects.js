@@ -29,7 +29,7 @@ function initCanvas() {
   PROJECTS.forEach(p => {
     const a = document.createElement('a');
     a.className = 'nav-item'; a.href = p.href;
-    a.innerHTML = `<span class="nav-num">${p.num}</span><span class="nav-title">${p.title.split(' ').slice(0,2).join(' ')}</span>`;
+    a.innerHTML = `<span class="nav-num">${p.num}</span>`;
     navStrip.appendChild(a);
   });
   const NAV_H = navStrip.offsetHeight || 44;
