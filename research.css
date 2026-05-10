@@ -127,7 +127,28 @@ body {
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
 
-  #name-top { font-size: 11px; top: 1rem; left: 1rem; }
+  #stats {
+    display:none;
+    font-size: 9px;
+    top: 2.8rem; left: 1rem;
+  }
+
+  #name-top {
+    font-size: 11px;
+    top: 1rem; left: 1rem;
+    text-decoration: none;
+  pointer-events: all;  /* change this from none */
+  }
+
+  #name-sub {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.3);
+  margin-left: 0;
+   text-transform: none;
+  margin-top: 4px;
+}
   #name-bottom { bottom: 0.5rem; right: 1rem; }
   #sig-name { font-size: 9px; }
   #menu-wrapper { display: none; }
