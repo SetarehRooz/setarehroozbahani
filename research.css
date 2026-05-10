@@ -9,27 +9,30 @@ body {
 }
 
 /* ── Name top-left ───────────────────────────────────────────────────────── */
-#name-top {
-  position: absolute;
-  top: 1.5rem; left: 1.5rem;
-  color: rgba(255,255,255,0.8);
-  font-size: 13px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  z-index: 10;
-  text-decoration: none;
-  pointer-events: all;  /* change this from none */
-}
-#name-top:hover { color: rgba(255,255,255,1.0); }
+#stats {
+    display:none;
+    font-size: 9px;
+    top: 2.8rem; left: 1rem;
+  }
 
-#name-sub {
+  #name-top {
+    font-size: 11px;
+    top: 1rem; left: 1rem;
+    text-decoration: none;
+  pointer-events: all;  /* change this from none */
+  }
+  #name-top:hover { color: rgba(255,255,255,1.0); }
+
+  #name-sub {
+  display: block;
   font-size: 9px;
   letter-spacing: 0.2em;
   color: rgba(255,255,255,0.3);
-  margin-left: 0.8em;
-  vertical-align: middle;
-  text-transform: none;
+  margin-left: 0;
+   text-transform: none;
+  margin-top: 4px;
 }
+
 
 /* ── Controls top-right ──────────────────────────────────────────────────── */
 #controls {
