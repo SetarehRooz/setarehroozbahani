@@ -273,7 +273,15 @@ function initCanvas() {
       cell.appendChild(bg);
       cell.appendChild(info);
       cell.addEventListener('click', ()=>{ window.location.href=p.href; });
-      cell.addEventListener('touchend', e=>{ e.preventDefault(); window.location.href=p.href; },{passive:false});
+      let touchStartY = 0;
+      cell.addEventListener('touchstart', e=>{ touchStartY = e.touches[0].clientY; }, {passive:true});
+      
+      cell.addEventListener('touchend', e=>{
+       const moved = Math.abs(e.changedTouches[0].clientY - touchStartY);
+      if (moved > 8) return; // was scrolling, not tapping
+      e.preventDefault();
+      window.location.href = p.href;
+      }, {passive:false});
       gridInner.appendChild(cell);
     });
   }
