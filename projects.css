@@ -291,7 +291,7 @@ body {
     letter-spacing: 0.1em;
     white-space: normal;
     width: 90vw;
-    line-height: 2;
+    line-height: 1.5;
   }
   .ft-line1, .ft-line2, .ft-line3 {
     display: block;
