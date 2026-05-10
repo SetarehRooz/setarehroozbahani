@@ -123,7 +123,7 @@ function initCanvas() {
     // LAYER 1 — photo always visible, brighter on reveal
     const img = loadedImages[p.num];
     if (img && img.complete && img.naturalWidth>0) {
-      dc.globalAlpha = 0.10 + ra * 0.75;
+      dc.globalAlpha = 0.0 + ra * 0.9;
       drawImageCover(dc,img,0,0,CW,CH);
       dc.globalAlpha = 1;
       const vig = dc.createLinearGradient(0,CH*0.55,0,CH);
