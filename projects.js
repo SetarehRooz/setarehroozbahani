@@ -115,21 +115,34 @@ function initCanvas() {
     dc.scale(sc,sc);
     dc.translate(-CW/2,-CH/2);
 
-    // base
-    dc.fillStyle = `rgb(${r*.15|0},${g*.15|0},${b*.15|0})`;
-    dc.fillRect(0,0,CW,CH);
+   // clip to card bounds
+    dc.save();
+    dc.rect(0,0,CW,CH);
+    dc.clip();
 
-    // image
+    // LAYER 1 — photo always visible, brighter on reveal
     const img = loadedImages[p.num];
-    if (ra>0.01 && img && img.complete && img.naturalWidth>0) {
-      dc.globalAlpha = ra*0.9;
-      dc.save(); dc.rect(0,0,CW,CH); dc.clip();
+    if (img && img.complete && img.naturalWidth>0) {
+      dc.globalAlpha = 0.28 + ra * 0.62;
       drawImageCover(dc,img,0,0,CW,CH);
-      dc.restore(); dc.globalAlpha=1;
-      dc.fillStyle=`rgba(0,0,0,${ra*0.28})`; dc.fillRect(0,0,CW,CH);
-    } else if (ra>0.01) {
-      dc.fillStyle=`rgba(${r},${g},${b},${ra*0.6})`; dc.fillRect(0,0,CW,CH);
+      dc.globalAlpha = 1;
+      const vig = dc.createLinearGradient(0,CH*0.55,0,CH);
+      vig.addColorStop(0,'rgba(10,6,8,0)');
+      vig.addColorStop(1,`rgba(10,6,8,${0.55+ra*0.2})`);
+      dc.fillStyle=vig; dc.fillRect(0,CH*0.55,CW,CH*0.45);
+    } else {
+      dc.fillStyle=`rgba(${r},${g},${b},${0.08+ra*0.25})`; dc.fillRect(0,0,CW,CH);
     }
+
+    // LAYER 2 — overlay PNG, fades on reveal
+    const ov = loadedOverlays[p.num];
+    if (ov && ov.complete && ov.naturalWidth>0) {
+      dc.globalAlpha = Math.max(0.08, 0.7 - ra * 0.65);
+      drawImageCover(dc,ov,0,0,CW,CH);
+      dc.globalAlpha = 1;
+    }
+
+    dc.restore();
 
     // wireframe
     const wA = Math.max(0,1-ra*0.8);
