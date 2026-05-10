@@ -1,11 +1,11 @@
 const PROJECTS = [
-  { num:'01', title:'The Spheres of Influence',           cat:'Master Studio · 2022',              href:'project-1.html', imgSrc:'images/Spheres of Influence_00.jpg', color:[89,44,56]  },
-  { num:'02', title:'Learning from Lungomare G. M', cat:'Master Thesis · 2022–2023',          href:'project-2.html', imgSrc:'images/LLGM.jpeg',                   color:[42,30,60]  },
-  { num:'03', title:'CIEO CO',                    cat:'Architectural Practice · 2023–2026', href:'project-3.html', imgSrc:'images/CAS01.png',                   color:[26,46,60]  },
-  { num:'04', title:'CIEO ZP',                    cat:'Architectural Practice · 2023–2026', href:'project-4.html', imgSrc:'images/cieo02.png',                  color:[26,60,40]  },
-  { num:'05', title:'CIEO KT',                    cat:'Architectural Practice · 2023–2026', href:'project-5.html', imgSrc:'images/cieo03.png',                  color:[60,26,14]  },
-  { num:'06', title:'PENVAN',                          cat:'Architectural Photography · 2023',   href:'project-6.html', imgSrc:'',                                   color:[30,40,70]  },
-  { num:'07', title:'Extended Liminal',                   cat:'Summer School · 2022',               href:'project-7.html', imgSrc:'images/Extended Liminal_00.jpg',      color:[60,30,48]  },
+  { num:'01', title:'The Spheres of Influence',           cat:'Master Studio · 2022',              href:'project-1.html', imgSrc:'images/Spheres of Influence_00.jpg', overlaySrc:'images/Spheres of Influenceoverlay.png', color:[89,44,56]  },
+  { num:'02', title:'Learning from Lungomare G. M', cat:'Master Thesis · 2022–2023',          href:'project-2.html', imgSrc:'images/LLGM.jpeg',                   overlaySrc:'images/LLGMoverlay.png', color:[42,30,60]  },
+  { num:'03', title:'CIEO CO',                    cat:'Architectural Practice · 2023–2026', href:'project-3.html', imgSrc:'images/CAS01.png',                   overlaySrc:'images/CAS01overlay.png', color:[26,46,60]  },
+  { num:'04', title:'CIEO ZP',                    cat:'Architectural Practice · 2023–2026', href:'project-4.html', imgSrc:'images/cieo02.png',                  overlaySrc:'images/cieo02overlay.png', color:[26,60,40]  },
+  { num:'05', title:'CIEO KT',                    cat:'Architectural Practice · 2023–2026', href:'project-5.html', imgSrc:'images/cieo03.png',                  overlaySrc:'images/cieo03overlay.png', color:[60,26,14]  },
+  { num:'06', title:'PENVAN',                          cat:'Architectural Photography · 2023',   href:'project-6.html', imgSrc:'images/PVH01.jpg',                                   overlaySrc:'images/PVH01overlay.png', color:[30,40,70]  },
+  { num:'07', title:'Extended Liminal',                   cat:'Summer School · 2022',               href:'project-7.html', imgSrc:'images/Extended Liminal_00.jpg',      overlaySrc:'images/Extended Liminaloverlay.png', color:[60,30,48]  },
 ];
 
 initCanvas();
@@ -60,6 +60,16 @@ function initCanvas() {
     img.crossOrigin = 'anonymous';
     img.src = p.imgSrc;
     loadedImages[p.num] = img;
+  });
+
+  // load overlay PNGs
+  const loadedOverlays = {};
+  PROJECTS.forEach(p => {
+    if (!p.overlaySrc) return;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = p.overlaySrc;
+    loadedOverlays[p.num] = img;
   });
 
   // build cards
