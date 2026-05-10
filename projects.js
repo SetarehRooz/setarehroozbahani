@@ -39,7 +39,7 @@ function initCanvas() {
 
   // uniform card size — bigger
   const CW = Math.round(Math.min(Math.max(W * 0.2, 155), 195));
-  const CH = Math.round(CW * 1.48);
+  const CH = Math.round(CW * 1.2);
 
   function buildWF(seed) {
     const lines = [];
