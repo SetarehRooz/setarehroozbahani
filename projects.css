@@ -111,7 +111,7 @@ body {
   opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 40;
 }
 #card-overlay.visible { opacity: 1; pointer-events: all; }
-#overlay-card { display: flex; gap: 2rem; align-items: flex-start; max-width: 680px; width: 90%; }
+#overlay-card { display: flex; gap: 2rem; align-items: flex-start; max-width: 680px; width: 100%; }
 #overlay-canvas { flex-shrink: 0; display: block; }
 #overlay-info { padding-top: 0.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
 #overlay-num { font-size: 9px; letter-spacing: 0.25em; color: rgba(200,120,130,0.7); }
