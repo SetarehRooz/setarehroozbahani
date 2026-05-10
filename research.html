@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setareh Roozbahani — Research</title>
+  <link rel="stylesheet" href="research.css">
+</head>
+<body>
+
+<a id="name-top" href="index.html">Setareh Roozbahani
+  <span id="name-sub">Architect &amp; Researcher</span>
+</a>
+
+<div id="controls">
+  <div id="menu-wrapper">
+    <button class="toggle" id="btn-menu">MENU</button>
+    <div id="menu-dropdown">
+      <a href="index.html">HOME</a>
+      <a href="projects.html">PROJECTS</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+  </div>
+</div>
+
+<button id="btn-menu-mobile">MENU</button>
+<div id="menu-dropdown-mobile">
+  <a href="index.html">HOME</a>
+  <a href="projects.html">PROJECTS</a>
+  <a href="about.html">ABOUT</a>
+</div>
+
+<main id="research-content">
+  <div id="research-inner">
+    <h1>Research</h1>
+    <p class="coming-soon">— coming soon —</p>
+  </div>
+</main>
+
+<div id="name-bottom">
+  <span id="sig-name">&copy; 2026 Setareh Roozbahani</span>
+</div>
+
+<script>
+const menuDropdown       = document.getElementById('menu-dropdown');
+const menuDropdownMobile = document.getElementById('menu-dropdown-mobile');
+const btnMenu            = document.getElementById('btn-menu');
+const btnMenuMobile      = document.getElementById('btn-menu-mobile');
+
+function closeMenus() {
+  menuDropdown.classList.remove('open');
+  menuDropdownMobile.classList.remove('open');
+  btnMenu.classList.remove('active');
+  btnMenuMobile.classList.remove('active');
+}
+btnMenu.addEventListener('click', e => {
+  e.stopPropagation();
+  btnMenu.classList.toggle('active', menuDropdown.classList.toggle('open'));
+});
+btnMenuMobile.addEventListener('click', e => {
+  e.stopPropagation();
+  btnMenuMobile.classList.toggle('active', menuDropdownMobile.classList.toggle('open'));
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('#menu-wrapper') &&
+      !e.target.closest('#btn-menu-mobile') &&
+      !e.target.closest('#menu-dropdown-mobile')) closeMenus();
+});
+</script>
+</body>
+</html>
