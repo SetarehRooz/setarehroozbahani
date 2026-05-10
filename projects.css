@@ -153,14 +153,16 @@ body {
   aspect-ratio: 0.67; background: #0a0608;
   transition: opacity 0.2s;
 }
-.grid-cell:hover { opacity: 0.85; }
+
 .grid-cell-img {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
   opacity: 0.75; filter: saturate(0.7) brightness(0.65);
   transition: opacity 0.3s, filter 0.3s;
 }
+
 .grid-cell:hover .grid-cell-img { opacity: 0.95; filter: saturate(0.9) brightness(0.75); }
+
 .grid-cell-info {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 8px 10px; z-index: 2;
