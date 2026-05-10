@@ -10,26 +10,25 @@ body {
 
 /* ── Name top-left ───────────────────────────────────────────────────────── */
 #name-top {
-  position: fixed;
+  position: absolute;
   top: 1.5rem; left: 1.5rem;
   color: rgba(255,255,255,0.8);
   font-size: 13px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
+  z-index: 10;
   text-decoration: none;
-  pointer-events: all;
-  z-index: 50;
-  line-height: 1.6;
+  pointer-events: all;  /* change this from none */
 }
 #name-top:hover { color: rgba(255,255,255,1.0); }
 
 #name-sub {
-  display: block;
   font-size: 9px;
   letter-spacing: 0.2em;
   color: rgba(255,255,255,0.3);
+  margin-left: 0.8em;
+  vertical-align: middle;
   text-transform: none;
-  margin-top: 3px;
 }
 
 /* ── Controls top-right ──────────────────────────────────────────────────── */
