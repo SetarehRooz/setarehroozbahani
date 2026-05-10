@@ -149,7 +149,7 @@ function initCanvas() {
     if (wA>0.015) {
       dc.lineWidth=0.5;
       wf.forEach(l=>{
-        dc.strokeStyle=`rgba(${Math.min(255,r+120)|0},${Math.min(255,g+100)|0},${Math.min(255,b+110)|0},${wA*0.35})`;
+        dc.strokeStyle=`rgba(${Math.min(255,r+120)|0},${Math.min(255,g+100)|0},${Math.min(255,b+110)|0},${wA*0.15})`;
         dc.beginPath(); dc.moveTo(l.ax,l.ay); dc.lineTo(l.bx,l.by); dc.stroke();
       });
       for (let i=0;i<24;i++) {
