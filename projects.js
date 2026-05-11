@@ -6,7 +6,7 @@ const PROJECTS = [
   { num:'05', title:'Prof. KT',                    cat:'Architectural Practice · 2023–2026', href:'project-5.html', imgSrc:'images/cieo03.png',                  overlaySrc:'images/cieo03overlay.png', color:[60,26,14]  },
   { num:'06', title:'Prof. SJ',                    cat:'Architectural Practice · 2023–2026', href:'project-6.html', imgSrc:'images/SJ.png',                  overlaySrc:'images/SJoverlay.png', color:[60,26,14]  },
   { num:'07', title:'Prof. LV ',                          cat:'Architectural Photography · 2023',   href:'project-7.html', imgSrc:'images/PVH01.jpg',                                   overlaySrc:'images/PVH01overlay.png', color:[30,40,70]  },
-  { num:'08', title:'Prof. BT ',                          cat:'Architectural Photography · 2023',   href:'project-8.html', imgSrc:'images/BT.jpg',                                   overlaySrc:'images/BToverlay.png', color:[30,40,70]  },
+  { num:'08', title:'Prof. BT ',                          cat:'Architectural Photography · 2023',   href:'project-8.html', imgSrc:'images/BT.png',                                   overlaySrc:'images/BToverlay.png', color:[30,40,70]  },
   { num:'09', title:'Extended Liminal',                   cat:'Summer School · 2022',               href:'project-9.html', imgSrc:'images/Extended Liminal_00.jpg',      overlaySrc:'images/Extended Liminaloverlay.png', color:[60,30,48]  },
 ];
 
@@ -298,7 +298,7 @@ function initCanvas() {
   function hideGridView() {
     gridView.classList.remove('visible');
     showAllBtn.classList.remove('active');
-    showAllBtn.textContent = 'SHOW ALL PROJECTS';
+    showAllBtn.textContent = 'SHOW GRID';
   }
 
   showAllBtn.addEventListener('click', ()=>{
