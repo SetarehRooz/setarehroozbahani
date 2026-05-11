@@ -160,11 +160,11 @@ body {
 .grid-cell-img {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
-  opacity: 0.75; filter: saturate(0.75) brightness(0.75);
+  opacity: 0.85; filter: saturate(0.85) brightness(0.85);
   transition: opacity 0.3s, filter 0.3s;
 }
 
-.grid-cell:hover .grid-cell-img { opacity: 0.95; filter: saturate(0.9) brightness(0.85); }
+.grid-cell:hover .grid-cell-img { opacity: 0.95; filter: saturate(0.95) brightness(0.95); }
 
 .grid-cell-info {
   position: absolute; bottom: 0; left: 0; right: 0;
