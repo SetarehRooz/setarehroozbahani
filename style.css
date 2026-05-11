@@ -118,7 +118,7 @@ canvas { display: block; }
 .toggle {
   background: rgba(255,255,255,0.04);
   border: 0.5px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.80);
   font-family: monospace;
   font-size: 10px;
   letter-spacing: 0.12em;
@@ -130,7 +130,7 @@ canvas { display: block; }
 }
 .toggle:hover {
   background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.9);
 }
 .toggle.active {
   border-color: rgba(89,44,56,0.8);

@@ -44,20 +44,20 @@ body {
   display: block;
   background: rgba(255,255,255,0.04);
   border: 0.5px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.8);
   font-family: monospace; font-size: 10px;
   letter-spacing: 0.12em; padding: 6px 14px;
   cursor: pointer; transition: all 0.15s;
   min-height: 36px; min-width: 44px;
   text-decoration: none; text-align: center; line-height: 1.8;
 }
-.toggle:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+.toggle:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
 .toggle.active { border-color: rgba(89,44,56,0.8); color: rgba(200,120,130,0.9); }
 
 #menu-wrapper { position: relative; display: flex; flex-direction: column; align-items: flex-end; }
 #btn-menu { background: rgba(255,255,255,0.08); border: 0.5px solid rgba(89,44,56,0.8); color: rgba(255,255,255,0.8); }
-#btn-menu:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
-#btn-menu.active { border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+#btn-menu:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85); }
+#btn-menu.active { border-color: rgba(255,255,255,0.08); color: rgba(200,120,130,0.9); }
 
 #menu-dropdown {
   position: absolute; top: calc(100% + 6px); right: 0;
@@ -69,7 +69,7 @@ body {
 #menu-dropdown a {
   display: block; background: rgba(255,255,255,0.04);
   border: 0.5px solid rgba(255,255,255,0.15); border-top: none;
-  color: rgba(255,255,255,0.4); font-family: monospace;
+  color: rgba(255,255,255,0.6); font-family: monospace;
   font-size: 10px; letter-spacing: 0.15em; padding: 8px 14px;
   text-decoration: none; transition: background 0.15s, color 0.15s;
   white-space: nowrap; text-align: right;
