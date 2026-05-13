@@ -149,7 +149,7 @@ for (let y = MIN_YEAR; y <= MAX_YEAR; y++) {
   const tick = document.createElement('div');
   tick.className = 'year-tick';
   tick.style.left = x + 'px';
-  tick.style.bottom = (PAD_B - 18) + 'px';
+  tick.style.bottom = (PAD_B + 5) + 'px';
   tick.textContent = y;
   field.appendChild(tick);
 }
