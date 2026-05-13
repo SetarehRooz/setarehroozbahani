@@ -256,7 +256,7 @@ body {
    text-transform: none;
   margin-top: 4px;
 }
-  #name-bottom { bottom: 0.5rem; right: 1rem; }
+  #name-bottom { bottom: 1rem; right: 1rem; }
   #sig-name    { font-size: 9px; }
 
   .toggle {

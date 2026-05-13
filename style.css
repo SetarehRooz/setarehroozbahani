@@ -91,7 +91,7 @@ canvas { display: block; }
 
 /* ── Signature bottom-right ──────────────────────────────────────────────── */
 #name-bottom {
-  position: absolute;
+  position: fixed;
   bottom: 1.5rem; right: 1.5rem;
   text-align: right;
   pointer-events: none;
@@ -99,9 +99,9 @@ canvas { display: block; }
 }
 #sig-name {
   display: block;
-  color: rgba(255,255,255,0.55);
-  font-size: 11px;
-  letter-spacing: 0.25em;
+  color: rgba(255,255,255,0.25);
+  font-size: 10px;
+  letter-spacing: 0.2em;
 }
 
 /* ── Controls (top right, desktop) ──────────────────────────────────────── */
@@ -370,7 +370,7 @@ canvas { display: block; }
   #name-bottom {
     bottom: 3.8rem; right: 1rem;
   }
-  #sig-name { font-size: 10px; }
+  #sig-name { font-size: 9px; }
 
   /* hide the regular hover tooltip on mobile — we use persistent labels instead */
   #node-label {
