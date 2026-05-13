@@ -28,42 +28,31 @@
   <a href="about.html">ABOUT</a>
 </div>
 
-<main id="research-content">
-  <div id="research-inner">
-    <h1>EXPLORATIONS</h1>
-    <p class="coming-soon">— coming soon —</p>
+<!-- research scatter field -->
+<div id="research-field">
+  <div id="field-title">Explorations</div>
+  <canvas id="edge-canvas"></canvas>
+
+  <!-- node popup -->
+  <div id="popup">
+    <span id="popup-close">✕</span>
+    <canvas id="popup-canvas" width="220" height="120"></canvas>
+    <div id="popup-num"></div>
+    <div id="popup-title"></div>
+    <div id="popup-tag"></div>
+    <div id="popup-abstract"></div>
+    <a id="popup-btn" href="#">READ MORE →</a>
   </div>
-</main>
+
+  <!-- axis labels -->
+  <div class="axis-label" id="axis-y">METHOD ↑</div>
+  <div class="axis-label" id="axis-x">YEAR →</div>
+</div>
 
 <div id="name-bottom">
   <span id="sig-name">&copy; 2026 Setareh Roozbahani</span>
 </div>
 
-<script>
-const menuDropdown       = document.getElementById('menu-dropdown');
-const menuDropdownMobile = document.getElementById('menu-dropdown-mobile');
-const btnMenu            = document.getElementById('btn-menu');
-const btnMenuMobile      = document.getElementById('btn-menu-mobile');
-
-function closeMenus() {
-  menuDropdown.classList.remove('open');
-  menuDropdownMobile.classList.remove('open');
-  btnMenu.classList.remove('active');
-  btnMenuMobile.classList.remove('active');
-}
-btnMenu.addEventListener('click', e => {
-  e.stopPropagation();
-  btnMenu.classList.toggle('active', menuDropdown.classList.toggle('open'));
-});
-btnMenuMobile.addEventListener('click', e => {
-  e.stopPropagation();
-  btnMenuMobile.classList.toggle('active', menuDropdownMobile.classList.toggle('open'));
-});
-document.addEventListener('click', e => {
-  if (!e.target.closest('#menu-wrapper') &&
-      !e.target.closest('#btn-menu-mobile') &&
-      !e.target.closest('#menu-dropdown-mobile')) closeMenus();
-});
-</script>
+<script src="research.js"></script>
 </body>
 </html>

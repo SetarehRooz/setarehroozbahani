@@ -292,7 +292,6 @@ body {
     top: 1rem; left: 1rem;
     text-decoration: none;
   pointer-events: all;  /* change this from none */
-  z-index: 50;
   }
   
   #name-sub {
@@ -303,12 +302,10 @@ body {
   margin-left: 0;
    text-transform: none;
   margin-top: 4px;
-  z-index: 50;
 }
 
   #name-bottom {
     bottom: 1rem; right: 1rem;
-    z-index: 50;
   }
 #sig-name    { font-size: 9px; }
 
