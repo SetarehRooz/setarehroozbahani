@@ -101,7 +101,7 @@ body {
   position: absolute;
   top: 4.5rem; left: 50%; transform: translateX(-50%);
   font-size: 9px; letter-spacing: 0.35em;
-  color: rgba(200,120,130,0.45);
+  color: rgba(200,120,130,0.9);
   pointer-events: none; z-index: 5; white-space: nowrap;
 }
 
@@ -129,7 +129,7 @@ body {
   z-index: 10;
 }
 .node-dot {
-  width: 7px; height: 7px;
+  width: 10px; height: 10px;
   border-radius: 50%;
   background: rgba(200,120,130,0.70);
   border: 0.5px solid rgba(200,120,130,0.8);
@@ -142,7 +142,7 @@ body {
   box-shadow: 0 0 0 5px rgba(200,120,130,0.12);
 }
 .node-num {
-  font-size: 7px; letter-spacing: 0.15em;
+  font-size: 8px; letter-spacing: 0.15em;
   color: rgba(200,120,130,0.65);
   text-align: center; margin-top: 4px;
   transition: color 0.15s;
@@ -266,7 +266,7 @@ body {
   #popup { width: 200px; }
   #popup-canvas { height: 100px; }
   #popup-title { font-size: 9px; }
-  .node-num { font-size: 6px; }
+  .node-num { font-size: 7px; }
 }
 
 /* ── Tablet ──────────────────────────────────────────────────────────────── */
