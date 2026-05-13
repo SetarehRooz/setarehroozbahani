@@ -174,7 +174,7 @@ body {
 /* ── Two column intro ────────────────────────────────────────────────────── */
 #about-intro {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 3fr;
   gap: 2rem;
   margin-bottom: 1.5rem;
   align-items: start;
@@ -317,7 +317,7 @@ body {
   #about-inner h1 { font-size: 10px; }
   #about-inner p  { font-size: 12px; }
   #about-intro {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
 }
