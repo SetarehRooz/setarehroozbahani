@@ -139,6 +139,7 @@ body {
   display: flex;
   text-align: justify;
   align-items: center;
+  justify-content: center;
   padding: 6rem 2rem 5rem;
 }
 
@@ -164,7 +165,7 @@ body {
   color: rgba(255,255,255,0.55);
   letter-spacing: 0.04em;
   margin-bottom: 1.5rem;
-  justify-content: center;
+  
 }
 #about-inner p:last-child {
   margin-bottom: 0;
@@ -172,7 +173,8 @@ body {
 #about-inner p small {
   font-size: 10px;
   color: rgba(255,255,255,0.3);
-  justify-content: right;
+  justify-items: right;
+  text-align: right;
   margin-left: 5px;
 }
 
