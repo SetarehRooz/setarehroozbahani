@@ -171,6 +171,9 @@ body {
 }
 #about-inner p small {
   font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  justify-content: right;
+  margin-left: 5px;
 }
 
 
@@ -246,9 +249,9 @@ body {
   #menu-dropdown-mobile.open { display: flex; }
   #menu-dropdown-mobile a {
     display: block; width: 60%; text-align: center;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.04);
     border: 0.5px solid rgba(200,120,130,0.5); border-top: none;
-    color: rgba(255,255,255,0.8); font-family: monospace;
+    color: rgba(89,44,56,0.8); font-family: monospace;
     font-size: 10px; letter-spacing: 0.15em; padding: 10px 14px;
     text-decoration: none; transition: background 0.15s;
   }
@@ -256,8 +259,8 @@ body {
     border-top: 0.5px solid rgba(89,44,56,0.8);
   }
   #menu-dropdown-mobile a:hover {
-    background: rgba(255,255,255,0.4);
-    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.08);
+    color: rgba(89,44,56,0.8);
   }
 
   #name-top {
