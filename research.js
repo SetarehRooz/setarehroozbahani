@@ -203,14 +203,23 @@ function showPopup(idx) {
 
   popup.classList.add('visible');
 
-  // position — keep in bounds
-  const PW = 240 + 24; // popup width + margin
-  const PH = 300;
+  // position — keep fully in bounds on all sides
+  const popupW = parseInt(popup.style.width) || (window.innerWidth <= 600 ? 200 : 240);
+  const PH = 320;
   let left = pos.x + 16;
   let top  = pos.y - 60;
-  if (left + PW > W) left = pos.x - PW + 16;
-  if (top  < PAD_T) top = PAD_T;
+
+  // flip left if it goes off right edge
+  if (left + popupW > W) left = pos.x - popupW - 16;
+  // clamp left edge — never go off screen left
+  if (left < 8) left = 8;
+  // clamp right edge again after left clamp
+  if (left + popupW > W - 8) left = W - popupW - 8;
+
+  // clamp top and bottom
+  if (top < PAD_T) top = PAD_T;
   if (top + PH > H) top = H - PH - 10;
+
   popup.style.left = left + 'px';
   popup.style.top  = top  + 'px';
 }
