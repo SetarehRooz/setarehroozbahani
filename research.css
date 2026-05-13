@@ -153,7 +153,7 @@ body {
 .year-tick {
   position: absolute;
   font-size: 7px; letter-spacing: 0.1em;
-  color: rgba(89,44,56,0.4);
+  color: rgba(89,44,56,0.60);
   transform: translateX(-50%);
   pointer-events: none; z-index: 5;
 }
