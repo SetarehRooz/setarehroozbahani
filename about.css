@@ -15,7 +15,7 @@ body {
 
 /* ── Name top-left ───────────────────────────────────────────────────────── */
 #name-top {
-  position: static;
+  position: fixed;
   top: 1.5rem; left: 1.5rem;
   color: rgba(255,255,255,0.8);
   font-size: 13px;
@@ -288,6 +288,7 @@ body {
   }
 
   #name-top {
+    position: static;
     font-size: 11px;
     top: 1rem; left: 1rem;
     text-decoration: none;
