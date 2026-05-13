@@ -8,7 +8,7 @@ const PROJECTS = [
   { num:'07', title:'Prof. LV ',                          cat:'Architectural Photography · 2023',   href:'project-7.html', imgSrc:'images/PVH01.jpg',                                   overlaySrc:'images/PVH01overlay.png', color:[30,40,70]  },
   { num:'08', title:'Prof. BT ',                          cat:'Architectural Photography · 2023',   href:'project-8.html', imgSrc:'images/BT.png',                                   overlaySrc:'images/BToverlay.png', color:[30,40,70]  },
   { num:'09', title:'Extended Liminal',                   cat:'Summer School · 2022',               href:'project-9.html', imgSrc:'images/Extended Liminal_00.jpg',      overlaySrc:'images/Extended Liminaloverlay.png', color:[60,30,48]  },
-  { num:'10', title:'Forbidden to Play',                   cat:'Studio 1 · 2021',               href:'project-10.html', imgSrc:'images/lep01.png',      overlaySrc:'images/lepoverlay.png', color:[255,255,255]  },
+  { num:'10', title:'Forbidden to Play',                   cat:'Studio 1 · 2021',               href:'project-10.html', imgSrc:'images/lep03.png',      overlaySrc:'images/lepoverlay.png', color:[255,255,255]  },
 ];
 
 initCanvas();
