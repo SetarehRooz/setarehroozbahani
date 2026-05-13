@@ -5,13 +5,13 @@
 const RESEARCH = [
   {
     num: '01', title: 'Photogrammetry as Forensic Tool',
-    tag: 'Forensic', year: 2024, method: 0.85,
+    tag: 'Forensic', year: 2022, method: 0.85,
     href: 'research-01.html', color: [89,44,56],
     abstract: 'Photogrammetric methods applied to architectural evidence and spatial reconstruction of contested sites.',
   },
   {
     num: '02', title: 'Point Cloud Urbanism',
-    tag: 'Computational', year: 2023, method: 0.68,
+    tag: 'Computational', year: 2022, method: 0.68,
     href: 'research-02.html', color: [42,30,60],
     abstract: 'Urban morphology through mass point cloud data, developing new typological readings of the contemporary city.',
   },
@@ -23,49 +23,49 @@ const RESEARCH = [
   },
   {
     num: '04', title: 'Mesh as Drawing',
-    tag: 'Representation', year: 2022, method: 0.48,
+    tag: 'Representation', year: 2023, method: 0.48,
     href: 'research-04.html', color: [60,30,48],
     abstract: 'Rethinking the wireframe mesh not as technical byproduct but as an architectural drawing in its own right.',
   },
   {
     num: '05', title: 'Liminal Computation',
-    tag: 'Computational', year: 2022, method: 0.65,
+    tag: 'Computational', year: 2024, method: 0.65,
     href: 'research-05.html', color: [26,46,60],
     abstract: 'Computational approaches to threshold space and the edge condition between program and circulation.',
   },
   {
     num: '06', title: 'Extended Reality Sites',
-    tag: 'Digital', year: 2021, method: 0.38,
+    tag: 'Digital', year: 2024, method: 0.38,
     href: 'research-06.html', color: [30,40,70],
     abstract: 'How extended reality overlays alter perception and use of contested or disappeared architectural sites.',
   },
   {
     num: '07', title: 'Scanning the Absent',
-    tag: 'Forensic', year: 2021, method: 0.88,
+    tag: 'Forensic', year: 2024, method: 0.88,
     href: 'research-07.html', color: [89,44,56],
     abstract: 'Photogrammetric reconstruction of demolished buildings from archival photography and testimonial accounts.',
   },
   {
     num: '08', title: 'Parametric Heritage',
-    tag: 'Computational', year: 2020, method: 0.72,
+    tag: 'Computational', year: 2025, method: 0.72,
     href: 'research-08.html', color: [26,46,60],
     abstract: 'Applying parametric modelling to documentation and speculative reconstruction of vernacular building types.',
   },
   {
     num: '09', title: 'Data as Witness',
-    tag: 'Forensic', year: 2020, method: 0.82,
+    tag: 'Forensic', year: 2025, method: 0.82,
     href: 'research-09.html', color: [89,44,56],
     abstract: 'The epistemological status of spatial data in legal and political claims about architecture and territory.',
   },
   {
     num: '10', title: 'Colour in Point Clouds',
-    tag: 'Representation', year: 2019, method: 0.44,
+    tag: 'Representation', year: 2025, method: 0.44,
     href: 'research-10.html', color: [60,30,48],
     abstract: 'How vertex colour information from photogrammetric capture changes reading of architectural surface.',
   },
   {
     num: '11', title: 'The Unbuilt Mesh',
-    tag: 'Digital', year: 2019, method: 0.32,
+    tag: 'Digital', year: 2026, method: 0.32,
     href: 'research-11.html', color: [30,40,70],
     abstract: 'Speculation on future architectural forms derived entirely from computational mesh operations.',
   },
@@ -100,7 +100,7 @@ edgeCanvas.height = H;
 const ctx = edgeCanvas.getContext('2d');
 
 const PAD_L = 60, PAD_R = 60, PAD_T = 110, PAD_B = 50;
-const MIN_YEAR = 2019, MAX_YEAR = 2024;
+const MIN_YEAR = 2022, MAX_YEAR = 2026;
 let activeNode = -1;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
