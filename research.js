@@ -6,25 +6,26 @@ const RESEARCH = [
   {
     num: '01', title: 'The Extended Liminal',
     imgSrc:'images/explore/01-01.png',
-    tag: 'Forensic', year: 2022, method: 0.85,
+    tag: 'Multidisciplinary', year: 2022, method: 0.85,
     href: 'research-01.html', color: [89,44,56],
-    abstract: 'Summerschool exploration o the liminality of wifi signal strength as a spatial arrangement of architecture of interior and exterior.',
+    abstract: 'Summerschool group exploration on the liminality of wifi signal strength as a spatial arrangement of architecture of interior and exterior.',
   },
   {
     num: '02', title: 'Photogrammetric Typologies of the Spheres of Influence project',
-    tag: 'Computational', year: 2022, method: 0.68,
+    imgSrc:'images/explore/02-01.png',
+    tag: 'Forensic', year: 2022, method: 0.68,
     href: 'research-02.html', color: [42,30,60],
     abstract: 'Photogrammetric documentation and typological analysis of the Spheres of Influence project.',
   },
   {
     num: '03', title: 'Generative explorations for Venice, Lido.',
-    tag: 'Forensic', year: 2023, method: 0.9,
+    tag: 'Computational', year: 2023, method: 0.9,
     href: 'research-03.html', color: [89,44,56],
     abstract: 'Generative what-if scenarrios for the future of Venice and Lido, as part of the Learning from Lungomare, master thesis project. ',
   },
   {
     num: '04', title: 'UNBUILDINGS: RCDHL Group Exhibition/ The Spheres of Influence',
-    tag: 'Representation', year: 2024, method: 0.48,
+    tag: 'Exhibition', year: 2024, method: 0.48,
     href: 'research-04.html', color: [60,30,48],
     abstract: 'An architectural/art group exhibition at Versus Art Project, Istanbul, Turkey, Curated by Bahar Avanoğlu, İpek Avanoğlu, and Ece Duran. Featuring work by Spheres of Influence project and other RCDHL research.',
   },
@@ -36,13 +37,13 @@ const RESEARCH = [
   },
   {
     num: '06', title: 'Bestek GUI application.',
-    tag: 'Digital', year: 2025, method: 0.38,
+    tag: 'Digital Documentation', year: 2025, method: 0.38,
     href: 'research-06.html', color: [30,40,70],
     abstract: 'How can we create a playful, interactive application based for the Bestek of the architectural projects, as a way of querying and automizing the generation of the in house documentation of the projects?',
   },
   {
     num: '07', title: 'Animating the threshold: Curtain simulation',
-    tag: 'Forensic', year: 2025, method: 0.88,
+    tag: 'Computational', year: 2025, method: 0.88,
     href: 'research-07.html', color: [89,44,56],
     abstract: 'Simulation of the physical behaviour of curtains and patterns of their movement as a way of research in design for the project CO.',
   },
@@ -54,7 +55,7 @@ const RESEARCH = [
   },
   {
     num: '09', title: 'Photogrammetric Nonsense',
-    tag: 'Forensic', year: 2026, method: 0.82,
+    tag: 'Representation', year: 2026, method: 0.82,
     href: 'research-09.html', color: [89,44,56],
     abstract: 'The nonsense drawings derived from photogrammetric capture of architectural spaces, liminal objects and the uncanny, 2023-2026.',
   },
@@ -66,7 +67,7 @@ const RESEARCH = [
   },
   {
     num: '11', title: 'Arduino Projects Workshop and Research',
-    tag: 'Digital', year: 2026, method: 0.32,
+    tag: 'Multidisciplinary', year: 2026, method: 0.32,
     href: 'research-11.html', color: [30,40,70],
     abstract: 'Ongoing learning process and research into the use of Arduino and ESP microcontroller boards for interactive and responsive applications in architectural, art and technological contexts.',
   },
@@ -75,12 +76,12 @@ const RESEARCH = [
 // ── Edges — pairs of indices to connect ───────────────────────────────────────
 // Connect related research. Edit freely.
 const EDGES = [
-  [0,1],[0,2],[0,3],[0,7],[0,8],[6,9],  
+  [0,1],[0,2],[0,3],[0,7],[0,8],[0,10],[6,9],  
   [1,4],[1,7],[1,8],[4,5],[4,6],[4,9],  
   [2,1],                   
   [3,9],                                
   [5,10],                               
-  [0,1],[2,4],[7,8],[5,6],[8,9],         // cross-links
+  [2,4],[7,8],[5,6],[8,9],         // cross-links
 ];
 
 // ── Init ──────────────────────────────────────────────────────────────────────
