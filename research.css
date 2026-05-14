@@ -129,7 +129,7 @@ body {
   z-index: 10;
 }
 .node-dot {
-  width: 9px; height: 9px;
+  width: 10px; height: 10px;
   border-radius: 50%;
   background: rgba(200,120,130,0.70);
   border: 0.5px solid rgba(200,120,130,0.8);
@@ -142,8 +142,8 @@ body {
   box-shadow: 0 0 0 5px rgba(200,120,130,0.12);
 }
 .node-num {
-  font-size: 8px; letter-spacing: 0.15em;
-  color: rgba(200,120,130,0.65);
+  font-size: 9px; letter-spacing: 0.15em;
+  color: rgba(200,120,130,0.75);
   text-align: center; margin-top: 4px;
   transition: color 0.15s;
 }
@@ -152,8 +152,8 @@ body {
 /* ── Year ticks ──────────────────────────────────────────────────────────── */
 .year-tick {
   position: absolute;
-  font-size: 7px; letter-spacing: 0.1em;
-  color: rgba(89,44,56,0.60);
+  font-size: 8px; letter-spacing: 0.1em;
+  color: rgba(89,44,56,0.75);
   transform: translateX(-50%);
   pointer-events: none; z-index: 5;
 }
@@ -186,7 +186,7 @@ body {
 }
 #popup-num {
   font-size: 7px; letter-spacing: 0.2em;
-  color: rgba(200,120,130,0.6);
+  color: rgba(200,120,130,0.75);
   padding: 0 12px; margin-bottom: 3px;
 }
 #popup-title {
@@ -197,12 +197,12 @@ body {
 }
 #popup-tag {
   font-size: 7px; letter-spacing: 0.12em;
-  color: rgba(200,120,130,0.4);
+  color: rgba(200,120,130,0.55);
   padding: 0 12px; margin-bottom: 10px;
 }
 #popup-abstract {
   font-size: 8px; letter-spacing: 0.04em;
-  color: rgba(255,255,255,0.3); line-height: 1.8;
+  color: rgba(255,255,255,0.50); line-height: 1.8;
   padding: 0 12px; margin-bottom: 12px;
 }
 #popup-btn {
