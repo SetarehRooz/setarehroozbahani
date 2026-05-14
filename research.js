@@ -132,7 +132,7 @@ function drawEdges(hovered) {
   for (let y = MIN_YEAR; y <= MAX_YEAR; y++) {
     const x = PAD_L + ((y - MIN_YEAR) / (MAX_YEAR - MIN_YEAR)) * (W - PAD_L - PAD_R);
     ctx.beginPath(); ctx.moveTo(x, PAD_T); ctx.lineTo(x, H - PAD_B);
-    ctx.strokeStyle = 'rgba(89,44,56,0.12)'; ctx.stroke();
+    ctx.strokeStyle = 'rgba(89,44,56,0.60)'; ctx.stroke();
   }
   ctx.setLineDash([]);
 
@@ -143,7 +143,7 @@ function drawEdges(hovered) {
     ctx.beginPath();
     ctx.moveTo(pa.x, pa.y);
     ctx.lineTo(pb.x, pb.y);
-    ctx.strokeStyle = isHov ? 'rgba(200,120,130,0.9)' : 'rgba(89,44,56,0.6)';
+    ctx.strokeStyle = isHov ? 'rgba(200,120,130,0.75)' : 'rgba(89,44,56,0.6)';
     ctx.lineWidth   = isHov ? 1.0 : 0.5;
     ctx.setLineDash(isHov ? [] : [3, 7]);
     ctx.stroke();
