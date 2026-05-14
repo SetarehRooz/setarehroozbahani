@@ -18,57 +18,63 @@ const RESEARCH = [
     abstract: 'Photogrammetric documentation and typological analysis of the Spheres of Influence project.',
   },
   {
-    num: '03', title: 'Generative explorations for Venice, Lido.',
+    num: '03', title: 'Landscape, Ecology and Urbanism; Second Year Research Paper',
+    tag: 'Forensic', year: 2022, method: 0.68,
+    href: 'research-03.html', color: [42,30,60],
+    abstract: 'Beauty as a tool within a sustainable ecological approach in the landscape design projects.',
+  },
+  {
+    num: '04', title: 'Generative explorations for Venice, Lido.',
     tag: 'Computational', year: 2023, method: 0.9,
-    href: 'research-03.html', color: [89,44,56],
+    href: 'research-04.html', color: [89,44,56],
     abstract: 'Generative what-if scenarrios for the future of Venice and Lido, as part of the Learning from Lungomare, master thesis project. ',
   },
   {
-    num: '04', title: 'UNBUILDINGS: RCDHL Group Exhibition/ The Spheres of Influence',
+    num: '05', title: 'UNBUILDINGS: RCDHL Group Exhibition/ The Spheres of Influence',
     tag: 'Exhibition', year: 2024, method: 0.48,
-    href: 'research-04.html', color: [60,30,48],
+    href: 'research-05.html', color: [60,30,48],
     abstract: 'An architectural/art group exhibition at Versus Art Project, Istanbul, Turkey, Curated by Bahar Avanoğlu, İpek Avanoğlu, and Ece Duran. Featuring work by Spheres of Influence project and other RCDHL research.',
   },
   {
-    num: '05', title: 'Glitches of Architecture in the making.',
+    num: '06', title: 'Glitches of Architecture in the making.',
     tag: 'Computational', year: 2024, method: 0.65,
-    href: 'research-05.html', color: [26,46,60],
+    href: 'research-06.html', color: [26,46,60],
     abstract: 'Messy, incomplete, and glitchy states, but not failures, of computational design processes as a way of understanding, representing, and engaging with architecture in the making. 2023-2026.',
   },
   {
-    num: '06', title: 'Bestek GUI application.',
+    num: '07', title: 'Bestek GUI application.',
     tag: 'Digital Documentation', year: 2025, method: 0.38,
-    href: 'research-06.html', color: [30,40,70],
+    href: 'research-07.html', color: [30,40,70],
     abstract: 'How can we create a playful, interactive application based for the Bestek of the architectural projects, as a way of querying and automizing the generation of the in house documentation of the projects?',
   },
   {
-    num: '07', title: 'Animating the threshold: Curtain simulation',
+    num: '08', title: 'Animating the threshold: Curtain simulation',
     tag: 'Computational', year: 2025, method: 0.88,
-    href: 'research-07.html', color: [89,44,56],
+    href: 'research-08.html', color: [89,44,56],
     abstract: 'Simulation of the physical behaviour of curtains and patterns of their movement as a way of research in design for the project CO.',
   },
   {
-    num: '08', title: 'Playing Models 2025 Image Open Call',
+    num: '09', title: 'Playing Models 2025 Image Open Call',
     tag: 'Computational', year: 2025, method: 0.72,
-    href: 'research-08.html', color: [26,46,60],
+    href: 'research-09.html', color: [26,46,60],
     abstract: 'Accepted and presented media submission for the Playing Models 2025 Image Open Call.',
   },
   {
-    num: '09', title: 'Photogrammetric Nonsense',
+    num: '10', title: 'Photogrammetric Nonsense',
     tag: 'Representation', year: 2026, method: 0.82,
-    href: 'research-09.html', color: [89,44,56],
+    href: 'research-10.html', color: [89,44,56],
     abstract: 'The nonsense drawings derived from photogrammetric capture of architectural spaces, liminal objects and the uncanny, 2023-2026.',
   },
   {
-    num: '10', title: 'Clara Visual Essay Submission',
+    num: '11', title: 'Clara Visual Essay Submission',
     tag: 'Representation', year: 2026, method: 0.44,
-    href: 'research-10.html', color: [60,30,48],
+    href: 'research-11.html', color: [60,30,48],
     abstract: 'Open call entry for the Clara #14 Call for Papers.',
   },
   {
-    num: '11', title: 'Arduino Projects Workshop and Research',
+    num: '12', title: 'Arduino Projects Workshop and Research',
     tag: 'Multidisciplinary', year: 2026, method: 0.32,
-    href: 'research-11.html', color: [30,40,70],
+    href: 'research-12.html', color: [30,40,70],
     abstract: 'Ongoing learning process and research into the use of Arduino and ESP microcontroller boards for interactive and responsive applications in architectural, art and technological contexts.',
   },
 ];
@@ -76,12 +82,12 @@ const RESEARCH = [
 // ── Edges — pairs of indices to connect ───────────────────────────────────────
 // Connect related research. Edit freely.
 const EDGES = [
-  [0,1],[0,2],[0,3],[0,7],[0,8],[0,10],[6,9],  
-  [1,4],[1,7],[1,8],[4,5],[4,6],[4,9],  
-  [2,1],                   
-  [3,9],                                
-  [5,10],                               
-  [2,4],[7,8],[5,6],[8,9],         // cross-links
+  [0,1],[0,3],[0,4],[0,8],[0,9],[0,11],[7,10],  
+  [1,5],[1,8],[1,9],[5,6],[5,7],[5,10],  
+  [3,2],                   
+  [4,10],                                
+  [6,11],                               
+  [3,5],[8,9],[6,7],[9,10],         // cross-links
 ];
 
 // ── Init ──────────────────────────────────────────────────────────────────────
