@@ -74,11 +74,11 @@ const RESEARCH = [
 // ── Edges — pairs of indices to connect ───────────────────────────────────────
 // Connect related research. Edit freely.
 const EDGES = [
-  [0,2],[0,6],[0,8],[2,6],[2,8],[6,8],  // forensic cluster
-  [1,4],[1,7],[4,7],                     // computational cluster
-  [3,9],                                 // representation
-  [5,10],                                // digital
-  [0,1],[2,4],[7,8],[3,4],[5,6],         // cross-links
+  [0,1],[0,3],[0,7],[0,8],[6,9],  
+  [1,4],[1,7],[1,8],[4,5],[4,6],[4,9],                     
+  [3,9],                                
+  [5,10],                               
+  [0,1],[2,4],[7,8],[5,6],[8,9],         // cross-links
 ];
 
 // ── Init ──────────────────────────────────────────────────────────────────────
