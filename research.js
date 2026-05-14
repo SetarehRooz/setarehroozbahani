@@ -19,7 +19,7 @@ const RESEARCH = [
   },
   {
     num: '03', title: 'Landscape, Ecology and Urbanism; Second Year Research Paper',
-    tag: 'Forensic', year: 2022, method: 0.68,
+    tag: 'Forensic', year: 2022, method: 0.50,
     href: 'research-03.html', color: [42,30,60],
     abstract: 'Beauty as a tool within a sustainable ecological approach in the landscape design projects.',
   },
