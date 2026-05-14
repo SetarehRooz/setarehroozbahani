@@ -288,7 +288,7 @@ body {
   }
 
   #name-top {
-    position: fixed;
+    position: flex;
     font-size: 11px;
     top: 1rem; left: 1rem;
     text-decoration: none;
