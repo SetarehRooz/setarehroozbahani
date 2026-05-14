@@ -46,14 +46,14 @@ const RESEARCH = [
   },
   {
     num: '07', title: 'Bestek GUI application.',
-    imgSrc:'images/explore/07-01.png',
+    imgSrc:'images/explore/07-01.PNG',
     tag: 'Digital Documentation', year: 2025, method: 0.38,
     href: 'research-07.html', color: [30,40,70],
     abstract: 'How can we create a playful, interactive application based for the Bestek of the architectural projects, as a way of querying and automizing the generation of the in house documentation of the projects?',
   },
   {
     num: '08', title: 'Animating the threshold: Curtain simulation',
-    imgSrc:'images/explore/08-01.png',
+    imgSrc:'images/explore/08-01.PNG',
     tag: 'Computational', year: 2025, method: 0.88,
     href: 'research-08.html', color: [89,44,56],
     abstract: 'Simulation of the physical behaviour of curtains and patterns of their movement as a way of research in design for the project CO.',
