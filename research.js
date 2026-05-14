@@ -41,7 +41,7 @@ const RESEARCH = [
   },
   {
     num: '07', title: 'Animating the threshold: Curtain simulation',
-    tag: 'Forensic', year: 2024, method: 0.88,
+    tag: 'Forensic', year: 2025, method: 0.88,
     href: 'research-07.html', color: [89,44,56],
     abstract: 'Simulation of the physical behaviour of curtains and patterns of their movement as a way of research in design for the project CO.',
   },
