@@ -5,6 +5,7 @@
 const RESEARCH = [
   {
     num: '01', title: 'The Extended Liminal',
+    imgSrc:'images/explore/01-01.png',
     tag: 'Forensic', year: 2022, method: 0.85,
     href: 'research-01.html', color: [89,44,56],
     abstract: 'Summerschool exploration o the liminality of wifi signal strength as a spatial arrangement of architecture of interior and exterior.',
@@ -163,26 +164,38 @@ function drawPopupImage(r, idx) {
   pc.clearRect(0, 0, PW, PH);
   pc.fillStyle = `rgb(${cr * 0.18 | 0},${cg * 0.18 | 0},${cb * 0.18 | 0})`;
   pc.fillRect(0, 0, PW, PH);
-  const seed = idx * 173;
-  pc.lineWidth = 0.5;
-  for (let i = 0; i < 100; i++) {
-    const ax = pr(seed + i) * PW, ay = pr(seed + i + 500) * PH;
-    const bx = ax + (pr(seed + i + 1000) - 0.5) * 55;
-    const by = ay + (pr(seed + i + 1500) - 0.5) * 55;
-    const len = Math.sqrt((bx - ax) ** 2 + (by - ay) ** 2);
-    if (len > 4 && len < 48) {
-      pc.strokeStyle = `rgba(${Math.min(255, cr + 120) | 0},${Math.min(255, cg + 100) | 0},${Math.min(255, cb + 110) | 0},0.6)`;
-      pc.beginPath(); pc.moveTo(ax, ay); pc.lineTo(bx, by); pc.stroke();
+
+  if (r.imgSrc) {
+    const img = new Image();
+    img.onload = () => {
+      // cover crop
+      const s = Math.max(PW / img.naturalWidth, PH / img.naturalHeight);
+      const sw = PW / s, sh = PH / s;
+      const sx = (img.naturalWidth - sw) / 2, sy = (img.naturalHeight - sh) / 2;
+      pc.drawImage(img, sx, sy, sw, sh, 0, 0, PW, PH);
+      // label on top
+      pc.font = '7px monospace';
+      pc.fillStyle = 'rgba(200,120,130,0.8)';
+      pc.fillText(r.num + ' — ' + r.tag.toUpperCase(), 8, PH - 8);
+    };
+    img.src = r.imgSrc;
+  } else {
+    // fallback wireframe if no image
+    const seed = idx * 173;
+    pc.lineWidth = 0.5;
+    for (let i = 0; i < 100; i++) {
+      const ax = pr(seed+i)*PW, ay = pr(seed+i+500)*PH;
+      const bx = ax+(pr(seed+i+1000)-0.5)*55, by = ay+(pr(seed+i+1500)-0.5)*55;
+      const len = Math.sqrt((bx-ax)**2+(by-ay)**2);
+      if (len>4&&len<48) {
+        pc.strokeStyle = `rgba(${Math.min(255,cr+120)|0},${Math.min(255,cg+100)|0},${Math.min(255,cb+110)|0},0.6)`;
+        pc.beginPath(); pc.moveTo(ax,ay); pc.lineTo(bx,by); pc.stroke();
+      }
     }
+    pc.font = '7px monospace';
+    pc.fillStyle = 'rgba(200,120,130,0.6)';
+    pc.fillText(r.num + ' — ' + r.tag.toUpperCase(), 8, PH - 8);
   }
-  for (let i = 0; i < 20; i++) {
-    pc.beginPath();
-    pc.arc(pr(seed + i + 3000) * PW, pr(seed + i + 4000) * PH, 1, 0, Math.PI * 2);
-    pc.fillStyle = 'rgba(200,120,130,0.55)'; pc.fill();
-  }
-  pc.font = '7px monospace';
-  pc.fillStyle = 'rgba(200,120,130,0.6)';
-  pc.fillText(r.num + ' — ' + r.tag.toUpperCase(), 8, PH - 8);
 }
 
 // ── Show / hide popup ─────────────────────────────────────────────────────────
