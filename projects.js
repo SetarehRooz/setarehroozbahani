@@ -5,10 +5,11 @@ const PROJECTS = [
   { num:'04', title:'Prof. ZP',                    cat:'Architectural Practice · 2023–2026', href:'project-4.html', imgSrc:'images/cieo02.png',                  overlaySrc:'images/cieo02overlay.png', color:[26,60,40]  },
   { num:'05', title:'Prof. KT',                    cat:'Architectural Practice · 2023–2026', href:'project-5.html', imgSrc:'images/cieo03.png',                  overlaySrc:'images/cieo04overlay.png', color:[60,26,14]  },
   { num:'06', title:'Prof. SJ',                    cat:'Architectural Practice · 2023–2026', href:'project-6.html', imgSrc:'images/SJ.png',                  overlaySrc:'images/SJoverlay.png', color:[60,26,14]  },
-  { num:'07', title:'Prof. LV ',                          cat:'Architectural Photography · 2023',   href:'project-7.html', imgSrc:'images/PVH01.jpg',                                   overlaySrc:'images/PVH01overlay.png', color:[30,40,70]  },
-  { num:'08', title:'Prof. BT ',                          cat:'Architectural Photography · 2023',   href:'project-8.html', imgSrc:'images/BT.png',                                   overlaySrc:'images/BToverlay.png', color:[30,40,70]  },
-  { num:'09', title:'Extended Liminal',                   cat:'Summer School · 2022',               href:'project-9.html', imgSrc:'images/Extended Liminal_00.jpg',      overlaySrc:'images/Extended Liminaloverlay.png', color:[60,30,48]  },
-  { num:'10', title:'Forbidden to Play',                   cat:'Studio 1 · 2021',               href:'project-10.html', imgSrc:'images/lep03.png',      overlaySrc:'images/lepoverlay.png', color:[255,255,255]  },
+  { num:'07', title:'Prof. NZ',                    cat:'Architectural Practice · 2023–2026', href:'project-7.html', imgSrc:'images/NZ.png',                  overlaySrc:'images/NZoverlay.png', color:[60,26,14]  },
+  { num:'08', title:'Prof. LV ',                          cat:'Architectural Traineeship · 2023',   href:'project-8.html', imgSrc:'images/PVH01.jpg',                                   overlaySrc:'images/PVH01overlay.png', color:[30,40,70]  },
+  { num:'09', title:'Prof. BT ',                          cat:'Architectural Photography · 2023',   href:'project-9.html', imgSrc:'images/BT.png',                                   overlaySrc:'images/BToverlay.png', color:[30,40,70]  },
+  { num:'10', title:'Extended Liminal',                   cat:'Summer School · 2022',               href:'project-10.html', imgSrc:'images/Extended Liminal_00.jpg',      overlaySrc:'images/Extended Liminaloverlay.png', color:[60,30,48]  },
+  { num:'11', title:'Forbidden to Play',                   cat:'Studio 1 · 2021',               href:'project-11.html', imgSrc:'images/lep03.png',      overlaySrc:'images/lepoverlay.png', color:[255,255,255]  },
 ];
 
 initCanvas();
